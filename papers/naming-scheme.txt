@@ -1,0 +1,16 @@
+[Category][NumberOfSubcategory]-[NumberWithinSession]
+
+Paper name always: paper.tex
+
+The following content may be generated out of an Excel file or something else.
+Otherwise, just create the folders and adapt proceedings.tex accordingly.
+
+
+
+
+A = Eingeladene Vorträge
+A-1 = Erster Vortrag (Immer 2 Seiten auch wenn nur eine Seite lang)
+
+B = Scientific Program (Nach Themen gegliedert, Kapitel)
+B1 = Topic1
+B1-1 = Talk1

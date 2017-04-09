@@ -1,0 +1,5 @@
+# unix  line endings at unix files
+*.sh eol=lf
+
+# ensure that line endings of *.tex are normalized
+*.tex text
