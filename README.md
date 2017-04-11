@@ -78,7 +78,7 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
 In the installation, we rely on [chocolatey](https://chocolatey.org/), because it eases installation much.
 
 - Installl java runtime environment using `choco install jre8`. [chocolatey page](https://chocolatey.org/packages/jre8).
-- Install unzip using `choco install unzip`. [chocolatey page](https://chocolatey.org/packages/unzip).
+- Install unzip, wget, and curl using `choco install unzip wget curl`.
 - Install perl using `choco install strawberryperl`. [chocolatey page](https://chocolatey.org/packages/StrawberryPerl).
 - Install pax using the MiKTeX package manager
 - Execute `perl C:\MiKTeX\scripts\pax\pdfannotextractor.pl --install` to enable downloading of a pdfbox version fitting for pax.
