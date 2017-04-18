@@ -3,6 +3,11 @@
 This repository supports generating of proceedings based on the "Lecture Notes in Informatics" papers typeset using the [lni class](https://www.ctan.org/pkg/lni).
 An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
 
+Following proceedings were typeset using this template:
+
+* [BTW 2017](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-265.html)
+* [BTW 2017 Workshopband](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-266.html)
+
 <!-- toc -->
 
 - [Aims of this work](#aims-of-this-work)
