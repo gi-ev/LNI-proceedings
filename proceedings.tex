@@ -77,7 +77,14 @@
 \makeatletter
   \newcommand\chapterfontsize{\@setfontsize\chapterfontsize{12.82}{17.48}}
 \makeatother
-\newcommand{\tocformatchapter}[1]{\chapterfontsize{\nohyphens{#1}}}
+
+%\rightskip 0pt ensures that the text also uses the page number "column"
+%Solution by https://tex.stackexchange.com/a/365267/9075
+\newcommand{\tocformatchapter}[1]{\rightskip 0pt\chapterfontsize{\nohyphens{#1}}}
+
+%No ident of the second line of the TOC
+%Source: https://tex.stackexchange.com/a/314015/9075
+\RedeclareSectionCommand[tocnumwidth=0em]{chapter}
 
 \DeclareTOCStyleEntry[%
   beforeskip=22pt,
@@ -87,8 +94,8 @@
 
 \DeclareTOCStyleEntry[%
   beforeskip=20pt,
-  entryformat={\tocformatchapter},
-  pagenumberformat={\suppresstext}
+  entryformat=\tocformatchapter,
+  pagenumberbox=\suppresstext,
 ]{chapter}{chapter}
 
 \newcommand{\spaceafterchapter}{\vspace{9pt}}
@@ -182,7 +189,7 @@
 
 \usepackage{ifthen}
 
-\renewcommand{\addchap}[1]{\part*{\LARGE{\nohyphens{#1}}}\addcontentsline{toc}{chapter}{#1}}
+\renewcommand{\addchap}[1]{\part*{\LARGE{\nohyphens{#1}}}\addchaptertocentry{}{#1}}
 
 %This enables copy&paste of the optional argument for \author in the papers to the first argument of \addpaper
 \renewcommand{\and}{\unskip,\ }
@@ -308,7 +315,7 @@
 	}
 	\phantomsection
 	\suppress\cite{#3}\endsuppress
-	\addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
+	\addsectiontocentry{}{\lnitoc{#4}{#5}}
 	\newpage
 	\pagestyle{lniotherpages}
 
@@ -386,7 +393,7 @@
 \addpaper{B1-1}{Firstname1 Lastname1}{Talk1}
 \addpaper[Firstname2a Lastname2a et al.]{B1-2}{Firstname2a Lastname2a \and Firstname2b Lastname2b \and Firstname2c Lastname2c \and Firstname2d Lastname2d}{Talk2}
 
-\addchap{Topic2}
+\addchap{Topic2 with a very long title which requires a lot of space and, hence, also requires a line break}
 \addpaper{B2-1}{Firstname3 Lastname3}{Talk3}
 \addpaper[Firstname4a Lastname4a et al.][Talk 4]{B2-2}{Firstname4a Lastname4a \and Firstname4b Lastname4b \and Firstname4c Lastname4c \and Firstname4d Lastname4d}{Talk4 with a very long title, which does not fit in one line in the running head and therefore must be shortended}
 
