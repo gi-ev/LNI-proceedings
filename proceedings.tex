@@ -153,11 +153,11 @@
 
 %The idea is from http://tex.stackexchange.com/q/289375/9075
 \usepackage[style=authoryear,indexing=cite,backend=biber,maxnames=999]{biblatex}
-\addbibresource{authors.bib}
+\addbibresource{proceedings.bib}
 
-\newoutputstream{authorsbib}
-\openoutputfile{authors.bib}{authorsbib}
-\AtEndDocument{\closeoutputstream{authorsbib}}
+\newoutputstream{proceedingsbib}
+\openoutputfile{proceedings.bib}{proceedingsbib}
+\AtEndDocument{\closeoutputstream{proceedingsbib}}
 
 \newoutputstream{proceedingscsv}
 \openoutputfile{proceedings.csv}{proceedingscsv}
@@ -267,7 +267,7 @@
 
     {
         \renewcommand{\and}{ and }
-        \addtostream{authorsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J}^^J}
+        \addtostream{proceedingsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J}^^J}
     }
 
 	{
@@ -314,7 +314,7 @@
 	%\StrExpand{#3}{\curtitle}
 	{
 		\renewcommand{\and}{ and }
-		\addtostream{authorsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
+		\addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
 	}
 
 	%All PDFs:

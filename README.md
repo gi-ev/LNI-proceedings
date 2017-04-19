@@ -145,8 +145,9 @@ During the process, following files are generated:
 
 - `proceedings.pdf`. 
   It is not recommended to version this file during the process of proceedings generation, because it gets very large.
-- `authors.bib` - short bibliography containing the authors and the titles of the papers
-- `papers.txt` - list of paper id and starting page
+- `proceedings.bib` - BibTeX bibliography of the proceedings.
+- `proceedings.csv` - CSV containing some information on the proceedings.
+- `papers.txt` - list of paper id and starting page.
 
 
 #### Advanced usage
