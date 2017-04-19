@@ -153,10 +153,15 @@
 
 %The idea is from http://tex.stackexchange.com/q/289375/9075
 \usepackage[style=authoryear,indexing=cite,backend=biber,maxnames=999]{biblatex}
+\addbibresource{authors.bib}
+
 \newoutputstream{authorsbib}
 \openoutputfile{authors.bib}{authorsbib}
 \AtEndDocument{\closeoutputstream{authorsbib}}
-\addbibresource{authors.bib}
+
+\newoutputstream{proceedingscsv}
+\openoutputfile{proceedings.csv}{proceedingscsv}
+\AtEndDocument{\closeoutputstream{proceedingscsv}}
 
 %Index authors only - see http://tex.stackexchange.com/a/111446/9075
 %If one wants two separate indexes for titles and authors, http://tex.stackexchange.com/a/111446/9075 provides that solution, too.
@@ -263,6 +268,11 @@
     {
         \renewcommand{\and}{ and }
         \addtostream{authorsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J}^^J}
+    }
+
+	{
+        \renewcommand{\and}{;}
+        \addtostream{proceedingscsv}{#4;#5;\thestartpage--\the\numexpr\value{page}-1\relax}
     }
 
     \cleardoublepage
