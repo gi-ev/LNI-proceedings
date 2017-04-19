@@ -211,6 +211,7 @@
 
 \input{config.tex}
 
+\newcounter{startpage}
 \newcounter{curpage}
 
 %1: running authors - default: authors
@@ -229,13 +230,10 @@
         \fancyfoot{} % Löscht alle Fußzeileneinstellungen
         \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
     }
+
     %collect page number
     \write\pagesfile{#3 \thepage}
-    %\StrExpand{#3}{\curtitle}
-    {
-        \renewcommand{\and}{ and }
-        \addtostream{authorsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
-    }
+    \setcounter{startpage}{\value{page}}
 
     \pdfximage{papers/#3/paper.pdf}
 
@@ -260,6 +258,11 @@
             \null
             \newpage
         }
+    }
+
+    {
+        \renewcommand{\and}{ and }
+        \addtostream{authorsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J}^^J}
     }
 
     \cleardoublepage
