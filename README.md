@@ -3,13 +3,12 @@
 This repository supports generating of proceedings based on the "Lecture Notes in Informatics" papers typeset using the [lni class](https://www.ctan.org/pkg/lni).
 An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
 
-Following proceedings were typeset using this template:
 
-* [BTW 2017](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-265.html)
-* [BTW 2017 Workshopband](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-266.html)
+## Table of Contents
 
 <!-- toc -->
 
+- [Success stories](#success-stories)
 - [Aims of this work](#aims-of-this-work)
 - [Howto](#howto)
   * [System setup](#system-setup)
@@ -32,6 +31,14 @@ Following proceedings were typeset using this template:
 - [Further reading](#further-reading)
 
 <!-- tocstop -->
+
+## Success stories
+
+Following proceedings were typeset using this template:
+
+* [BTW 2017](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-265.html)
+* [BTW 2017 Workshopband](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-266.html)
+
 
 ## Aims of this work
 
@@ -140,6 +147,9 @@ This should be available when you executed `choco install git`.
 11. Create pax information: Execute `prepare-papers.bat`.
 12. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
 13. Execute `make-proceedings.bat` to execute all required steps
+14. Check proceedings and make necessary adaptions. During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings. Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
+15. Ensure that crop is *not* activated: `\let\ifcrop\iffalse` in `proceedings.tex`
+16. Execute `make-proceedings.bat`
 
 During the process, following files are generated:
 
@@ -205,9 +215,10 @@ A: Execute `cut-proceedings.sh proceedings.pdf`. [pdftk](https://www.pdflabs.com
 Q: Some papers are cut strangely and the PDF is broken. What can I do? <br />
 A: The authors use an old version of the template. Please ask them to update to the new version 1.0, available sind 2017-04-07 from <https://github.com/gi-ev/LNI/releases>. You can also update the `paper.tex` file for yourself. The differences are not too much. Finally, you could try to adapt `\addpaperWRONGLAYOUT`.
 
-Q: Is it possible to show the page margins? <br />
-A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is enabled.
-Change `\let\ifcrop\iffalse` to `\let\ifcrop\iftrue` to show the crop lines.
+Q: Is it possible to show or not to show the page margins? <br />
+A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepared.
+- Change `\let\ifcrop\iffalse` to `\let\ifcrop\iftrue` to show the crop lines.
+- Change `\let\ifcrop\iftrue` to `\let\ifcrop\iffalse` to disable showing the crop lines.
 
 
 ## Trouble shooting of compiled papers
