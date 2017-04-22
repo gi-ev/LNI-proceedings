@@ -2,4 +2,4 @@
 *.sh eol=lf
 
 # ensure that line endings of *.tex are normalized
-*.tex text
+*.tex text diff=tex
