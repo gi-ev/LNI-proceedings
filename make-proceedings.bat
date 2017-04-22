@@ -9,5 +9,6 @@ texindy proceedings.idx
 pdflatex -synctex=1 proceedings
 pdflatex -synctex=1 proceedings
 sed -i "s/\\\\IeC //g" proceedings.bib
+sed -i "s/\\\\textunderscore //g" proceedings.bib
 sed -i "s/\\\\IeC //g" proceedings.csv
 sed -i "s/ ;/;/g" proceedings.csv
