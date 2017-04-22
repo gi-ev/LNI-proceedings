@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support for showing page corner marks using the [crop package](https://www.ctan.org/pkg/crop).
 
+### Fixed
+- Use `proceedings.bib` also in `make-proceedings.bat`
+
 ## [1.1.0] - 2017-04-22
 
 ### Added
