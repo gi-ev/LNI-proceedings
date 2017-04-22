@@ -4,6 +4,8 @@ proceedings.csv
 pages.txt
 updatepages.sh
 
+LNI-Herausgeberrichtlinien.pdf
+
 
 # Created by https://www.gitignore.io/api/latex,macos,linux,windows,microsoftoffice
 
@@ -158,6 +160,9 @@ _minted*
 # pax
 *.pax
 
+# pdfpcnotes
+*.pdfpc
+
 # sagetex
 *.sagetex.sage
 *.sagetex.py
@@ -248,7 +253,6 @@ TSWLatexianTemp*
 
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*
