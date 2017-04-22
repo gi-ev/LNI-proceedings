@@ -44,9 +44,11 @@ Following proceedings were typeset using this template:
 
 - Generate proceedings conforming with GI's requirements statet at the "Herausgeberrichtlinien" stated at <https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html>.
 - Automatic generation of
+  - running heads (including page numbers, authors, title of the paper)
   - table of contents
   - PDF bookmarks
   - index
+  - `proceedings.bib` listing all papers including page numbers
 - Working hyperlinks
   - from the TOC to the papers
   - within the papers
