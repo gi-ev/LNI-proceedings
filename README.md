@@ -205,6 +205,11 @@ A: Execute `cut-proceedings.sh proceedings.pdf`. [pdftk](https://www.pdflabs.com
 Q: Some papers are cut strangely and the PDF is broken. What can I do? <br />
 A: The authors use an old version of the template. Please ask them to update to the new version 1.0, available sind 2017-04-07 from <https://github.com/gi-ev/LNI/releases>. You can also update the `paper.tex` file for yourself. The differences are not too much. Finally, you could try to adapt `\addpaperWRONGLAYOUT`.
 
+Q: Is it possible to show the page margins? <br />
+A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is enabled.
+Change `\let\ifcrop\iffalse` to `\let\ifcrop\iftrue` to show the crop lines.
+
+
 ## Trouble shooting of compiled papers
 
 If you are in need to recompile the submitted papers, there might be errors occurring.

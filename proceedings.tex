@@ -1,6 +1,6 @@
 \documentclass[paper=a4,parskip=full-]{scrbook}
-
-\raggedbottom
+%\let\ifcrop\iftrue
+\let\ifcrop\iffalse
 
 %Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
 %So, do not enable these commands
@@ -15,15 +15,69 @@
 %Make chaper appear at the top of the page
 \RedeclareSectionCommand[beforeskip=0pt]{chapter}
 
-%LNI margins
-\usepackage[
-  a4paper,
-  total={12.6cm,19.2cm},
-  includehead,
-  headheight=20.39pt,
-  headsep=.31cm,
-  centering]
-  {geometry}
+\newlength{\paperhoffset}
+\newlength{\papervoffset}
+
+\makeatletter
+\let\@rigyear\year
+\ifcrop
+\setlength{\paperhoffset}{-2.75cm}
+\setlength{\papervoffset}{-26.6cm}
+\else
+\setlength{\paperhoffset}{0cm}
+\setlength{\papervoffset}{-29.7cm}
+\fi
+%copied from lni.cls
+\ifcrop
+   \RequirePackage[
+     paperheight=23.5cm,paperwidth=15.5cm,
+     total={12.6cm,19.2cm},
+     includehead,
+     headheight=20.39pt,
+     headsep=.31cm,
+     centering]
+     {geometry}
+   \RequirePackage[a4,center,cam,info]{crop}
+   \renewcommand*\CROP@@info{{%
+      \global\advance\CROP@index\@ne
+      \def\x{\discretionary{}{}{\hbox{\kern.5em---\kern.5em}}}%
+      \advance\paperwidth-20\p@
+      \dimen@4pt
+      \ifx\CROP@pagecolor\@empty
+      \else
+      \advance\dimen@\CROP@overlap
+      \fi
+      \hb@xt@\z@{%
+         \hss
+         \vbox to\z@{%
+            \centering
+            \hsize\paperwidth
+            \vss
+            \normalfont
+            \normalsize
+            \expandafter\csname\CROP@font\endcsname{%
+               ``\jobname''\x
+               \the\@rigyear/\the\month/\the\day\x
+               \CROP@time\x
+               page\kern.5em\thepage\x
+               \#\the\CROP@index
+               \strut
+            }%
+            \vskip\dimen@
+         }%
+         \hss
+      }%
+   }}%
+\else
+   \RequirePackage[
+     total={12.6cm,19.2cm},
+     includehead,
+     headheight=20.39pt,
+     headsep=.31cm,
+     centering]
+     {geometry}
+\fi%
+\makeatother
 
 %LNI breaks
 %\setlength{\parindent}{0pt}
@@ -245,7 +299,9 @@
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
         %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-        \put(\LenToUnit{0pt},\LenToUnit{-29.7cm}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+		%      paperheight=23.5cm,paperwidth=15.5cm,
+		%      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
+        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
     }
 	\phantomsection
     \suppress\cite{#3}\endsuppress
@@ -258,7 +314,7 @@
         \whiledo{\value{curpage}<\the\pdflastximagepages}{
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
-              \put(\LenToUnit{0pt},\LenToUnit{-29.7cm}){\includegraphics[page=\the\value{curpage}, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
             }
             \null
             \newpage
@@ -358,6 +414,8 @@
 \setlength{\headheight}{23pt}
 %Does not work with papers using a template without headheight setting --> Their text body is too high adn it will look ugly.
 
+\raggedbottom
+
 \begin{document}
 \pagestyle{empty}
 \thispagestyle{empty}
@@ -369,12 +427,19 @@
 
 \pagenumbering{Roman}
 
+\makeatother
+%compensate for hoffset -5pt -- source: http://tex.stackexchange.com/a/130828/9075
+\setboolean{@twoside}{false}
+
 %everything before the foreword
-\includepdf[pagecommand={\thispagestyle{empty}},pages=1-4,fitpaper]{LNI-Startseiten.pdf}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=1-4,noautoscale]{LNI-Startseiten.pdf}
 \phantomsection
 \pdfbookmark[part]{Vorwort}{Vorwort}
 %Use "plain" instead of "empty" if you want to add page numbers -- currently does not work as they seem out of the margins
-\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6,noautoscale]{LNI-Startseiten.pdf}
+
+\setboolean{@twoside}{true}
+\makeatletter
 
 \pagestyle{empty}
 \thispagestyle{empty}
