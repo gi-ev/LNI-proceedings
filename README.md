@@ -42,7 +42,7 @@ Following proceedings were typeset using this template:
 
 ## Aims of this work
 
-- Generate proceedings conforming with GI's requirements statet at the "Herausgeberrichtlinien" stated at <https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html>.
+- Generate proceedings conforming with GI's requirements statet at the "[Herausgeberrichtlinien](https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html)".
 - Automatic generation of
   - running heads (including page numbers, authors, title of the paper)
   - table of contents
@@ -128,24 +128,26 @@ This should be available when you executed `choco install git`.
 1. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
 2. Adapt `LNI-Startseiten.docx` to your conference.
 3. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
-4. Get the cover page ready. Template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>
+4. Get the cover page ready. Template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
+  This preparation gives you the necessary information for step 5.
+  You also need to submit the cover to the GI and to the printing service.
 5. Adapt `config.tex` to your conference.
+  Here, you also set the [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix used for generating a unique DOI for each paper.
 6. Create all paper folders using a naming scheme. See `papers/naming-scheme.txt`.
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
 7. Collect all papers. Place the source and the pdf within each paper's folder.
    For instance, the first paper goes into `papers/A-1/`.
    Name the PDFs of each paper `paper.pdf`.
-8. Check for all paper.tex:
-  - Authors in the format `\author[Firstname Lastname \and ...]{...}`
-9. Copy the author information from paper.tex into proceedings.tex:
-  - Open a git bash
+8. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
+9. Copy the author information from each `paper.tex` into `proceedings.tex`:
+  - Open a [git bash](https://git-for-windows.github.io/)
   - cd into `papers`
   - `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex > ../proceedings.x`
   - `cd ..`
   - `mv proceedings.x proceedings.tex`
   - For debugging: `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex`
 10. Fix spaces before `\and`: Replace ` \and` by `\and`.
-   Reason: \unskip does nothing at `\texorpdfstring` in combination with hyperref
+   Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
 11. Create pax information: Execute `prepare-papers.bat`.
 12. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
 13. Execute `make-proceedings.bat` to execute all required steps
@@ -182,7 +184,7 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
   - embed the font using Acrobat Professional's preflight functionality
   - Recompile the paper (`pdflatex paper`, ...)
   - Recompile the proceedings (`pdflatex proceedings`)
-2. Submit proceedings.pdf and LNI-Cover-Vorlage.ppt to the GI for approval.
+2. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 4 above) to the GI for approval.
 3. After the approval, submit to the printing service.
 
 
@@ -197,7 +199,7 @@ Q: The number of pages changed. What should I do? <br>
 A: `pdflatex proceedings`, do it twice to be sure that the TOC is created correctly and that the TOC has more than one page.
    Continue at "Update the page numbers" above
 
-Q: What can I do if the hyperlinks in the proceedings do not work?
+Q: What can I do if the hyperlinks in the proceedings do not work? <br>
 A: Run `pdflatex proceedings` one more time, because pax needs one more run.
 
 Q: What if a paper needs adjustments? <br>
@@ -215,7 +217,13 @@ Q: How can I get the PDFs with the correct headers? <br/>
 A: Execute `cut-proceedings.sh proceedings.pdf`. [pdftk](https://www.pdflabs.com/tools/pdftk-server/) and ghostscript installed.
 
 Q: Some papers are cut strangely and the PDF is broken. What can I do? <br />
-A: The authors use an old version of the template. Please ask them to update to the new version 1.0, available sind 2017-04-07 from <https://github.com/gi-ev/LNI/releases>. You can also update the `paper.tex` file for yourself. The differences are not too much. Finally, you could try to adapt `\addpaperWRONGLAYOUT`.
+A: The authors use an old version of the template.
+  Please ask them to update to the new version 1.1, available at <https://www.ctan.org/tex-archive/macros/latex/contrib/lni>.
+  You can also update the `paper.tex` file for yourself.
+  The differences are not too much.
+  Finally, you could try to adapt `\addpaperWRONGLAYOUT`.
+  That command is made for inclusion of papers of the old format.
+  However, it is currently not maintained and may produce wrong output.
 
 Q: Is it possible to show or not to show the page margins? <br />
 A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepared.
@@ -237,7 +245,7 @@ This section provides hints on some of the most prominent errors.
 * `! You can't use ``\spacefactor' in internal vertical mode.`: Currently unknown
 
 
-## Implementation Documentation
+## Implementation documentation
 
 This section discusses some design decisions done when implementing this way to generate proceedings.
 
