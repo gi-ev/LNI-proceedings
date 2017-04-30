@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased]
+## [1.3.0] - 2017-04-30
 
 ### Added
 - Support for generating and showing DOI on each paper
@@ -35,7 +35,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 First release of the template
 
-[unreleased]: https://github.com/gi-ev/LNI-proceedings/compare/v1.2.0...master
+[unreleased]: https://github.com/gi-ev/LNI-proceedings/compare/v1.3.0...master
+[1.3.0]: https://github.com/gi-ev/LNI-proceedings/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/gi-ev/LNI-proceedings/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/gi-ev/LNI-proceedings/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/gi-ev/LNI/releases/tag/v1.0.0
