@@ -42,7 +42,7 @@ Following proceedings were typeset using this template:
 
 ## Aims of this work
 
-- Generate proceedings conforming with GI's requirements statet at the "[Herausgeberrichtlinien](https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html)".
+- Generate proceedings conforming with GI's requirements stated at the "[Herausgeberrichtlinien](https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html)".
 - Automatic generation of
   - running heads (including page numbers, authors, title of the paper)
   - table of contents
