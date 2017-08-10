@@ -148,7 +148,7 @@ This should be available when you executed `choco install git`.
   - `cd ..`
   - `mv proceedings.x proceedings.tex`
   - For debugging: `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex`
-10. Fix spaces before `\and`: Replace ` \and` by `\and`.
+10. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
 11. Create pax information: Execute `prepare-papers.bat`.
 12. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
