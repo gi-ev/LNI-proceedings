@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [unreleased]
 
 ### Fixed
+- Add `make-proceedings.sh` and `prepare-papers.sh`. Refine README.md accordingly.
 - Fix typo in README.md
 
 ## [1.3.0] - 2017-04-30
