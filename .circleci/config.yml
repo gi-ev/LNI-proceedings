@@ -5,12 +5,4 @@ jobs:
        - image: koppor/texlive
      steps:
        - checkout
-       - run: pdflatex -synctex=1 proceedings
-       - run: pdflatex -synctex=1 proceedings
-       - run: sed -i "s/\\\\IeC //g" proceedings.bib
-       - run: biber proceedings
-       - run: pdflatex -synctex=1 proceedings
-       - run: texindy proceedings.idx
-       - run: pdflatex -synctex=1 proceedings
-       - run: pdflatex -synctex=1 proceedings
-       - run: sed -i "s/\\\\IeC //g" proceedings.bib
+       - run: ./make-proceedings.sh
