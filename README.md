@@ -23,7 +23,7 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
   * [Submitting to the GI and the printing service](#submitting-to-the-gi-and-the-printing-service)
 - [FAQ](#faq)
 - [Trouble shooting of compiled papers](#trouble-shooting-of-compiled-papers)
-- [Implementation Documentation](#implementation-documentation)
+- [Implementation documentation](#implementation-documentation)
 - [Considered alternatives](#considered-alternatives)
   * [confproc](#confproc)
   * [combine](#combine)
@@ -150,12 +150,21 @@ This should be available when you executed `choco install git`.
   - For debugging: `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex`
 10. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
-11. Create pax information: Execute `prepare-papers.bat`.
+11. Create pax information
+  - Linux: Execute `prepare-papers.sh`
+  - Windows: Execute `prepare-papers.bat`
 12. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
-13. Execute `make-proceedings.bat` to execute all required steps
+13. Do the usual pdflatex, biblatex, texindy runs.
+    pdflatex also generates `proceedings.bib` and thereby also generates the character sequence `\IeC` (see [Implementation documentation](#implementation-documentation)).
+    These characters have to be removed for the final biblatex run.
+    All these steps are automatically done by `make-proceedings`.
+    - Linux: Execute `make-proceeding.sh` to execute all required steps
+    - Windows: Execute `make-proceedings.bat` to execute all required steps
 14. Check proceedings and make necessary adaptions. During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings. Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
 15. Ensure that crop is *not* activated: `\let\ifcrop\iffalse` in `proceedings.tex`
-16. Execute `make-proceedings.bat`
+16. Compile the final proceedings
+    - Linux: Execute `make-proceeding.sh` to execute all required steps
+    - Windows: Execute `make-proceedings.bat` to execute all required steps
 
 During the process, following files are generated:
 
@@ -251,7 +260,7 @@ This section provides hints on some of the most prominent errors.
 
 This section discusses some design decisions done when implementing this way to generate proceedings.
 
-`\IeC` is written into `authors.bib`.
+`\IeC` is written into `proceedings.bib`.
 This issue is discussed at http://tex.stackexchange.com/q/234501/9075.
 Since the file is encoded in ASCII characters, we just need to strip out `\IeC`.
 This is done using [sed](https://en.wikipedia.org/wiki/Sed).
