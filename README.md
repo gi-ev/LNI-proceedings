@@ -18,9 +18,11 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
     + [pax](#pax)
     + [Python 2.7](#python-27)
     + [Linux commands available at cmd.executed](#linux-commands-available-at-cmdexecuted)
+    + [PDFtk](#pdftk)
   * [Proceedings](#proceedings)
     + [Advanced usage](#advanced-usage)
   * [Submitting to the GI and the printing service](#submitting-to-the-gi-and-the-printing-service)
+  * [Submitting to the Digitale Bibliothek der GI](#submitting-to-the-digitale-bibliothek-der-gi)
 - [FAQ](#faq)
 - [Trouble shooting of compiled papers](#trouble-shooting-of-compiled-papers)
 - [Implementation documentation](#implementation-documentation)
@@ -117,13 +119,19 @@ This is required to automatically extract the authors and title from the papers 
   - `c:\Python27\python get-pip.py`
 3. Install `pyparsing`
   - `c:\Python27\Scripts\pip install pyparsing`
-
+4. Install `python-docx`
+  - `c:\Python27\Scripts\pip install python-docx`
 
 #### Linux commands available at cmd.executed
 
 We need `sed` being available at a cmd.exe shell.
 This should be available when you executed `choco install git`.
 
+#### PDFtk
+
+This is required for to cut the proceedings.pdf into separate PDF files, one per paper, to submit to "Digitale Bibliothek der GI".
+
+- Install PDFtk using `choco install pdftk`
 
 ### Proceedings
 
@@ -139,30 +147,30 @@ This should be available when you executed `choco install git`.
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
 7. Collect all papers. Place the source and the pdf within each paper's folder.
    For instance, the first paper goes into `papers/A-1/`.
-   Name the PDFs of each paper `paper.pdf`.
-8. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
-9. Copy the author information from each `paper.tex` into `proceedings.tex`:
+8. Rename all papers to paper.pdf etc. To do this, open a CMD, `cd papers` and run `papers_rename.cmd`. This should rename all .tex .pdf and .docx files to paper.tex, paper.pdf and paper.docx respectively. These directories should only contain one file of this file extension.
+9. To extract author and title information from docx files, run `add_tex_via_docx.cmd` in the 
+`papers` directory. Make sure you installed python-docx as described in System setup. The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
+10. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
+11. Copy the author information from each `paper.tex` into `proceedings.tex`:
   - Open a [git bash](https://git-for-windows.github.io/)
   - cd into `papers`
-  - `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex > ../proceedings.x`
-  - `cd ..`
-  - `mv proceedings.x proceedings.tex`
-  - For debugging: `/c/Python27/python ../addAuthTi.py ../proceedings.tex */paper.tex`
-10. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
+  - During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`. The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers which cause problems.
+  - For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex`. This will create a proceedings.tex with the real workshop titles instead of build ids.
+12. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
-11. Create pax information
+13. Create pax information
   - Linux: Execute `prepare-papers.sh`
   - Windows: Execute `prepare-papers.bat`
-12. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
-13. Do the usual pdflatex, biblatex, texindy runs.
+14. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
+15. Do the usual pdflatex, biblatex, texindy runs.
     pdflatex also generates `proceedings.bib` and thereby also generates the character sequence `\IeC` (see [Implementation documentation](#implementation-documentation)).
     These characters have to be removed for the final biblatex run.
     All these steps are automatically done by `make-proceedings`.
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
-14. Check proceedings and make necessary adaptions. During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings. Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
-15. Ensure that crop is *not* activated: `\let\ifcrop\iffalse` in `proceedings.tex`
-16. Compile the final proceedings
+16. Check proceedings and make necessary adaptions. During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings. Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
+17. Ensure that crop is *not* activated: `\let\ifcrop\iffalse` in `proceedings.tex`
+18. Compile the final proceedings
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
 
@@ -198,6 +206,16 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 2. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 4 above) to the GI for approval.
 3. After the approval, submit to the printing service.
 
+### Submitting to the Digitale Bibliothek der GI
+1. Request DOI prefix from GI
+2. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
+3. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
+4. Fill the `ws.csv` according to your conference.
+5. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract). Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
+6. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory. This creates `meta-extract.csv` for submission to GI.
+7. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
+8. Run `python slicing.py proceedings.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section). The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from proceedings.csv. The separate pdfs are placed in the `parts` directory and named according to their build ids.
+9. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
 
 ## FAQ
 
@@ -241,6 +259,8 @@ A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepar
 - Change `\let\ifcrop\iffalse` to `\let\ifcrop\iftrue` to show the crop lines.
 - Change `\let\ifcrop\iftrue` to `\let\ifcrop\iffalse` to disable showing the crop lines.
 
+Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.
+A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
 
 ## Trouble shooting of compiled papers
 
