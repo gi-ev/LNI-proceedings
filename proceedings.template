@@ -1,0 +1,510 @@
+\documentclass[paper=a4,parskip=full-]{scrbook}
+\let\ifcrop\iftrue
+%\let\ifcrop\iffalse
+
+%Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
+%So, do not enable these commands
+%
+%\pdfminorversion=3
+%\pdfcompresslevel=0
+%\pdfobjcompresslevel=0
+%
+%\usepackage[a-1b]{pdfx}
+
+
+%Make chaper appear at the top of the page
+\RedeclareSectionCommand[beforeskip=0pt]{chapter}
+
+\newlength{\paperhoffset}
+\newlength{\papervoffset}
+\newlength{\doihoffset}
+\newlength{\doivoffset}
+
+\makeatletter
+\let\@rigyear\year
+\ifcrop
+\setlength{\paperhoffset}{-2.75cm}
+\setlength{\papervoffset}{-26.6cm}
+\setlength{\doihoffset}{1.45cm}
+\setlength{\doivoffset}{1.2cm}
+\else
+\setlength{\paperhoffset}{0cm}
+\setlength{\papervoffset}{-29.7cm}
+\setlength{\doihoffset}{4.2cm}
+\setlength{\doivoffset}{4.3cm}
+\fi
+%copied from lni.cls
+\ifcrop
+   \RequirePackage[
+     paperheight=23.5cm,paperwidth=15.5cm,
+     total={12.6cm,19.2cm},
+     includehead,
+     headheight=20.39pt,
+     headsep=.31cm,
+     centering]
+     {geometry}
+   \RequirePackage[a4,center,cam,info]{crop}
+   \renewcommand*\CROP@@info{{%
+      \global\advance\CROP@index\@ne
+      \def\x{\discretionary{}{}{\hbox{\kern.5em---\kern.5em}}}%
+      \advance\paperwidth-20\p@
+      \dimen@4pt
+      \ifx\CROP@pagecolor\@empty
+      \else
+      \advance\dimen@\CROP@overlap
+      \fi
+      \hb@xt@\z@{%
+         \hss
+         \vbox to\z@{%
+            \centering
+            \hsize\paperwidth
+            \vss
+            \normalfont
+            \normalsize
+            \expandafter\csname\CROP@font\endcsname{%
+               ``\jobname''\x
+               \the\@rigyear/\the\month/\the\day\x
+               \CROP@time\x
+               page\kern.5em\thepage\x
+               \#\the\CROP@index
+               \strut
+            }%
+            \vskip\dimen@
+         }%
+         \hss
+      }%
+   }}%
+\else
+   \RequirePackage[
+     total={12.6cm,19.2cm},
+     includehead,
+     headheight=20.39pt,
+     headsep=.31cm,
+     centering]
+     {geometry}
+\fi%
+\makeatother
+
+%LNI breaks
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{8pt plus3pt minus2pt} %slightly patched to look better
+
+% Disable single lines at the start of a paragraph (Schusterjungen)
+\clubpenalty = 10000
+
+% Disable single lines at the end of a paragraph (Hurenkinder)
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+%avoid word widows
+%source: http://tex.stackexchange.com/a/151692/9075
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@sect}{\begingroup}{\begingroup\parfillskip=0pt plus 1fil\relax}{}{}
+\makeatother
+
+\usepackage{twoopt}
+
+% Enable switching to arabic numbers without reset
+% Source: http://tex.stackexchange.com/a/146060/9075
+\makeatletter
+\newcommand\pagenumberingnoreset[1]{\gdef\thepage{\csname @#1\endcsname\c@page}}
+\makeatother
+
+\usepackage{cmap}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{ulem}
+
+\usepackage[english,ngerman]{babel}
+
+\renewcommand{\indexname}{Authorenverzeichnis}
+
+\usepackage{fancyhdr}
+
+%% BEGIN: Configuration for LNI-like TOC
+%Alternative: tocloft
+%\RedeclareSectionCommands[tocdynnumwidth]{chapter,section}
+
+\newcommand{\suppresstext}[1]{}
+
+\makeatletter
+  \newcommand\partfontsize{\@setfontsize\partfontsize{15.72}{20.38}}
+\makeatother
+\newcommand{\tocformatpart}[1]{\partfontsize\textbf{#1}}
+
+\makeatletter
+  \newcommand\chapterfontsize{\@setfontsize\chapterfontsize{12.82}{17.48}}
+\makeatother
+
+%\rightskip 0pt ensures that the text also uses the page number "column"
+%Solution by https://tex.stackexchange.com/a/365267/9075
+\newcommand{\tocformatchapter}[1]{\rightskip 0pt\chapterfontsize{\nohyphens{#1}}}
+
+%No ident of the second line of the TOC
+%Source: https://tex.stackexchange.com/a/314015/9075
+\RedeclareSectionCommand[tocnumwidth=0em]{chapter}
+
+\DeclareTOCStyleEntry[%
+  beforeskip=22pt,
+  entryformat={\tocformatpart},
+  pagenumberformat={\suppresstext}
+]{part}{part}
+
+\DeclareTOCStyleEntry[%
+  beforeskip=20pt,
+  entryformat=\tocformatchapter,
+  pagenumberbox=\suppresstext,
+]{chapter}{chapter}
+
+\newcommand{\spaceafterchapter}{\vspace{9pt}}
+
+\DeclareTOCStyleEntry[%
+  indent=0pt,
+  numwidth=0pt,
+  linefill=\TOCLineLeaderFill,
+  beforeskip=8pt,
+  onstarthigherlevel={\spaceafterchapter},
+  raggedentrytext=true
+]{section}{section}
+
+%Aim: Do not let the words go into the page numbers
+%Source: http://tex.stackexchange.com/a/180139/9075
+\makeatletter
+%\renewcommand*\l@subsection{\bprot@dottedtocline{3}{1.8em}{3.2em}}
+\renewcommand*\@pnumwidth{2em}
+\renewcommand*\@tocrmarg{3.3em}
+\makeatother
+
+%% END: Configuration for LNI-like TOC
+
+% LNIs font configuration
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage[zerostyle=b,straightquotes]{newtxtt}
+\usepackage[%
+   final,%
+   tracking=smallcaps,%
+   expansion=alltext,%
+   protrusion=alltext-nott]{microtype}%
+
+\usepackage{graphicx}
+\usepackage{eso-pic}
+
+\usepackage{pax}
+%Fix by Heiko Oberdiek - 2017-02-02
+\makeatletter
+\def\PAX@viewport#1 #2 #3 #4\\{%
+  \PAX@defaultbp\PAX@vllx{#1}%
+  \PAX@defaultbp\PAX@vlly{#2}%
+  \PAX@defaultbp\PAX@vurx{#3}%
+  \PAX@defaultbp\PAX@vury{#4}%
+  \edef\PAX@page@llx{\the\dimexpr\PAX@page@llx+\PAX@vllx\relax}%
+  \edef\PAX@page@lly{\the\dimexpr\PAX@page@lly+\PAX@vlly\relax}%
+  \edef\PAX@page@urx{\the\dimexpr\PAX@page@llx+\PAX@vurx\relax}% FIXED
+  \edef\PAX@page@ury{\the\dimexpr\PAX@page@lly+\PAX@vury\relax}%
+}
+\makeatother
+
+\usepackage{csquotes}
+
+\usepackage{newfile}
+
+%The idea is from http://tex.stackexchange.com/q/289375/9075
+\usepackage[style=authoryear,indexing=cite,backend=biber,maxnames=999]{biblatex}
+\addbibresource{proceedings.bib}
+
+\newoutputstream{proceedingsbib}
+\openoutputfile{proceedings.bib}{proceedingsbib}
+\AtEndDocument{\closeoutputstream{proceedingsbib}}
+
+\newoutputstream{proceedingscsv}
+\openoutputfile{proceedings.csv}{proceedingscsv}
+\AtEndDocument{\closeoutputstream{proceedingscsv}}
+
+%Index authors only - see http://tex.stackexchange.com/a/111446/9075
+%If one wants two separate indexes for titles and authors, http://tex.stackexchange.com/a/111446/9075 provides that solution, too.
+\renewbibmacro*{citeindex}{%
+  \ifboolexpr{ test {\ifciteindex} and not test {\iffootnote} }
+    {\indexnames{author}}{}}
+
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{idxlayout}
+
+\usepackage{hyphenat}
+
+\usepackage{hyperref}
+\hypersetup{%
+   pdftitle = {},  %The title of the conference
+   pdfauthor = {}, %Use format: Firstname Lastname, Firstname Lastname
+   bookmarks=true,%
+   bookmarksopenlevel=2,%
+   linktoc=all,%
+   colorlinks=true,%
+   allcolors=black,%
+   pdfpagelayout=TwoPageRight,%
+   pdfstartview=Fit%
+}
+\usepackage{bookmark}
+
+\usepackage{pdfpages}
+
+\usepackage{ifthen}
+
+\renewcommand{\addchap}[1]{\part*{\LARGE{\nohyphens{#1}}}\addchaptertocentry{}{#1}}
+
+%This enables copy&paste of the optional argument for \author in the papers to the first argument of \addpaper
+\renewcommand{\and}{\unskip,\ }
+
+% introduce \suppress \endsuppress - http://tex.stackexchange.com/a/97358/9075
+\long\def\suppress#1\endsuppress{%
+  \begingroup%
+    \tracinglostchars=0%
+    \let\selectfont=\nullfont
+    \nullfont #1\endgroup}
+
+\newcommand{\lnitoc}[2]{\texorpdfstring{\textbf{\nohyphens{#1}}\\\textit{#2}}{#2 -- #1}}
+
+%We reuse config.tex included from each paper.tex
+%We just do nothing here
+\newcommand{\booktitle}[1]{}
+\newcommand{\editor}[1]{}
+\let\iflnienglish\iffalse
+
+\input{config.tex}
+
+\newcounter{startpage}
+\newcounter{curpage}
+
+\newcounter{curpaper}
+\setcounter{curpaper}{0}
+
+\newcommand{\curdoi}{}
+
+\usepackage{ccicons}
+
+\makeatletter
+\newcommand{\outputlicenseanddoi}{
+  \renewcommand{\curdoi}{\doiprefix\two@digits{\value{curpaper}}}
+  \AddToShipoutPictureBG*{\AtPageLowerLeft{%
+    \put(\LenToUnit{\the\doihoffset},\LenToUnit{\the\doivoffset}){%
+      \href{https://creativecommons.org/licenses/by-nc/3.0/}{\ccbynceu}
+      % outputs DOI only if \doiprefix is set
+      \ifdefempty{\doiprefix}{}{
+        \footnotesize
+        \href{https://doi.org/\curdoi}{doi:\curdoi}
+      }
+    }%
+  }}
+}
+\makeatother
+
+%1: running authors - default: authors
+%2: running title - default: title
+%3: Kürzel
+%4: Authoren
+%5: Titel
+\newcommandtwoopt{\addpaper}[5][DEF][DEF]{%
+    \stepcounter{curpaper}
+
+    \fancypagestyle{lniotherpages}{%
+        \fancyhead{}
+        %title on the right
+        \fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+        %authors on the left
+        \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+        \fancyfoot{} % Löscht alle Fußzeileneinstellungen
+        \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
+    }
+
+    %collect page number
+    \write\pagesfile{#3 \thepage}
+    \setcounter{startpage}{\value{page}}
+
+    \pdfximage{papers/#3/paper.pdf}
+
+    \thispagestyle{lnifirstpage}
+    \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+        %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
+		%      paperheight=23.5cm,paperwidth=15.5cm,
+		%      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
+        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+    }
+    \outputlicenseanddoi
+	\phantomsection
+    \suppress\cite{#3}\endsuppress
+    \addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
+    \newpage
+    \pagestyle{lniotherpages}
+
+    \ifthenelse{\the\pdflastximagepages>1}{
+        \setcounter{curpage}{1}
+        \whiledo{\value{curpage}<\the\pdflastximagepages}{
+            \stepcounter{curpage}
+            \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+            }
+            \null
+            \newpage
+        }
+    }
+
+    {
+        \renewcommand{\and}{ and }
+        \addtostream{proceedingsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J  doi = {\curdoi},^^J}^^J}
+    }
+
+	{
+        \renewcommand{\and}{;}
+        \addtostream{proceedingscsv}{#4;#5;\thestartpage--\the\numexpr\value{page}-1\relax}
+    }
+
+    \cleardoublepage
+
+} %END of \newcommand{addpaper}
+
+%Calculate new position
+%Currently this cannot be used in includegraphics
+%The calulcated values are 458752sp and 44517417sp
+%\newlength{\newbottom}
+%\setlength{\newbottom}{0cm}
+%\newlength{\newtop}
+%\setlength{\newtop}{23.628cm}
+%\addtolength{\newbottom}{7pt}
+%\addtolength{\newtop}{7pt}
+%Output the calulcated numbers
+%\number\newtop AND \number\newbottom
+
+%Left for historical reasons -- not maintained
+%
+%1: running authors - default: authors
+%2: running title - default: title
+%3: Kürzel
+%4: Authoren
+%5: Titel
+\newcommandtwoopt{\addpaperWRONGLAYOUT}[5][DEF][DEF]{%
+    \stepcounter{curpaper}
+
+	\fancypagestyle{lniotherpages}{%
+		\fancyhead{}
+		%title on the right
+		\fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+		%authors on the left
+		\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+		\fancyfoot{} % Löscht alle Fußzeileneinstellungen
+		\renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
+	}
+	%collect page number
+	\write\pagesfile{#3 \thepage}
+	%\StrExpand{#3}{\curtitle}
+	{
+		\renewcommand{\and}{ and }
+		\addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
+	}
+
+	%All PDFs:
+	%offset=-0.2cm +2.60cm (-5pt, 73pt)
+	\pdfximage{#3/paper.pdf}
+
+	\thispagestyle{lnifirstpage}
+	\AddToShipoutPictureBG*{\AtPageUpperLeft{%
+			%When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
+			\put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{#3/paper.pdf}}}
+	}
+	\outputlicenseanddoi
+	\phantomsection
+	\suppress\cite{#3}\endsuppress
+	\addsectiontocentry{}{\lnitoc{#4}{#5}}
+	\newpage
+	\pagestyle{lniotherpages}
+
+	\ifthenelse{\the\pdflastximagepages>1}{
+		\setcounter{curpage}{1}
+		\whiledo{\value{curpage}<\the\pdflastximagepages}{
+			\stepcounter{curpage}
+			\AddToShipoutPictureBG*{\AtPageUpperLeft{%
+			        %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
+					%\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, viewport={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
+					\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, viewport={0 458752sp 21cm 44517417sp}, clip]{#3/paper.pdf}}}
+			}
+			\null
+			\newpage
+		}
+	}
+
+	\cleardoublepage
+
+} %END of \newcommand{addpaper}
+
+\setkomafont{pageheadfoot}{\normalfont\rmfamily}
+\setkomafont{pagenumber}{\normalfont\rmfamily}
+\setkomafont{disposition}{\normalfont\rmfamily}
+
+% Required because of https://github.com/sieversMartin/LNI/issues/23
+\setlength{\headheight}{23pt}
+%Does not work with papers using a template without headheight setting --> Their text body is too high adn it will look ugly.
+
+\raggedbottom
+
+\begin{document}
+\pagestyle{empty}
+\thispagestyle{empty}
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\pagenumbering{Roman}
+
+\makeatother
+%compensate for hoffset -5pt -- source: http://tex.stackexchange.com/a/130828/9075
+\setboolean{@twoside}{false}
+
+%everything before the foreword
+\includepdf[pagecommand={\thispagestyle{empty}},pages=1-4,noautoscale]{LNI-Startseiten.pdf}
+\phantomsection
+\pdfbookmark[part]{Vorwort}{Vorwort}
+%Use "plain" instead of "empty" if you want to add page numbers -- currently does not work as they seem out of the margins
+\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6,noautoscale]{LNI-Startseiten.pdf}
+
+\setboolean{@twoside}{true}
+\makeatletter
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\cleardoublepage
+\phantomsection
+\pdfbookmark[part]{\contentsname}{toc}
+\thispagestyle{empty}
+\pagestyle{empty}
+\thispagestyle{empty}
+\tableofcontents
+
+\cleardoublepage
+
+%% now all papers %%
+\pagenumberingnoreset{arabic}
+
+\newwrite\pagesfile
+\openout\pagesfile=pages.txt
+
+%\addpaper[SHORT AUTHORS][SHORT TITLE]{B6-1}{Vorname Nachname \and Zweiter Autor}{Titel des Beitrags}
+
+%\addpart{Hauptvorträge}
+
+\addpart{Workshops}
+%add_paper_lines_here
+
+\pagestyle{plain}
+
+\renewcommand{\indexname}{Autorenverzeichnis}
+\phantomsection
+\addcontentsline{toc}{part}{\indexname}
+\printindex
+
+\end{document}

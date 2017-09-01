@@ -6,8 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
-### Fixed
+### Added
+- Meta Data Extraction (`metaExtract.py`): Automatic extraction of dublin core based meta data table for submission to GI digital library
+- Slicing (`slicing.py`): Slicing of proceedings into separate papers for submission to GI digital library
+- Support for Word papers (`add_tex_via_docx.cmd`): Extraction of Author and Title from DOCX papers
+- Papers Renaming (`papers_rename.cmd`): Automatic renaming of paper files in papers sub-folders for convenience
+
+### Changed
 - Fix typo in `README.md`
+- Author and title extraction script (`addAuthTi.py`)
+  - encoding and texify of special characters
+  - adds all papers from papers folder in the correct order to proceedings.tex
+  - adds \addchap for every new top level, e.g. between B13-4 and C1-0
+  - production version uses lookup table for build ids and workshops and fills `proceedings.tex` with workshop titles
+
+### Fixed
+- Add `make-proceedings.sh` and `prepare-papers.sh`. Refine README.md accordingly.
+- Corrected GI DOI Prefix
 
 ## [1.3.0] - 2017-04-30
 

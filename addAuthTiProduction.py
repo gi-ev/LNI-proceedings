@@ -1,14 +1,20 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-# call from within papers folder like so:
-# python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex
-
 import os
 import re
 import sys
 
 from pyparsing import nestedExpr
+
+
+# TODO: adapt this table to your conference
+def lookup_workshop(workshop_id):
+    workshops = {
+        "B33": "Workshop zur Demonstration der Metadatenextraktion",
+        "C1": "Doktorandensymposium",
+    }
+    return workshops[workshop_id]
 
 
 def joinNestedList(nestedList, opener, closer):
@@ -79,6 +85,7 @@ def check_for_fixed_adaptions(paper_file_name):
         fixed_add_paper = data
     return fixed_add_paper
 
+
 def force_utf8(text):
     char_replacement_map = {"0x96": "-", "0xe9": "é", "0xa2": "ó", "0xc4": "Ä", "0xd6": "Ö", "0xdc": "Ü",
                             "0xdf": "ß", "0xe4": "ä", "0xf6": "ö", "0xfc": "ü", "0xf1": "ñ"}
@@ -128,7 +135,6 @@ def compare_build_ids(a, b):
     else:
         return paper_a - paper_b
 
-
 overviewPaper = open(sys.argv[1]).read()
 reload(sys)
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
@@ -167,7 +173,8 @@ for curFileName in paperFolders:
         elif m_not_added and not addpaper_line:
             workshopId = paperId.split("-")[0]
             if old_workshopId != workshopId:
-                temp += "\\addchap{%s}\n" % workshopId
+                workshop_name = lookup_workshop(workshopId)
+                temp += "%%\n%%%s\n%%\n\\addchap{%s}\n" % (workshopId, texify(workshop_name))
             if fixedAddPaper == '':
                 temp += u"\\addpaper{{{0}}}{{{1}}}{{{2}}}".format(paperId, paperAuthor,
                                                                   paperTitle) + "{0mm}\n" + curLine + u"\n"
