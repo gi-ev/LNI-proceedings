@@ -171,7 +171,7 @@ for curFileName in paperFolders:
         m_not_added = re.match(".*%add_paper_lines_here.*", curLine)
         if m:
             if fixedAddPaper == '':
-                temp += u"\\addpaper{{{0}}}{{{1}}}{{{2}}}".format(paperId, paperAuthor, paperTitle) + "{0mm}\n"
+                temp += u"\\addpaper{{{0}}}{{{1}}}{{{2}}}".format(paperId, paperAuthor, paperTitle) + "\n"
             else:
                 temp += fixedAddPaper
             addpaper_line = True
@@ -182,7 +182,7 @@ for curFileName in paperFolders:
                 temp += "%%\n%%%s\n%%\n\\addchap{%s}\n" % (workshopId, texify(workshop_name))
             if fixedAddPaper == '':
                 temp += u"\\addpaper{{{0}}}{{{1}}}{{{2}}}".format(paperId, paperAuthor,
-                                                                  paperTitle) + "{0mm}\n" + curLine + u"\n"
+                                                                  paperTitle) + "\n" + curLine + "\n"
             else:
                 temp += fixedAddPaper + "\n" + curLine + u"\n"
         else:
