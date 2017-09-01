@@ -20,6 +20,8 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
     + [Linux commands available at cmd.executed](#linux-commands-available-at-cmdexecuted)
     + [PDFtk](#pdftk)
   * [Proceedings](#proceedings)
+    + [Generated files](#generated-files)
+    + [Directory scheme](#directory-scheme)
     + [Advanced usage](#advanced-usage)
   * [Submitting to the GI and the printing service](#submitting-to-the-gi-and-the-printing-service)
   * [Submitting to the Digitale Bibliothek der GI](#submitting-to-the-digitale-bibliothek-der-gi)
@@ -173,10 +175,14 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
 16. Check proceedings and make necessary adaptions. During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings. Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
-17. Ensure that crop is *not* activated: `\let\ifcrop\iffalse` in `proceedings.tex`
-18. Compile the final proceedings
+17. Compile the final proceedings
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
+
+`proceedings.pdf` is now ready to be sent to the printing service.
+See below.
+
+#### Generated files
 
 During the process, following files are generated:
 
@@ -218,7 +224,7 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 
 ### Submitting to the GI and the printing service
 
-1. Check proceedings.pdf whether all fonts are embedded. In case some fonts are not embedded, follow folling steps:
+1. Check `proceedings.pdf` whether all fonts are embedded. In case some fonts are not embedded, follow folling steps:
   - go to the folder of the paper
   - locate the PDF containing the picture
   - embed the font using Acrobat Professional's preflight functionality
@@ -227,16 +233,28 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 2. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 4 above) to the GI for approval.
 3. After the approval, submit to the printing service.
 
+You can leave the crop margins on here.
+
+
 ### Submitting to the Digitale Bibliothek der GI
-1. Request DOI prefix from GI
-2. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
-3. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
-4. Fill the `ws.csv` according to your conference.
-5. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract). Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
-6. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory. This creates `meta-extract.csv` for submission to GI.
-7. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
-8. Run `python slicing.py proceedings.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section). The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from proceedings.csv. The separate pdfs are placed in the `parts` directory and named according to their build ids.
-9. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
+
+1. Crop `proceedings.pdf` with following margins:
+  - top + bottom: 31mm
+  - left + right: 27mm
+2. Request DOI prefix from GI
+3. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
+4. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
+5. Fill the `ws.csv` according to your conference.
+6. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract).
+   Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
+7. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory.
+   This creates `meta-extract.csv` for submission to GI.
+8. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
+9. Run `python slicing.py proceedings.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
+   The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from `proceedings.csv`.
+   The separate pdfs are placed in the `parts` directory and named according to their build ids.
+10. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
+
 
 ## FAQ
 
