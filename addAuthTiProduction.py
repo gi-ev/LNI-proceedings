@@ -11,6 +11,11 @@ from pyparsing import nestedExpr
 # TODO: adapt this table to your conference
 def lookup_workshop(workshop_id):
     workshops = {
+        "A1": "1. Eingeladener Vortrag",
+        "A2": "2. Eingeladener Vortrag",
+        "B1": "Topic1",
+        "B2": "Topic2 with a very long title which requires a lot of space and, hence, also requires a line break",
+        "B3": "Word-Papers",
         "B33": "Workshop zur Demonstration der Metadatenextraktion",
         "C1": "Doktorandensymposium",
     }

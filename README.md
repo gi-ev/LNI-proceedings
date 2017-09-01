@@ -283,9 +283,13 @@ A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepar
 Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.
 A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
 
-Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` <br />
+Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` when running `addAuthTiProduction.py` <br />
 A: You are not following the directory pattern `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
    For instance, `A1-1` is valid, but `A-1` is invalid.
+
+Q: I get `KeyError: 'A1'` when running `addAuthTiProduction.py` <br />
+A: You did not update `addAuthTiProduction.py`.
+   Please update `lookup_workshop` in there.
 
 ## Trouble shooting of compiled papers
 
