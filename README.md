@@ -148,8 +148,9 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 7. Collect all papers. Place the source and the pdf within each paper's folder.
    For instance, the first paper goes into `papers/A-1/`.
 8. Rename all papers to paper.pdf etc. To do this, open a CMD, `cd papers` and run `papers_rename.cmd`. This should rename all .tex .pdf and .docx files to paper.tex, paper.pdf and paper.docx respectively. These directories should only contain one file of this file extension.
-9. To extract author and title information from docx files, run `add_tex_via_docx.cmd` in the 
-`papers` directory. Make sure you installed python-docx as described in System setup. The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
+9. To extract author and title information from Microsoft Word docx files, run `add_tex_via_docx.cmd` in the `papers` directory.
+  Make sure you installed python-docx as described in system setup.
+  The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
 10. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
 11. Copy the author information from each `paper.tex` into `proceedings.tex`:
   - Open a [git bash](https://git-for-windows.github.io/)
