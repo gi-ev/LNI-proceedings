@@ -4,5 +4,17 @@ jobs:
      docker:
        - image: koppor/texlive
      steps:
+       # steps as in make-proceedings.sh
        - checkout
-       - run: ./make-proceedings.sh
+       - run: pdflatex -synctex=1 proceedings
+       - run: pdflatex -synctex=1 proceedings
+       - run: sed -i "s/\\\\IeC //g" proceedings.bib
+       - run: biber proceedings
+       - run: pdflatex -synctex=1 proceedings
+       - run: texindy proceedings.idx
+       - run: pdflatex -synctex=1 proceedings
+       - run: pdflatex -synctex=1 proceedings
+       - run: sed -i "s/\\\\IeC //g" proceedings.bib
+       - run: sed -i "s/\\\\textunderscore //g" proceedings.bib
+       - run: sed -i "s/\\\\IeC //g" proceedings.csv
+       - run: sed -i "s/ ;/;/g" proceedings.csv
