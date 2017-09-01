@@ -133,20 +133,21 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 
 - Install PDFtk using `choco install pdftk`
 
+
 ### Proceedings
 
 1. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
 2. Adapt `LNI-Startseiten.docx` to your conference.
 3. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
 4. Get the cover page ready. Template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
-  This preparation gives you the necessary information for step 5.
-  You also need to submit the cover to the GI and to the printing service.
+   This preparation gives you the necessary information for step 5.
+   You also need to submit the cover to the GI and to the printing service.
 5. Adapt `config.tex` to your conference.
-  Here, you also set the [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix used for generating a unique DOI for each paper.
+   Here, you also set the [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix used for generating a unique DOI for each paper.
 6. Create all paper folders using a naming scheme. See `papers/naming-scheme.txt`.
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
 7. Collect all papers. Place the source and the pdf within each paper's folder.
-   For instance, the first paper goes into `papers/A-1/`.
+   For instance, the first paper goes into `papers/A1-1/`.
 8. Rename all papers to paper.pdf etc. To do this, open a CMD, `cd papers` and run `papers_rename.cmd`. This should rename all .tex .pdf and .docx files to paper.tex, paper.pdf and paper.docx respectively. These directories should only contain one file of this file extension.
 9. To extract author and title information from Microsoft Word docx files, run `add_tex_via_docx.cmd` in the `papers` directory.
   Make sure you installed python-docx as described in system setup.
@@ -185,6 +186,23 @@ During the process, following files are generated:
 - `proceedings.csv` - CSV containing some information on the proceedings.
 - `papers.txt` - list of paper id and starting page.
 
+#### Directory scheme
+
+Naming scheme: `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
+
+Paper name always: `paper.tex`
+
+The following list may be generated out of an Excel file or something else.
+Otherwise, just create the folders and adapt `proceedings.tex` accordingly.
+
+```
+A = Eingeladene Vorträge
+A1-1 = Erster eingeladener Vortrag
+
+B = Scientific Program (nach Themen gegliedert, Kapitel)
+B1 = Topic 1
+B1-1 = Talk 1
+```
 
 #### Advanced usage
 
@@ -264,6 +282,10 @@ A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepar
 
 Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.
 A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
+
+Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` <br />
+A: You are not following the directory pattern `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
+   For instance, `A1-1` is valid, but `A-1` is invalid.
 
 ## Trouble shooting of compiled papers
 

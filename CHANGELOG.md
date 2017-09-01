@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - adds all papers from papers folder in the correct order to proceedings.tex
   - adds \addchap for every new top level, e.g. between B13-4 and C1-0
   - production version uses lookup table for build ids and workshops and fills `proceedings.tex` with workshop titles
+- Directory naming scheme `[Category][NumberOfSubcategory]-[NumberWithinSession]` is now required.
 
 ### Fixed
 - Add `make-proceedings.sh` and `prepare-papers.sh`. Refine README.md accordingly.
