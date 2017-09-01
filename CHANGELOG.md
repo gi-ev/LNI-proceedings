@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support for Microsoft Word papers (`add_tex_via_docx.cmd`): Extraction of Author and Title from DOCX papers
 - Papers Renaming (`papers_rename.cmd`): Automatic renaming of paper files in papers sub-folders for convenience
 - Support of `%\addpaper` in `paper.tex` to force a specific `\addpaper` statement
+- Cuts away license statement and DOI number
 
 ### Changed
 - Author and title extraction script (`addAuthTi.py`)

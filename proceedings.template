@@ -17,6 +17,7 @@
 
 \newlength{\paperhoffset}
 \newlength{\papervoffset}
+\newlength{\papervoffsetFirstPage}
 \newlength{\doihoffset}
 \newlength{\doivoffset}
 
@@ -25,11 +26,13 @@
 \ifcrop
 \setlength{\paperhoffset}{-2.75cm}
 \setlength{\papervoffset}{-26.6cm}
+\setlength{\papervoffsetFirstPage}{-21.6cm}
 \setlength{\doihoffset}{1.45cm}
 \setlength{\doivoffset}{1.2cm}
 \else
 \setlength{\paperhoffset}{0cm}
 \setlength{\papervoffset}{-29.7cm}
+\setlength{\papervoffsetFirstPage}{-24.7cm}
 \setlength{\doihoffset}{4.2cm}
 \setlength{\doivoffset}{4.3cm}
 \fi
@@ -331,7 +334,8 @@
         %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
 		%      paperheight=23.5cm,paperwidth=15.5cm,
 		%      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
-        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+        %      viewport: 5cm is for cutting away the CC-license sign and the DOI number
+        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, viewport=0 5cm 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
     }
     \outputlicenseanddoi
 	\phantomsection
