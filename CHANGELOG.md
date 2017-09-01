@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Meta Data Extraction (`metaExtract.py`): Automatic extraction of dublin core based meta data table for submission to GI digital library
 - Slicing (`slicing.py`): Slicing of proceedings into separate papers for submission to GI digital library
-- Support for Word papers (`add_tex_via_docx.cmd`): Extraction of Author and Title from DOCX papers
+- Support for Microsoft Word papers (`add_tex_via_docx.cmd`): Extraction of Author and Title from DOCX papers
 - Papers Renaming (`papers_rename.cmd`): Automatic renaming of paper files in papers sub-folders for convenience
+- Support of `%\addpaper` in `paper.tex` to force a specific `\addpaper` statement
 
 ### Changed
-- Fix typo in `README.md`
 - Author and title extraction script (`addAuthTi.py`)
   - encoding and texify of special characters
   - adds all papers from papers folder in the correct order to proceedings.tex

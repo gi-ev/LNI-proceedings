@@ -155,7 +155,9 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 11. Copy the author information from each `paper.tex` into `proceedings.tex`:
   - Open a [git bash](https://git-for-windows.github.io/)
   - cd into `papers`
-  - During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`. The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers which cause problems.
+  - During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`. The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
+  - To override the extraction of author and title for a specific paper, just put a the desired `\addpaper` statement into the `paper.tex` of that paper.
+    Prefix it with `%` to ensure the normal latex run on that paper does not cause issues.
   - For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex`. This will create a proceedings.tex with the real workshop titles instead of build ids.
 12. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
