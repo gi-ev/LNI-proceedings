@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [unreleased]
 
 ### Fixed
-- Fix typo in README.md
+- Fix typo in `README.md`
 
 ## [1.3.0] - 2017-04-30
 
