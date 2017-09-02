@@ -70,6 +70,12 @@ This section describes the setup of software required.
 This howto is based on a Windows environment.
 Linux users should have ready most of the tools required.
 
+On both Windows and Linux, one can use [Docker](https://www.docker.com/) for a fully configured Linux environment being able to build the proceedings.
+For inspection, the docker image can be found at <https://hub.docker.com/r/koppor/texlive/>.
+Assuming, the proceedings reside in `c:\git-repositories\proceedings`, following command leads to a bash shell enabling running the required commands:
+
+    docker run -v /c/git-repositories/proceedings:/var/texlive -it koppor/texlive:v1.1.0 bash
+
 
 #### Recommended setup of MiKTeX
 
@@ -90,6 +96,7 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   3. Execute `mpm --update`
   4. Execute `mpm --install=cm-super`
   5. Execute `initexmf --update-fndb`
+  6. Execute `initexmf --mklinks --force
 
 
 #### pax
@@ -136,16 +143,18 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 - Install PDFtk using `choco install pdftk`
 
 
-### Proceedings
+### Generating the proceedings
 
-1. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
-2. Adapt `LNI-Startseiten.docx` to your conference.
-3. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
-4. Get the cover page ready. Template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
-   This preparation gives you the necessary information for step 5.
+1. Request [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix from GI
+2. Get the cover page ready.
+   The template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
+   This preparation provides you the necessary information for the next step.
    You also need to submit the cover to the GI and to the printing service.
-5. Adapt `config.tex` to your conference.
-   Here, you also set the [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix used for generating a unique DOI for each paper.
+3. Adapt `config.tex` to your conference.
+   Here, you also set the DOI prefix used for generating a unique DOI for each paper.
+4. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
+5. Adapt `LNI-Startseiten.docx` to your conference.
+6. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
 6. Create all paper folders using a naming scheme. See `papers/naming-scheme.txt`.
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
 7. Collect all papers. Place the source and the pdf within each paper's folder.
@@ -166,20 +175,27 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
     This will create a `proceedings.tex` with the real workshop titles instead of build ids.
 12. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
-13. Create pax information
+13. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
+14. Check `proceedings.pdf` whether **all fonts are embedded**.
+  In case some fonts are not embedded, follow folling steps:
+  - go to the folder of the paper
+  - locate the PDF containing the picture
+  - embed the font using Acrobat Professional's preflight functionality
+  - Recompile the paper (`pdflatex paper`, ...)
+  - Recompile the proceedings (`pdflatex  -synctex=1 proceedings`)
+15. Create pax information
   - Linux: Execute `prepare-papers.sh`
   - Windows: Execute `prepare-papers.bat`
-14. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
-15. Do the usual pdflatex, biblatex, texindy runs.
+16. Do the usual pdflatex, biblatex, texindy runs.
     pdflatex also generates `proceedings.bib` and thereby also generates the character sequence `\IeC` (see [Implementation documentation](#implementation-documentation)).
     These characters have to be removed for the final biblatex run.
     All these steps are automatically done by `make-proceedings`.
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
-16. Check proceedings and make necessary adaptions.
+17. Check proceedings and make necessary adaptions.
     During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings.
     Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
-17. Compile the final proceedings
+18. Compile the final proceedings
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
 
@@ -228,23 +244,16 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 
 ### Submitting to the GI and the printing service
 
-1. Check `proceedings.pdf` whether all fonts are embedded. In case some fonts are not embedded, follow folling steps:
-  - go to the folder of the paper
-  - locate the PDF containing the picture
-  - embed the font using Acrobat Professional's preflight functionality
-  - Recompile the paper (`pdflatex paper`, ...)
-  - Recompile the proceedings (`pdflatex proceedings`)
-2. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 4 above) to the GI for approval.
-3. After the approval, submit to the printing service.
+1. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 2 above) to the GI for approval.
+2. After the approval, submit to the printing service.
 
 You can leave the crop margins on here.
 
 
-### Submitting to the Digitale Bibliothek der GI
+### Submitting to the "Digitale Bibliothek der GI"
 
-1. Request DOI prefix from GI
-2. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
-3. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
+1. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
+3. Copy `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
 4. Fill the `ws.csv` according to your conference.
 5. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract).
    Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
@@ -318,6 +327,7 @@ A: You did not update `addAuthTiProduction.py`.
 Q: I get `AttributeError: 'NoneType' object has no attribute 'splitlines'` when using `metaExract.py`. <br />
 A: Not all columns are filled in `papers.csv`.
 
+
 ## Trouble shooting of compiled papers
 
 If you are in need to recompile the submitted papers, there might be errors occurring.
@@ -330,6 +340,16 @@ This section provides hints on some of the most prominent errors.
     You have used pdfcomments package, but you disabled it.
     Delete `paper.aux` and recompile.
 * `! You can't use ``\spacefactor' in internal vertical mode.`: Currently unknown
+
+
+## Current minimal example
+
+The current minimal example is built at [CircleCI](https://circleci.com/gh/gi-ev/LNI-proceedings/).
+One can browse to the latest build and then to "Artifacts" to see the generated files.
+These generated proceedings **do not** follow the guide lines:
+The headings of each papers are too long, because the authors and titles are too long.
+Manual adjustements using the `\addpaper` commands are required.
+The minimal example should only show that the commands of the toolchain work.
 
 
 ## Implementation documentation
