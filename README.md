@@ -94,7 +94,7 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
 
 #### pax
 
-[pax](http://ctan.org/pkg/pax) is a utitlity which enables hyperlinks still working when combining PDFs using pdflatex.
+[pax](http://ctan.org/pkg/pax) is a utility, which enables hyperlinks still working when combining PDFs using pdflatex.
 In the installation, we rely on [chocolatey](https://chocolatey.org/), because it eases installation much.
 
 - Installl java runtime environment using `choco install jre8`. [chocolatey page](https://chocolatey.org/packages/jre8).
