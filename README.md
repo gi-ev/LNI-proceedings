@@ -313,6 +313,9 @@ Q: I get `KeyError: 'A1'` when running `addAuthTiProduction.py` <br />
 A: You did not update `addAuthTiProduction.py`.
    Please update `lookup_workshop` in there.
 
+Q: I get `AttributeError: 'NoneType' object has no attribute 'splitlines'` when using `metaExract.py`. <br />
+A: Not all columns are filled in `papers.csv`.
+
 ## Trouble shooting of compiled papers
 
 If you are in need to recompile the submitted papers, there might be errors occurring.
