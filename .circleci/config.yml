@@ -2,7 +2,7 @@ version: 2
 jobs:
    build:
      docker:
-       - image: koppor/texlive
+       - image: koppor/texlive:v1.1.0
      steps:
        - checkout
        # prepare papers: extract hyperlink information (pax)
