@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `prepare-papers.sh` now uses `kpsewhich` to determine `pax` directory
 - Add `add_tex_via_docx.sh`
 - Add `cropproceedings.sh` and `proceedings-cropped.tex` to ease cropping the final proceedings.
+- Reference to [docker image](https://github.com/koppor/docker-texlive), which provides a working environment to typeset the proceedings.
 
 ### Changed
 - Author and title extraction script (`addAuthTi.py`)
