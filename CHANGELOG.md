@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support of `%\addpaper` in `paper.tex` to force a specific `\addpaper` statement
 - Cuts away license statement and DOI number
 - `prepare-papers.sh` now uses `kpsewhich` to determine `pax` directory
+- Add `add_tex_via_docx.sh`
 
 ### Changed
 - Author and title extraction script (`addAuthTi.py`)
