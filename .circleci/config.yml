@@ -4,8 +4,16 @@ jobs:
      docker:
        - image: koppor/texlive
      steps:
-       # steps as in make-proceedings.sh
        - checkout
+       # prepare papers: extract hyperlink information (pax)
+       - run: ./prepare-papers.sh
+       # generate paper.tex out of paper.docx
+       - run: cd papers
+       - run: ./add_tex_via_docx.sh
+       # generate final proceedings.tex based on the information of each paper.tex file
+       - run: python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex
+       - run: cd ..
+       # steps as in make-proceedings.sh
        - run: pdflatex -synctex=1 proceedings
        - run: pdflatex -synctex=1 proceedings
        - run: sed -i "s/\\\\IeC //g" proceedings.bib
@@ -18,3 +26,13 @@ jobs:
        - run: sed -i "s/\\\\textunderscore //g" proceedings.bib
        - run: sed -i "s/\\\\IeC //g" proceedings.csv
        - run: sed -i "s/ ;/;/g" proceedings.csv
+       # extract meta data
+       - run: cd meta-extract
+       - run: cp ../proceedings.csv .
+       - run: python metaExtract.py papers.csv ws.csv proceedings.csv
+       - run: cd ..
+       # slice proceedings
+       - run: cd slicing/
+       - run: cp ../proceedings.pdf ../proceedings.csv .
+       - run: pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf
+       - run: python slicing.py proceedings-cropped.pdf proceedings.csv
