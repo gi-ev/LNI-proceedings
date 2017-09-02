@@ -168,11 +168,15 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
   On Linux you can run `add_tex_via_docx.sh`.
   Make sure you installed python-docx as described in system setup.
   The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
+9. Create pax information
+  - Linux: Execute `prepare-papers.sh`
+  - Windows: Execute `prepare-papers.bat`
 10. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
 11. Copy the author information from each `paper.tex` into `proceedings.tex`:
   - Open a [git bash](https://git-for-windows.github.io/)
   - cd into `papers`
-  - During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`. The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
+  - During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`.
+    The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
   - To override the extraction of author and title for a specific paper, just put a the desired `\addpaper` statement into the `paper.tex` of that paper.
     Prefix it with `%` to ensure the normal latex run on that paper does not cause issues.
   - For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex`.
@@ -187,18 +191,18 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
   - embed the font using Acrobat Professional's preflight functionality
   - Recompile the paper (`pdflatex paper`, ...)
   - Recompile the proceedings (`pdflatex  -synctex=1 proceedings`)
-15. Create pax information
-  - Linux: Execute `prepare-papers.sh`
-  - Windows: Execute `prepare-papers.bat`
-16. Do the usual pdflatex, biblatex, texindy runs.
+15. Do the usual pdflatex, biblatex, texindy runs.
     pdflatex also generates `proceedings.bib` and thereby also generates the character sequence `\IeC` (see [Implementation documentation](#implementation-documentation)).
     These characters have to be removed for the final biblatex run.
     All these steps are automatically done by `make-proceedings`.
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
-17. Check proceedings and make necessary adaptions.
+16. Check proceedings and make necessary adaptions.
     During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings.
     Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
+17. Finalize pax information
+  - Linux: Execute `prepare-papers.sh`
+  - Windows: Execute `prepare-papers.bat`
 18. Compile the final proceedings
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
