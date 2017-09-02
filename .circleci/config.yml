@@ -31,3 +31,7 @@ jobs:
        - run: cp proceedings.pdf proceedings.csv slicing/
        - run: cd slicing && pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf
        - run: cd slicing && python slicing.py proceedings-cropped.pdf proceedings.csv
+       # collect final files
+       - run: mkdir result && mv slicing/parts/*.pdf result/ && mv slicing/proceedings-cropped.pdf result/proceedings-final.pdf && mv meta-extract/meta_extract.csv result/
+       - store_artifacts:
+           path: result
