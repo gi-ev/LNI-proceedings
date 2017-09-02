@@ -14,19 +14,21 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
 - [Aims of this work](#aims-of-this-work)
 - [Howto](#howto)
   * [System setup](#system-setup)
+    + [Using Docker](#using-docker)
     + [Recommended setup of MiKTeX](#recommended-setup-of-miktex)
     + [pax](#pax)
     + [Python 2.7](#python-27)
     + [Linux commands available at cmd.executed](#linux-commands-available-at-cmdexecuted)
     + [PDFtk](#pdftk)
-  * [Proceedings](#proceedings)
+  * [Generating the proceedings](#generating-the-proceedings)
     + [Generated files](#generated-files)
     + [Directory scheme](#directory-scheme)
     + [Advanced usage](#advanced-usage)
   * [Submitting to the GI and the printing service](#submitting-to-the-gi-and-the-printing-service)
-  * [Submitting to the Digitale Bibliothek der GI](#submitting-to-the-digitale-bibliothek-der-gi)
+  * [Submitting to the "Digitale Bibliothek der GI"](#submitting-to-the-digitale-bibliothek-der-gi)
 - [FAQ](#faq)
 - [Trouble shooting of compiled papers](#trouble-shooting-of-compiled-papers)
+- [Current minimal example](#current-minimal-example)
 - [Implementation documentation](#implementation-documentation)
 - [Considered alternatives](#considered-alternatives)
   * [confproc](#confproc)
@@ -69,6 +71,8 @@ Following proceedings were typeset using this template:
 This section describes the setup of software required.
 This howto is based on a Windows environment.
 Linux users should have ready most of the tools required.
+
+#### Using Docker
 
 On both Windows and Linux, one can use [Docker](https://www.docker.com/) for a fully configured Linux environment being able to build the proceedings.
 For inspection, the docker image can be found at <https://hub.docker.com/r/koppor/texlive/>.
