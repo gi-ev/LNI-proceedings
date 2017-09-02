@@ -26,9 +26,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Papers are positioned 1mm higher to ensure correct positioning on the page
 
 ### Fixed
-- Add `make-proceedings.sh` and `prepare-papers.sh`. Refine README.md accordingly.
+- Add `make-proceedings.sh` and `prepare-papers.sh`. Refine `README.md` accordingly.
 - Corrected GI DOI Prefix
 - Correct command for not using DOIs in `config.tex`
+
 
 ## [1.3.0] - 2017-04-30
 
