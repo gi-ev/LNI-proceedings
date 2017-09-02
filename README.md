@@ -242,19 +242,21 @@ You can leave the crop margins on here.
 
 ### Submitting to the Digitale Bibliothek der GI
 
-1. Crop `proceedings.pdf` with following margins:
+1. Request DOI prefix from GI
+2. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
+3. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
+4. Fill the `ws.csv` according to your conference.
+5. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract).
+   Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
+6. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory.
+   This creates `meta-extract.csv` for submission to GI.
+7. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
+8. Crop `proceedings.pdf` with following margins:
   - top + bottom: 31mm
   - left + right: 27mm
-2. Request DOI prefix from GI
-3. Adapt BAND_TITEL, HRSG, LNI, DOI, ISSN, ISBN, YEAR, DATE and LOCATION in `metaExtract.py` according to your conference
-4. Copy the `proceedings.csv` created by `make-proceedings` to the `meta-extract` directory.
-5. Fill the `ws.csv` according to your conference.
-6. Fill the `papers.csv` with the meta data required (Build ID,Paper ID,Workshop ID,Autoren,Titel,Sprache,Keywords,Abstract).
-   Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
-7. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory.
-   This creates `meta-extract.csv` for submission to GI.
-8. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
-9. Run `python slicing.py proceedings.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
+  - `pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf`.
+    This generates `proceedings-cropped.pdf`. (hint by [askubuntu](https://askubuntu.com/a/650981/196423))
+9. Run `python slicing.py proceedings-cropped.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
    The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from `proceedings.csv`.
    The separate pdfs are placed in the `parts` directory and named according to their build ids.
 10. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
