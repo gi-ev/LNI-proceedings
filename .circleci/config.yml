@@ -2,7 +2,7 @@ version: 2
 jobs:
    build:
      docker:
-       - image: koppor/texlive:v1.1.0
+       - image: koppor/texlive:v1.2.0
      steps:
        - checkout
        # prepare papers: extract hyperlink information (pax)
@@ -27,6 +27,9 @@ jobs:
        # extract meta data
        - run: cp proceedings.csv meta-extract/
        - run: cd meta-extract && python metaExtract.py papers.csv ws.csv proceedings.csv
+       # shrink proceedings
+       - run: mv proceedings.pdf proceedings-large.pdf
+       - run: ./shrinkpdf.sh proceedings-large.pdf proceedings.pdf
        # slice proceedings
        - run: cp proceedings.pdf proceedings.csv slicing/
        - run: cd slicing && pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf

@@ -24,9 +24,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - production version uses lookup table for build ids and workshops and fills `proceedings.tex` with workshop titles
 - Directory naming scheme `[Category][NumberOfSubcategory]-[NumberWithinSession]` is now required.
 - Papers are positioned 1mm higher to ensure correct positioning on the page
+- Refined `README.md`
 
 ### Fixed
-- Add `make-proceedings.sh` and `prepare-papers.sh`. Refine `README.md` accordingly.
+- Add `make-proceedings.sh` and `prepare-papers.sh`
 - Corrected GI DOI Prefix
 - Correct command for not using DOIs in `config.tex`
 

@@ -206,6 +206,9 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 18. Compile the final proceedings
     - Linux: Execute `make-proceeding.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
+19. Shrink the size of the final pdf:
+    - Rename `proceedings.pdf` to `proceedings-large.pdf`
+    - Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
 
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.
