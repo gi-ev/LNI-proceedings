@@ -372,6 +372,10 @@ This issue is discussed at http://tex.stackexchange.com/q/234501/9075.
 Since the file is encoded in ASCII characters, we just need to strip out `\IeC`.
 This is done using [sed](https://en.wikipedia.org/wiki/Sed).
 
+`slicing`: `cut-proceedings.sh` is an alternative script to `slicing.py`.
+It was developed before `slicing.py`, but puts each paper to a separate sub directory.
+Currently, it is not used, but left there, because it could get useful sometime.
+
 
 ## Considered alternatives
 
