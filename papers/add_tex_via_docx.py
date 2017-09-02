@@ -42,7 +42,7 @@ reload(sys)
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
 sys.setdefaultencoding('utf-8')
 tex = u""
-docPath = sys.argv[1] + "/" + sys.argv[2]
+docPath = os.path.join(sys.argv[1], sys.argv[2])
 print docPath
 doc = docx.Document(docPath)
 old_style = doc.paragraphs[0].style.name
