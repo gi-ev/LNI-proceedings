@@ -78,7 +78,7 @@ On both Windows and Linux, one can use [Docker](https://www.docker.com/) for a f
 For inspection, the docker image can be found at <https://hub.docker.com/r/koppor/texlive/>.
 Assuming, the proceedings reside in `c:\git-repositories\proceedings`, following command leads to a bash shell enabling running the required commands:
 
-    docker run -v /c/git-repositories/proceedings:/var/texlive -it koppor/texlive:v1.1.0 bash
+    docker run -v /c/git-repositories/proceedings:/var/texlive -it koppor/texlive:v1.2.0 bash
 
 
 #### Recommended setup of MiKTeX
