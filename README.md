@@ -278,7 +278,7 @@ You can leave the crop margins on here.
     Please note that this does not preserve hyperlinks correctly.
     In case you have better tooling (not pdfjam or pdfcrop), please use that tool to ensure that hyperlinks are preserved.
   - If pax worked correctly, following way preserved hyperlinks:
-    - `perl ``kpsewhich -var-value TEXMFDIST``/scripts/pax/pdfannotextractor.pl proceedings.pdf`
+    - ``perl `kpsewhich -var-value TEXMFDIST`/scripts/pax/pdfannotextractor.pl proceedings.pdf``
     - `pdflatex proceedings-cropped.pdf`
     - `pdflatex proceedings-cropped.pdf`
   - You can also execute `./cropproceedings.sh`
