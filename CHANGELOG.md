@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Papers Renaming (`papers_rename.cmd`): Automatic renaming of paper files in papers sub-folders for convenience
 - Support of `%\addpaper` in `paper.tex` to force a specific `\addpaper` statement
 - Cuts away license statement and DOI number
+- `prepare-papers.sh` now uses `kpsewhich` to determine `pax` directory
 
 ### Changed
 - Author and title extraction script (`addAuthTi.py`)
