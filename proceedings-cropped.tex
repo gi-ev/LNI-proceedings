@@ -8,15 +8,14 @@
     top=0pt,bottom=0pt,left=0pt,right=0pt]
     {geometry}
 \usepackage{graphicx}
-\begin{document}
-\pagestyle{empty}
-%\AddToShipoutPictureBG*{\AtPageUpperLeft{%
-%  \put(0,0){\includegraphics[page=-, viewport=27mm 31mm 183mm 259mm, clip]{proceedings.pdf}}}}
-
 \newcounter{curpage}
-\setcounter{curpage}{0}
-\pdfximage{proceedings.pdf}
+\setcounter{curpage}{1}
+\pagestyle{empty}
 
+\begin{document}
+%seperate includegraphics call is necessary, because otherwise an empty first page is generated
+\includegraphics[page=1, viewport=27.5mm 31mm 182mm 265.5mm, clip]{proceedings.pdf}
+\pdfximage{proceedings.pdf}
 \whiledo{\value{curpage}<\the\pdflastximagepages}{
   \stepcounter{curpage}
     %A4:          297 x 210
