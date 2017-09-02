@@ -274,8 +274,14 @@ You can leave the crop margins on here.
 8. Crop `proceedings.pdf` with following margins:
   - top + bottom: 31mm
   - left + right: 27mm
-  - `pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf`.
-    This generates `proceedings-cropped.pdf`. (hint by [askubuntu](https://askubuntu.com/a/650981/196423))
+  - There is `proceedings-cropped.tex` prepared. pdflatexing that results in `proceedings-cropped.pdf`.
+    Please note that this does not preserve hyperlinks correctly.
+    In case you have better tooling (not pdfjam or pdfcrop), please use that tool to ensure that hyperlinks are preserved.
+  - If pax worked correctly, following way preserved hyperlinks:
+    - `perl ``kpsewhich -var-value TEXMFDIST``/scripts/pax/pdfannotextractor.pl proceedings.pdf`
+    - `pdflatex proceedings-cropped.pdf`
+    - `pdflatex proceedings-cropped.pdf`
+  - You can also execute `./cropproceedings.sh`
 9. Run `python slicing.py proceedings-cropped.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
    The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from `proceedings.csv`.
    The separate pdfs are placed in the `parts` directory and named according to their build ids.
@@ -295,6 +301,11 @@ A: `pdflatex proceedings`, do it twice to be sure that the TOC is created correc
 
 Q: What can I do if the hyperlinks in the proceedings do not work? <br>
 A: Run `pdflatex proceedings` one more time, because pax needs one more run.
+
+Q: What can I do if the hyperlinks in the cropped proceedings do not work? <br>
+A: You hit an issue at pax with an interplay of `viewport` in includegraphics:
+   The offset resulting of the viewport is not treated by pax.
+   The link is in there. Just search a few lines below the link text.
 
 Q: What if a paper needs adjustments? <br>
 A : Sometimes, the GI required adjustments.
@@ -371,6 +382,8 @@ This section discusses some design decisions done when implementing this way to 
 This issue is discussed at http://tex.stackexchange.com/q/234501/9075.
 Since the file is encoded in ASCII characters, we just need to strip out `\IeC`.
 This is done using [sed](https://en.wikipedia.org/wiki/Sed).
+
+`pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf` generates `proceedings-cropped.pdf` (hint by [askubuntu](https://askubuntu.com/a/650981/196423)), but it destroys the PDF hyperlinks.
 
 `slicing`: `cut-proceedings.sh` is an alternative script to `slicing.py`.
 It was developed before `slicing.py`, but puts each paper to a separate sub directory.

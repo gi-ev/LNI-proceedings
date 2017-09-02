@@ -1,0 +1,30 @@
+\documentclass{scrbook}
+\usepackage{pax}
+%\usepackage{eso-pic}
+\usepackage{ifthen}
+\usepackage[
+    paperheight=23.5cm,
+    paperwidth=15.5cm,
+    top=0pt,bottom=0pt,left=0pt,right=0pt]
+    {geometry}
+\usepackage{graphicx}
+\begin{document}
+\pagestyle{empty}
+%\AddToShipoutPictureBG*{\AtPageUpperLeft{%
+%  \put(0,0){\includegraphics[page=-, viewport=27mm 31mm 183mm 259mm, clip]{proceedings.pdf}}}}
+
+\newcounter{curpage}
+\setcounter{curpage}{0}
+\pdfximage{proceedings.pdf}
+
+\whiledo{\value{curpage}<\the\pdflastximagepages}{
+  \stepcounter{curpage}
+    %A4:          297 x 210
+    %Tagungsband: 235 x 155
+    %delta:        62 x  55
+    %half:         31 x  27.5
+    % 297-31=266 x 210-27.5=182.5
+  \includegraphics[page=\the\value{curpage}, viewport=27.5mm 31mm 182.5mm 266mm, clip]{proceedings.pdf}
+  \null
+}
+\end{document}

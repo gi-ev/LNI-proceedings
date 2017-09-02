@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cuts away license statement and DOI number
 - `prepare-papers.sh` now uses `kpsewhich` to determine `pax` directory
 - Add `add_tex_via_docx.sh`
+- Add `cropproceedings.sh` and `proceedings-cropped.tex` to ease cropping the final proceedings.
 
 ### Changed
 - Author and title extraction script (`addAuthTi.py`)
@@ -37,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support for generating and showing DOI on each paper
 
+
 ## [1.2.0] - 2017-04-22
 
 ### Added
@@ -44,6 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Use `proceedings.bib` also in `make-proceedings.bat`
+
 
 ## [1.1.0] - 2017-04-22
 
