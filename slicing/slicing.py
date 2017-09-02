@@ -1,9 +1,11 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import csv
 import subprocess
+from sys import platform
 
 # sys.argv[1]: proceedings pdf
 # sys.argv[2]: proceedings csv
@@ -22,11 +24,13 @@ for row in csv_reader:
     buildID = row[-1]
     page_start, page_end = row[-2].split("--")
 
-    print "slicing PDF at page " + page_start + " until " + page_end + " and save it in 'parts\\" + buildID + ".pdf'"
+    filename = os.path.join("parts", buildID + ".pdf")
+
+    print "slicing PDF at page " + page_start + " until " + page_end + " and save it in '" + filename + "'"
 
     # "pdftk " + INPUT + " cat " + page_start + "-" + page_end + " output parts\\" + buildID + ".pdf"
     # "pdftk " + PATH + "\\" + INPUT + " cat " + page_start + "-" + page_end + " output " + PATH + "\\parts\\" + buildID + ".pdf"
     # subprocess.call(["pdftk", PATH + "\\" + INPUT, "cat", page_start + "-" + page_end, "output",
     #                  PATH + "\\parts\\" + buildID + ".pdf"], shell=True)
-    subprocess.call(["pdftk", INPUT, "cat", page_start + "-" + page_end, "output", "parts\\" + buildID + ".pdf"],
-                    shell=True)
+    subprocess.call(["pdftk", INPUT, "cat", page_start + "-" + page_end, "output", filename],
+                    shell= (platform == "win32"))
