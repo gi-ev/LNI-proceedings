@@ -159,8 +159,9 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 4. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
 5. Adapt `LNI-Startseiten.docx` to your conference.
 6. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
-6. Create all paper folders using a naming scheme. See `papers/naming-scheme.txt`.
+6. Create all paper folders using a naming scheme:
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
+   See also [Directory scheme](#directory-scheme).
 7. Collect all papers. Place the source and the pdf within each paper's folder.
    For instance, the first paper goes into `papers/A1-1/`.
 8. Rename all papers to paper.pdf etc. To do this, open a CMD, `cd papers` and run `papers_rename.cmd`. This should rename all .tex .pdf and .docx files to paper.tex, paper.pdf and paper.docx respectively. These directories should only contain one file of this file extension.
