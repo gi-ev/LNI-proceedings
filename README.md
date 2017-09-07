@@ -40,6 +40,7 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
 
 <!-- tocstop -->
 
+
 ## Success stories
 
 Following proceedings were typeset using this template:
@@ -71,6 +72,7 @@ Following proceedings were typeset using this template:
 This section describes the setup of software required.
 This howto is based on a Windows environment.
 Linux users should have ready most of the tools required.
+
 
 #### Using Docker
 
@@ -135,10 +137,12 @@ This is required to automatically extract the authors and title from the papers 
 4. Install `python-docx`
   - `c:\Python27\Scripts\pip install python-docx`
 
+
 #### Linux commands available at cmd.executed
 
 We need `sed` being available at a cmd.exe shell.
 This should be available when you executed `choco install git`.
+
 
 #### PDFtk
 
@@ -214,15 +218,19 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.
 
+
 #### Generated files
 
 During the process, following files are generated:
 
 - `proceedings.pdf`. 
-  It is not recommended to version this file during the process of proceedings generation, because it gets very large.
+  - It is not recommended to version this file during the process of proceedings generation, because it gets very large.
+  - The page size of this file is already the final page size of both the printed and the electronic proceedings.
+    Delivering this format is agreed with the publisher.
 - `proceedings.bib` - BibTeX bibliography of the proceedings.
 - `proceedings.csv` - CSV containing some information on the proceedings.
 - `papers.txt` - list of paper id and starting page.
+
 
 #### Directory scheme
 
@@ -242,6 +250,7 @@ B1 = Topic 1
 B1-1 = Talk 1
 ```
 
+
 #### Advanced usage
 
 It is possible to update the pages information in each paper's `paper.tex`.
@@ -259,8 +268,6 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 1. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 2 above) to the GI for approval.
 2. After the approval, submit to the printing service.
 
-You can leave the crop margins on here.
-
 
 ### Submitting to the "Digitale Bibliothek der GI"
 
@@ -271,19 +278,8 @@ You can leave the crop margins on here.
    Instead of creating this file separately, it is helpful to keep track of your papers in a spreadsheet, including additional data such as status, problems, rights forms etc. and export the required meta data as CSV from this spreadsheet.
 6. Run `python metaExtract.py papers.csv ws.csv proceedings.csv` in the `meta-extract` directory.
    This creates `meta-extract.csv` for submission to GI.
-7. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
-8. Crop `proceedings.pdf` with following margins:
-  - top + bottom: 31mm
-  - left + right: 27mm
-  - There is `proceedings-cropped.tex` prepared. pdflatexing that results in `proceedings-cropped.pdf`.
-    Please note that this does not preserve hyperlinks correctly.
-    In case you have better tooling (not pdfjam or pdfcrop), please use that tool to ensure that hyperlinks are preserved.
-  - If pax worked correctly, following way preserved hyperlinks:
-    - ``perl `kpsewhich -var-value TEXMFDIST`/scripts/pax/pdfannotextractor.pl proceedings.pdf``
-    - `pdflatex proceedings-cropped.pdf`
-    - `pdflatex proceedings-cropped.pdf`
-  - You can also execute `./cropproceedings.sh`
-9. Run `python slicing.py proceedings-cropped.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
+8. Cd into `slicing` directory and copy your `proceedings.pdf` and `proceedings.csv` here.
+9. Run `python slicing.py proceedings.pdf proceedings.csv`. This requires pdftk to be installed (cf. System setup section).
    The script cuts the proceedings.pdf into separate pdfs, one per paper, according to the page numbers from `proceedings.csv`.
    The separate pdfs are placed in the `parts` directory and named according to their build ids.
 10. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
@@ -330,11 +326,6 @@ A: The authors use an old version of the template.
   Finally, you could try to adapt `\addpaperWRONGLAYOUT`.
   That command is made for inclusion of papers of the old format.
   However, it is currently not maintained and may produce wrong output.
-
-Q: Is it possible to show or not to show the page margins? <br />
-A: Yes. The usage of the [crop package](https://www.ctan.org/pkg/crop) is prepared.
-- Change `\let\ifcrop\iffalse` to `\let\ifcrop\iftrue` to show the crop lines.
-- Change `\let\ifcrop\iftrue` to `\let\ifcrop\iffalse` to disable showing the crop lines.
 
 Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.
 A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
@@ -383,8 +374,6 @@ This section discusses some design decisions done when implementing this way to 
 This issue is discussed at http://tex.stackexchange.com/q/234501/9075.
 Since the file is encoded in ASCII characters, we just need to strip out `\IeC`.
 This is done using [sed](https://en.wikipedia.org/wiki/Sed).
-
-`pdfjam --trim "27mm 31mm 27mm 31mm" --clip true --suffix cropped proceedings.pdf` generates `proceedings-cropped.pdf` (hint by [askubuntu](https://askubuntu.com/a/650981/196423)), but it destroys the PDF hyperlinks.
 
 `slicing`: `cut-proceedings.sh` is an alternative script to `slicing.py`.
 It was developed before `slicing.py`, but puts each paper to a separate sub directory.

@@ -27,16 +27,12 @@ jobs:
        # extract meta data
        - run: cp proceedings.csv meta-extract/
        - run: cd meta-extract && python metaExtract.py papers.csv ws.csv proceedings.csv
-       # crop pdf - creates proceedings-cropped.pdf
-       - run: ./cropproceedings.sh
-       # shrink cropped proceedings into proceedings-shrunk.pdf
-       - run: ./shrinkpdf.sh proceedings-cropped.pdf proceedings-shrunk.pdf
+       # shrink proceedings.pdf into proceedings-shrunk.pdf
+       - run: ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
        # slice proceedings
        - run: cp proceedings-shrunk.pdf proceedings.csv slicing/
        - run: cd slicing && python slicing.py proceedings-shrunk.pdf proceedings.csv
-       # for "debugging" purposes: shrink non-cropped proceedings
-       - run: ./shrinkpdf.sh proceedings.pdf proceedings-crop-marks.pdf
        # collect final files
-       - run: mkdir result && mv slicing/parts/*.pdf result/ && mv proceedings-shrunk.pdf result/proceedings-final.pdf && mv proceedings-crop-marks.pdf result/ && mv meta-extract/meta_extract.csv result/
+       - run: mkdir result && mv slicing/parts/*.pdf result/ && mv proceedings-shrunk.pdf result/proceedings-final.pdf && mv proceedings.pdf result/proceedings-large.pdf && mv meta-extract/meta_extract.csv result/
        - store_artifacts:
            path: result

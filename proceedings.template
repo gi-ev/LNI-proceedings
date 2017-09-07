@@ -1,6 +1,4 @@
-\documentclass[paper=a4,parskip=full-]{scrbook}
-\let\ifcrop\iftrue
-%\let\ifcrop\iffalse
+\documentclass[parskip=full-]{scrbook}
 
 %Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
 %So, do not enable these commands
@@ -23,71 +21,21 @@
 
 \makeatletter
 \let\@rigyear\year
-\ifcrop
+
 \setlength{\paperhoffset}{-2.75cm}
 \setlength{\papervoffset}{-26.7cm}
 \setlength{\papervoffsetFirstPage}{-21.7cm}
 \setlength{\doihoffset}{1.45cm}
 \setlength{\doivoffset}{1.2cm}
-\else
-\setlength{\paperhoffset}{0cm}
-\setlength{\papervoffset}{-29.8cm}
-\setlength{\papervoffsetFirstPage}{-24.8cm}
-\setlength{\doihoffset}{4.2cm}
-\setlength{\doivoffset}{4.3cm}
-\fi
 
-%copied from lni.cls
-\ifcrop
-   \RequirePackage[
-     paperheight=23.5cm,paperwidth=15.5cm,
-     total={12.6cm,19.2cm},
-     includehead,
-     headheight=20.39pt,
-     headsep=.31cm,
-     centering]
-     {geometry}
-   \RequirePackage[a4,center,cam,info]{crop}
-   \renewcommand*\CROP@@info{{%
-      \global\advance\CROP@index\@ne
-      \def\x{\discretionary{}{}{\hbox{\kern.5em---\kern.5em}}}%
-      \advance\paperwidth-20\p@
-      \dimen@4pt
-      \ifx\CROP@pagecolor\@empty
-      \else
-      \advance\dimen@\CROP@overlap
-      \fi
-      \hb@xt@\z@{%
-         \hss
-         \vbox to\z@{%
-            \centering
-            \hsize\paperwidth
-            \vss
-            \normalfont
-            \normalsize
-            \expandafter\csname\CROP@font\endcsname{%
-               ``\jobname''\x
-               \the\@rigyear/\the\month/\the\day\x
-               \CROP@time\x
-               page\kern.5em\thepage\x
-               \#\the\CROP@index
-               \strut
-            }%
-            \vskip\dimen@
-         }%
-         \hss
-      }%
-   }}%
-\else
-   \RequirePackage[
-     total={12.6cm,19.2cm},
-     includehead,
-     headheight=20.39pt,
-     headsep=.31cm,
-     centering]
-     {geometry}
-\fi%
-\makeatother
+\RequirePackage[
+ paperheight=23.5cm,paperwidth=15.5cm,
+ total={12.6cm,19.2cm},
+ includehead,
+ headheight=20.39pt,
+ headsep=.31cm,
+ centering]
+{geometry}
 
 %LNI breaks
 %\setlength{\parindent}{0pt}
