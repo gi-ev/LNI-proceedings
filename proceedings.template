@@ -23,19 +23,21 @@
 \let\@rigyear\year
 
 \setlength{\paperhoffset}{-2.75cm}
-\setlength{\papervoffset}{-26.7cm}
-\setlength{\papervoffsetFirstPage}{-21.7cm}
+\setlength{\papervoffset}{-25.8cm}
+\setlength{\papervoffsetFirstPage}{-20.8cm}
 \setlength{\doihoffset}{1.45cm}
 \setlength{\doivoffset}{1.2cm}
 
 \RequirePackage[
- paperheight=23.5cm,paperwidth=15.5cm,
+ paperheight=23.5cm,
+ paperwidth=15.5cm,
  total={12.6cm,19.2cm},
  includehead,
  headheight=20.39pt,
  headsep=.31cm,
  centering]
 {geometry}
+\setlength{\topmargin}{-13.5mm}
 
 %LNI breaks
 %\setlength{\parindent}{0pt}
