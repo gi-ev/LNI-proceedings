@@ -102,7 +102,7 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   3. Execute `mpm --update`
   4. Execute `mpm --install=cm-super`
   5. Execute `initexmf --update-fndb`
-  6. Execute `initexmf --mklinks --force
+  6. Execute `initexmf --mklinks --force`
 
 
 #### pax
@@ -217,6 +217,8 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.
+
+The automated steps of this workflow are stated at [.circlci/config.yml](https://github.com/gi-ev/LNI-proceedings/blob/master/.circleci/config.yml#L9).
 
 
 #### Generated files
