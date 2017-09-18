@@ -23,8 +23,8 @@
 \let\@rigyear\year
 
 \setlength{\paperhoffset}{-2.75cm}
-\setlength{\papervoffset}{-25.8cm}
-\setlength{\papervoffsetFirstPage}{-20.8cm}
+\setlength{\papervoffset}{-26.3cm}
+\setlength{\papervoffsetFirstPage}{-21.3cm}
 \setlength{\doihoffset}{1.45cm}
 \setlength{\doivoffset}{1.2cm}
 
@@ -37,7 +37,7 @@
  headsep=.31cm,
  centering]
 {geometry}
-\setlength{\topmargin}{-13.5mm}
+\setlength{\topmargin}{-8.5mm}
 
 %LNI breaks
 %\setlength{\parindent}{0pt}

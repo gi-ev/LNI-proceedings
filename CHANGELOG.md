@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Improve position of text on page: Move papers 11.0mm up and move head 17.4mm up
+- Improve position of text on page: Move papers 6.0mm up and move head 12.4mm up
 
 ## [2.1.0] - 2017-09-07
 
