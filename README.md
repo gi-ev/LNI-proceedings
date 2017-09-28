@@ -18,7 +18,7 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
     + [Recommended setup of MiKTeX](#recommended-setup-of-miktex)
     + [pax](#pax)
     + [Python 2.7](#python-27)
-    + [Linux commands available at cmd.executed](#linux-commands-available-at-cmdexecuted)
+    + [Linux commands available at cmd.exe](#linux-commands-available-at-cmdexe)
     + [PDFtk](#pdftk)
   * [Generating the proceedings](#generating-the-proceedings)
     + [Generated files](#generated-files)
@@ -39,7 +39,6 @@ An example output is available at <https://gi-ev.github.io/LNI-proceedings/>.
 - [Further reading](#further-reading)
 
 <!-- tocstop -->
-
 
 ## Success stories
 
@@ -138,7 +137,7 @@ This is required to automatically extract the authors and title from the papers 
   - `c:\Python27\Scripts\pip install python-docx`
 
 
-#### Linux commands available at cmd.executed
+#### Linux commands available at cmd.exe
 
 We need `sed` being available at a cmd.exe shell.
 This should be available when you executed `choco install git`.
