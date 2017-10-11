@@ -15,11 +15,12 @@ An example output is available at [proceedings-example.pdf](proceedings-example.
 - [Howto](#howto)
   * [System setup](#system-setup)
     + [Using Docker](#using-docker)
-    + [Recommended setup of MiKTeX](#recommended-setup-of-miktex)
-    + [pax](#pax)
-    + [Python 2.7](#python-27)
-    + [Linux commands available at cmd.exe](#linux-commands-available-at-cmdexe)
-    + [PDFtk](#pdftk)
+    + [Manual Setup on Windows](#manual-setup-on-windows)
+      - [Recommended setup of MiKTeX](#recommended-setup-of-miktex)
+      - [pax](#pax)
+      - [Python 2.7](#python-27)
+      - [Linux commands available at cmd.exe](#linux-commands-available-at-cmdexe)
+      - [PDFtk](#pdftk)
   * [Generating the proceedings](#generating-the-proceedings)
     + [Generated files](#generated-files)
     + [Directory scheme](#directory-scheme)
@@ -81,8 +82,9 @@ Assuming, the proceedings reside in `c:\git-repositories\proceedings`, following
 
     docker run -v /c/git-repositories/proceedings:/var/texlive -it koppor/texlive:v1.2.0 bash
 
+#### Manual Setup on Windows
 
-#### Recommended setup of MiKTeX
+##### Recommended setup of MiKTeX
 
 MiKTeX should be installed in a single-user setup to avoid troubles when updating packages.
 Furthermore, it should be installed at `C:\MiKTeX` to enable easy installation of the pax utility.
@@ -104,7 +106,7 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   6. Execute `initexmf --mklinks --force`
 
 
-#### pax
+##### pax
 
 [pax](http://ctan.org/pkg/pax) is a utility, which enables hyperlinks still working when combining PDFs using pdflatex.
 In the installation, we rely on [chocolatey](https://chocolatey.org/), because it eases installation much.
@@ -123,7 +125,7 @@ In the installation, we rely on [chocolatey](https://chocolatey.org/), because i
 Source for installing pax: http://tex.stackexchange.com/a/44104/9075
 
 
-#### Python 2.7
+##### Python 2.7
 
 This is required to automatically extract the authors and title from the papers source texs.
 
@@ -137,13 +139,13 @@ This is required to automatically extract the authors and title from the papers 
   - `c:\Python27\Scripts\pip install python-docx`
 
 
-#### Linux commands available at cmd.exe
+##### Linux commands available at cmd.exe
 
 We need `sed` being available at a cmd.exe shell.
 This should be available when you executed `choco install git`.
 
 
-#### PDFtk
+##### PDFtk
 
 This is required for to cut the proceedings.pdf into separate PDF files, one per paper, to submit to "Digitale Bibliothek der GI".
 
