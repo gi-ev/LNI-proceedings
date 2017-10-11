@@ -155,6 +155,8 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 ### Generating the proceedings
 
 1. Request [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix from GI
+1. Download [master.zip](https://github.com/gi-ev/LNI-proceedings/archive/master.zip) from the [LNI-proceedings repository](https://github.com/gi-ev/LNI-proceedings).
+1. Extract `master.zip` into the directory you are going to work on the proceedings.
 2. Get the cover page ready.
    The template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
    This preparation provides you the necessary information for the next step.
