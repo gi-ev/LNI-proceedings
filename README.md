@@ -328,7 +328,7 @@ A: The authors use an old version of the template.
   That command is made for inclusion of papers of the old format.
   However, it is currently not maintained and may produce wrong output.
 
-Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.
+Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings. <br />
 A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
 
 Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` when running `addAuthTiProduction.py` <br />
