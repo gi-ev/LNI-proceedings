@@ -122,7 +122,7 @@ In the installation, we rely on [chocolatey](https://chocolatey.org/), because i
 - Click on "Update Formats"
 - Now, `pdfannotextractor.pl` is ready to go
 
-Source for installing pax: http://tex.stackexchange.com/a/44104/9075
+Source for installing pax: <http://tex.stackexchange.com/a/44104/9075>
 
 
 ##### Python 2.7
