@@ -1,6 +1,4 @@
-# LNI Proceedings
-
-[![Build Status](https://circleci.com/gh/gi-ev/LNI-proceedings/tree/master.svg?style=shield)](https://circleci.com/gh/gi-ev/LNI-proceedings/)
+# LNI Proceedings [![Build Status](https://circleci.com/gh/gi-ev/LNI-proceedings/tree/master.svg?style=shield)](https://circleci.com/gh/gi-ev/LNI-proceedings/)
 
 This repository supports generating of proceedings based on the "Lecture Notes in Informatics" papers typeset using the [lni class](https://www.ctan.org/pkg/lni).
 An example output is available at [proceedings-example.pdf](proceedings-example.pdf).
