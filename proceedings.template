@@ -405,7 +405,6 @@
 \raggedbottom
 
 \begin{document}
-\pdfbookmark[part]{Titelseite}{Titelseite}
 \pagestyle{empty}
 \thispagestyle{empty}
 \fancypagestyle{plain}{
@@ -424,7 +423,11 @@
 % BEGIN: Inclusion of LNI-Startseiten.pdf
 
 % everything before the foreword
-\includepdf[pagecommand={\thispagestyle{empty}},pages=1-4,noautoscale]{LNI-Startseiten.pdf}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=1-2,noautoscale]{LNI-Startseiten.pdf}
+\phantomsection
+\pdfbookmark[part]{Titelseite}{Titelseite}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=3-4,noautoscale]{LNI-Startseiten.pdf}
+
 \phantomsection
 \pdfbookmark[part]{Vorwort}{Vorwort}
 %Use "plain" instead of "empty" if you want to add page numbers -- currently does not work as they seem out of the margins

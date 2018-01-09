@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [unreleased]
 ### Fixed
 - Fixed CC icon on first page of each paper (CC-BY-NC -> CC-BY-SA)
+- "Titelseite" PDF bookmark now on page 3 also in `proceedings-template.tex`. Before, it was on page 1. In `proceedings.tex`, it still is on page 3.
 
 ## [2.3.0] - 2018-01-09
 
