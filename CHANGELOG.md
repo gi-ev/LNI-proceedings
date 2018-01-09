@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased]
+## [2.3.0] - 2018-01-09
 
 ### Changed
 
@@ -88,7 +88,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 First release of the template
 
-[unreleased]: https://github.com/gi-ev/LNI-proceedings/compare/v2.2.0...master
+[unreleased]: https://github.com/gi-ev/LNI-proceedings/compare/v2.3.0...master
+[2.3.0]: https://github.com/gi-ev/LNI-proceedings/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/gi-ev/LNI-proceedings/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/gi-ev/LNI-proceedings/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/gi-ev/LNI-proceedings/compare/v1.3.0...v2.0.0
