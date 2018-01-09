@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Update LNI-Startseiten.docx using the version of <https://gi.de/fileadmin/GI/Hauptseite/Service/Publikationen/LNI/LNI-Startseiten.docx>: License statement changed from CC-BY-NC 3.0 to CC-BY-SA 4.0.
+- Update `LNI-Startseiten.docx` using the version of <https://gi.de/fileadmin/GI/Hauptseite/Service/Publikationen/LNI/LNI-Startseiten.docx>: License statement changed from CC-BY-NC 3.0 to CC-BY-SA 4.0.
 - Add PDF bookmarks for "Titelseite", "Vorwort", "Sponsoren", "Tagungsleitung", "Programmkomitee", and "Organisationsteam"
 - Minor improvements in `README.md`
 
