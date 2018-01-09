@@ -163,9 +163,10 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
    You also need to submit the cover to the GI and to the printing service.
 3. Adapt `config.tex` to your conference.
    Here, you also set the DOI prefix used for generating a unique DOI for each paper.
-4. Check that LNI-Startseiten.docx is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
+4. Check that `LNI-Startseiten.docx` is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
 5. Adapt `LNI-Startseiten.docx` to your conference.
-6. Adapt `pages=5-6` at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6]{LNI-Startseiten.pdf}` to match the page numbers of your foreword and sponsoring.
+5. Convert `LNI-Startseiten.docx` to `LNI-Startseiten.pdf` using Microsoft Word.
+5. Adapt `pages=x-y` (and possibly `\pdfbookmark`) at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-5]{LNI-Startseiten.pdf}` and subsequent `\includepdf` statements to match the page numbers of your foreword and sponsoring.
 6. Create all paper folders using a naming scheme:
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
    See also [Directory scheme](#directory-scheme).

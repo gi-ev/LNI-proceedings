@@ -405,6 +405,7 @@
 \raggedbottom
 
 \begin{document}
+\pdfbookmark[part]{Titelseite}{Titelseite}
 \pagestyle{empty}
 \thispagestyle{empty}
 \fancypagestyle{plain}{
@@ -419,12 +420,28 @@
 %compensate for hoffset -5pt -- source: http://tex.stackexchange.com/a/130828/9075
 \setboolean{@twoside}{false}
 
-%everything before the foreword
+
+% BEGIN: Inclusion of LNI-Startseiten.pdf
+
+% everything before the foreword
 \includepdf[pagecommand={\thispagestyle{empty}},pages=1-4,noautoscale]{LNI-Startseiten.pdf}
 \phantomsection
 \pdfbookmark[part]{Vorwort}{Vorwort}
 %Use "plain" instead of "empty" if you want to add page numbers -- currently does not work as they seem out of the margins
-\includepdf[pagecommand={\thispagestyle{empty}},pages=5-6,noautoscale]{LNI-Startseiten.pdf}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=5-5,noautoscale]{LNI-Startseiten.pdf}
+
+\phantomsection
+\pdfbookmark[part]{Sponsoren}{Sponsoren}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=6-6,noautoscale]{LNI-Startseiten.pdf}
+
+\phantomsection
+\pdfbookmark[part]{Tagungsleitung}{Tagungsleitung}
+\pdfbookmark[part]{Programmkomitee}{Programmkomitee}
+\pdfbookmark[part]{Organisationsteam}{Organisationsteam}
+\includepdf[pagecommand={\thispagestyle{empty}},pages=7-7,noautoscale]{LNI-Startseiten.pdf}
+
+% END: LNI-Startseiten.pdf
+
 
 \setboolean{@twoside}{true}
 \makeatletter
