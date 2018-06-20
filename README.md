@@ -3,7 +3,6 @@
 This repository supports generating of proceedings based on the "Lecture Notes in Informatics" papers typeset using the [lni class](https://www.ctan.org/pkg/lni).
 An example output is available at [proceedings-example.pdf](proceedings-example.pdf).
 
-
 ## Table of Contents
 
 <!-- toc -->
@@ -46,7 +45,6 @@ Following proceedings were typeset using this template:
 * [BTW 2017](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-265.html)
 * [BTW 2017 Workshopband](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-266.html)
 
-
 ## Aims of this work
 
 - Generate proceedings conforming with GI's requirements stated at the "[Herausgeberrichtlinien](https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html)".
@@ -61,16 +59,13 @@ Following proceedings were typeset using this template:
   - within the papers
   - from the index to the papers
 
-
 ## Howto
-
 
 ### System setup
 
 This section describes the setup of software required.
 This howto is based on a Windows environment.
 Linux users should have ready most of the tools required.
-
 
 #### Using Docker
 
@@ -103,7 +98,6 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   5. Execute `initexmf --update-fndb`
   6. Execute `initexmf --mklinks --force`
 
-
 ##### pax
 
 [pax](http://ctan.org/pkg/pax) is a utility, which enables hyperlinks still working when combining PDFs using pdflatex.
@@ -122,7 +116,6 @@ In the installation, we rely on [chocolatey](https://chocolatey.org/), because i
 
 Source for installing pax: <http://tex.stackexchange.com/a/44104/9075>
 
-
 ##### Python 2.7
 
 This is required to automatically extract the authors and title from the papers source texs.
@@ -136,19 +129,16 @@ This is required to automatically extract the authors and title from the papers 
 4. Install `python-docx`
   - `c:\Python27\Scripts\pip install python-docx`
 
-
 ##### Linux commands available at cmd.exe
 
 We need `sed` being available at a cmd.exe shell.
 This should be available when you executed `choco install git`.
-
 
 ##### PDFtk
 
 This is required for to cut the proceedings.pdf into separate PDF files, one per paper, to submit to "Digitale Bibliothek der GI".
 
 - Install PDFtk using `choco install pdftk`
-
 
 ### Generating the proceedings
 
@@ -222,7 +212,6 @@ See below.
 
 The automated steps of this workflow are stated at [.circlci/config.yml](https://github.com/gi-ev/LNI-proceedings/blob/master/.circleci/config.yml#L9).
 
-
 #### Generated files
 
 During the process, following files are generated:
@@ -235,7 +224,6 @@ During the process, following files are generated:
 - `proceedings.csv` - CSV containing some information on the proceedings.
 - `papers.txt` - list of paper id and starting page.
 
-
 #### Directory scheme
 
 Naming scheme: `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
@@ -245,7 +233,7 @@ Paper name always: `paper.tex`
 The following list may be generated out of an Excel file or something else.
 Otherwise, just create the folders and adapt `proceedings.tex` accordingly.
 
-```
+```text
 A = Eingeladene Vorträge
 A1-1 = Erster eingeladener Vortrag
 
@@ -253,7 +241,6 @@ B = Scientific Program (nach Themen gegliedert, Kapitel)
 B1 = Topic 1
 B1-1 = Talk 1
 ```
-
 
 #### Advanced usage
 
@@ -266,12 +253,10 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
 2. Execute `sh update-pages.sh`.
 3. Recompile all pdfs.
 
-
 ### Submitting to the GI and the printing service
 
 1. Submit `proceedings.pdf` and `LNI-Cover-Vorlage.ppt` (see step 2 above) to the GI for approval.
 2. After the approval, submit to the printing service.
-
 
 ### Submitting to the "Digitale Bibliothek der GI"
 
@@ -288,41 +273,40 @@ In case `cut-proceedings.sh` does not work on your side, this alternative way ca
    The separate pdfs are placed in the `parts` directory and named according to their build ids.
 10. Submit the `meta-extract.csv` and the PDFs in the `parts` directory to GI.
 
-
 ## FAQ
 
-Q: Some papers do not contain the short author list (i.e., `\author{...authorlist...}` instead of `\author[...authorlist...]{...authorlist...}`. <br>
+Q: Some papers do not contain the short author list (i.e., `\author{...authorlist...}` instead of `\author[...authorlist...]{...authorlist...}`.  
 A: Use the online service <https://regex101.com/>.
   The regex is `(\\footnote{.*})|(\\footnotemark\[.\])|%.*|\\textsuperscript{.*}`.
   Paste the `\author` content to "Test String" and expand "Substituation" at the bottom.
 
-Q: The number of pages changed. What should I do? <br>
+Q: The number of pages changed. What should I do?  
 A: `pdflatex proceedings`, do it twice to be sure that the TOC is created correctly and that the TOC has more than one page.
    Continue at "Update the page numbers" above
 
-Q: What can I do if the hyperlinks in the proceedings do not work? <br>
+Q: What can I do if the hyperlinks in the proceedings do not work?  
 A: Run `pdflatex proceedings` one more time, because pax needs one more run.
 
-Q: What can I do if the hyperlinks in the cropped proceedings do not work? <br>
+Q: What can I do if the hyperlinks in the cropped proceedings do not work?  
 A: You hit an issue at pax with an interplay of `viewport` in includegraphics:
    The offset resulting of the viewport is not treated by pax.
    The link is in there. Just search a few lines below the link text.
 
-Q: What if a paper needs adjustments? <br>
+Q: What if a paper needs adjustments?  
 A : Sometimes, the GI required adjustments.
 For instance, if an author did not use the LNI style for the bibliography.
 You can either ask the authors directly or do it for yourself.
 In case you decide to adjust the paper for yourself, replace `\editor{...}` and `\booktitle{...}` by `\input{../../config.tex}` to ensure that all papers have the same conference configuration.
 
-Q: I recompiled some papers. How can I check for errors? <br>
+Q: I recompiled some papers. How can I check for errors?  
 A: Use [ack](https://beyondgrep.com/) to globally check for errors - run it from root directory to be sure everything compiled well. Insall it using [choco install ack](https://chocolatey.org/packages/ack).
   - `ack "LaTeX Warning: Label(s) may have changed."`
   - `ack "Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding)"`
 
-Q: How can I get the PDFs with the correct headers? <br/>
+Q: How can I get the PDFs with the correct headers?  
 A: Execute `cut-proceedings.sh proceedings.pdf`. [pdftk](https://www.pdflabs.com/tools/pdftk-server/) and ghostscript installed.
 
-Q: Some papers are cut strangely and the PDF is broken. What can I do? <br />
+Q: Some papers are cut strangely and the PDF is broken. What can I do?  
 A: The authors use an old version of the template.
   Please ask them to update to the new version 1.1, available at <https://www.ctan.org/tex-archive/macros/latex/contrib/lni>.
   You can also update the `paper.tex` file for yourself.
@@ -331,20 +315,19 @@ A: The authors use an old version of the template.
   That command is made for inclusion of papers of the old format.
   However, it is currently not maintained and may produce wrong output.
 
-Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings. <br />
+Q: Some latex papers have two overlapping, slightly offset versions of the copyright icons on their first page in the proceedings.  
 A: This seems to be a slight mismatch between the current LNI Latex template (v1.3) and the proceedings template. To fix this, you can surround the `\ccbynceu` on line 315 and 317 with `\phantom` like so: `\phantom{\ccbynceu}` and rebuild these papers.
 
-Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` when running `addAuthTiProduction.py` <br />
+Q: I get `AttributeError: 'NoneType' object has no attribute 'group'` at `part_a = match_a.group(1)` when running `addAuthTiProduction.py`  
 A: You are not following the directory pattern `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
    For instance, `A1-1` is valid, but `A-1` is invalid.
 
-Q: I get `KeyError: 'A1'` when running `addAuthTiProduction.py` <br />
+Q: I get `KeyError: 'A1'` when running `addAuthTiProduction.py`  
 A: You did not update `addAuthTiProduction.py`.
    Please update `lookup_workshop` in there.
 
-Q: I get `AttributeError: 'NoneType' object has no attribute 'splitlines'` when using `metaExract.py`. <br />
+Q: I get `AttributeError: 'NoneType' object has no attribute 'splitlines'` when using `metaExract.py`.  
 A: Not all columns are filled in `papers.csv`.
-
 
 ## Trouble shooting of compiled papers
 
@@ -353,12 +336,11 @@ This section provides hints on some of the most prominent errors.
 
 * `\openbox already defined` -> `\let\openbox\relax` before `\usepackage{amsthm}`
 * If you get something about `\spacing in math mode`, ensure that your bib file is correct and that you re-ran bibtex.
-* `! Undefined control sequence.` <br />
-  `l.27 \ulp@afterend` <br />
+* `! Undefined control sequence.`  
+  `l.27 \ulp@afterend`  
     You have used pdfcomments package, but you disabled it.
     Delete `paper.aux` and recompile.
 * `! You can't use ``\spacefactor' in internal vertical mode.`: Currently unknown
-
 
 ## Current minimal example
 
@@ -368,7 +350,6 @@ These generated proceedings **do not** follow the guide lines:
 The headings of each papers are too long, because the authors and titles are too long.
 Manual adjustements using the `\addpaper` commands are required.
 The minimal example should only show that the commands of the toolchain work.
-
 
 ## Implementation documentation
 
@@ -383,13 +364,11 @@ This is done using [sed](https://en.wikipedia.org/wiki/Sed).
 It was developed before `slicing.py`, but puts each paper to a separate sub directory.
 Currently, it is not used, but left there, because it could get useful sometime.
 
-
 ## Considered alternatives
 
 When designing this solution to typeset complete proceedings, several alternatives were investigated.
 Nearly all possible alternatives are listed at <http://www.ctan.org/topic/confproc>.
 In the following, evaluated alternatives are listed and discussed.
-
 
 ### confproc
 
@@ -400,26 +379,22 @@ Compared with this approach, it has following drawbacks:
 - When clicking on a link in one included PDF, the linked PDF is opened instead of jumping to the link.
 - Indexing of authors has to be done by manually.
 
-
 ### combine
 
 The [combine](https://www.ctan.org/pkg/combine) class combines the sources of different LaTeX together.
 Since there might be conflicting packges, we wanted to include each PDF on its own.
 The PDFs can be typeset by itself.
 
-
 ### proc
 
 [proc](http://www.ctan.org/pkg/proc) is a very basic class based on the article class.
 No update since 1995.
 
-
-###  Springer Computer Science Proceedings
+### Springer Computer Science Proceedings
 
 Springer offers help for proceedings authors at <https://www.springer.com/gp/computer-science/lncs/editor-guidelines-for-springer-proceedings>.
 It uses makeindex instead of biblatex for index generation.
 We opted for biblatex+texindy to be UTF-8 save and to directly be able to use the content of `\authors` for index generation.
-
 
 ## License
 
