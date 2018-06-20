@@ -70,10 +70,10 @@ Linux users should have ready most of the tools required.
 #### Using Docker
 
 On both Windows and Linux, one can use [Docker](https://www.docker.com/) for a fully configured Linux environment being able to build the proceedings.
-For inspection, the docker image can be found at <https://hub.docker.com/r/koppor/texlive/>.
-Assuming, the proceedings reside in `c:\git-repositories\proceedings`, following command leads to a bash shell enabling running the required commands:
+For inspection, the docker image can be found at <https://hub.docker.com/r/danteev/texlive/>.
+Assuming, the proceedings reside in `c:\git-repositories\LNI-proceedings`, following command leads to a bash shell enabling running the required commands:
 
-    docker run -v /c/git-repositories/proceedings:/var/texlive -it koppor/texlive:v1.2.0 bash
+    docker run -v c:\git-repositories\LNI-proceedings:/var/texlive -it danteev/texlive:v1.6.0 bash
 
 #### Manual Setup on Windows
 
@@ -201,7 +201,7 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
   - Linux: Execute `prepare-papers.sh`
   - Windows: Execute `prepare-papers.bat`
 18. Compile the final proceedings
-    - Linux: Execute `make-proceeding.sh` to execute all required steps
+    - Linux: Execute `make-proceedings.sh` to execute all required steps
     - Windows: Execute `make-proceedings.bat` to execute all required steps
 19. Shrink the size of the final pdf:
     - Rename `proceedings.pdf` to `proceedings-large.pdf`

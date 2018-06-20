@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
+### Changed
+
+- Updated to [docker texlive image](https://github.com/dante-ev/docker-texlive) [v1.6.0](https://github.com/dante-ev/docker-texlive/blob/master/CHANGELOG.md#v160--2018-06-19).
+
 ## [2.4.0] - 2018-01-10
 
 ### Fixed
+
 - Fixed CC icon on first page of each paper (CC-BY-NC -> CC-BY-SA)
 - "Titelseite" PDF bookmark now on page 3 also in `proceedings-template.tex`. Before, it was on page 1. In `proceedings.tex`, it still is on page 3.
 

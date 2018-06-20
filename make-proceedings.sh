@@ -1,11 +1,11 @@
 #!/bin/bash
 pdflatex -synctex=1 proceedings
 pdflatex -synctex=1 proceedings
-#TOC should be correct now
+# TOC should be correct now
 sed -i "s/\\\\IeC //g" proceedings.bib
 biber proceedings
 pdflatex -synctex=1 proceedings
-texindy proceedings.idx
+texindy -C utf8 proceedings.idx
 pdflatex -synctex=1 proceedings
 pdflatex -synctex=1 proceedings
 sed -i "s/\\\\IeC //g" proceedings.bib
