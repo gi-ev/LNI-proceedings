@@ -17,7 +17,7 @@ jobs:
        - run: sed -i "s/\\\\IeC //g" proceedings.bib
        - run: biber proceedings
        - run: pdflatex -synctex=1 proceedings
-       - run: texindy proceedings.idx
+       - run: texindy -C utf8 proceedings.idx
        - run: pdflatex -synctex=1 proceedings
        - run: pdflatex -synctex=1 proceedings
        - run: sed -i "s/\\\\IeC //g" proceedings.bib
