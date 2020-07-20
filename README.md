@@ -42,8 +42,10 @@ An example output is available at [proceedings-example.pdf](proceedings-example.
 
 Following proceedings were typeset using this template:
 
-* [BTW 2017](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-265.html)
-* [BTW 2017 Workshopband](https://www.gi.de/service/publikationen/lni/gi-edition-proceedings-2017/gi-edition-lecture-notes-in-informatics-lni-p-266.html)
+* [BTW 2017](https://dx.doi.org/10.1007/s13222-017-0256-7)
+* [BTW 2017 Workshopband](https://dx.doi.org/10.1007/s13222-017-0256-7)
+* [SKILL 2018](https://dl.gi.de/handle/20.500.12116/28971/browse)
+* [SKILL 2019](https://dl.gi.de/handle/20.500.12116/28988/browse)
 
 ## Aims of this work
 
