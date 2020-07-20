@@ -46,6 +46,7 @@ Following proceedings were typeset using this template:
 * [BTW 2017 Workshopband](https://dl.gi.de/handle/20.500.12116/21091/)
 * [SKILL 2018](https://dl.gi.de/handle/20.500.12116/28971/browse)
 * [SKILL 2019](https://dl.gi.de/handle/20.500.12116/28988/browse)
+* [Software Engineering and Software Management 2019](https://dx.doi.org/10.18420/se2019-58)
 
 ## Aims of this work
 
