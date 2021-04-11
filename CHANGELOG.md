@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Updated to [docker texlive image@latest](https://github.com/dante-ev/docker-texlive).
 - Switched from [pax](https://ctan.org/pkg/pax) to [newpax](https://ctan.org/pkg/newpax).
-- Switch to lualatex
+- Switch to lualatex.
+- Switch from `viewport` to `trim` (which works better with newpax and probably pax, too).
 
 ### Added
 
