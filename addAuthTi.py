@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # call from within papers folder like so:
-# python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex
+# python ../addAuthTi.py ../proceedings.template.tex ../proceedings.tex */paper.tex
 
 import os
 import re

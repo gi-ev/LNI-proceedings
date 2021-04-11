@@ -1,4 +1,15 @@
+% Required for newpax
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+
 \documentclass[parskip=full-]{scrbook}
+
+\directlua{
+  require("newpax")
+  pdf.setcompresslevel(9)
+  % According to https://de.wikipedia.org/wiki/Portable_Document_Format#Versionen_von_PDF, this is from 2008
+  pdf.setminorversion(9)
+}
 
 %Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
 %So, do not enable these commands
@@ -65,10 +76,6 @@
 \newcommand\pagenumberingnoreset[1]{\gdef\thepage{\csname @#1\endcsname\c@page}}
 \makeatother
 
-\usepackage{cmap}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-
 \usepackage{ulem}
 
 \usepackage[english,ngerman]{babel}
@@ -134,9 +141,22 @@
 %% END: Configuration for LNI-like TOC
 
 % LNIs font configuration
-\usepackage{newtxtext}
-\usepackage{newtxmath}
-\usepackage[zerostyle=b,straightquotes]{newtxtt}
+
+\usepackage[no-math]{fontspec}
+\usepackage{unicode-math}
+
+% See https://tug.org/FontCatalogue/texgyretermes/ for more information
+\setmainfont{texgyretermes}[
+  Extension = .otf,
+  UprightFont = *-regular,
+  BoldFont = *-bold,
+  ItalicFont = *-italic,
+  BoldItalicFont = *-bolditalic,
+  Ligatures=TeX
+]
+% See https://tug.org/FontCatalogue/texgyreheros/ for more information
+\setsansfont[Scale=.9]{TeX Gyre Heros Regular}
+
 \usepackage[%
    final,%
    tracking=smallcaps,%
@@ -146,20 +166,7 @@
 \usepackage{graphicx}
 \usepackage{eso-pic}
 
-\usepackage{pax}
-%Fix by Heiko Oberdiek - 2017-02-02
-\makeatletter
-\def\PAX@viewport#1 #2 #3 #4\\{%
-  \PAX@defaultbp\PAX@vllx{#1}%
-  \PAX@defaultbp\PAX@vlly{#2}%
-  \PAX@defaultbp\PAX@vurx{#3}%
-  \PAX@defaultbp\PAX@vury{#4}%
-  \edef\PAX@page@llx{\the\dimexpr\PAX@page@llx+\PAX@vllx\relax}%
-  \edef\PAX@page@lly{\the\dimexpr\PAX@page@lly+\PAX@vlly\relax}%
-  \edef\PAX@page@urx{\the\dimexpr\PAX@page@llx+\PAX@vurx\relax}% FIXED
-  \edef\PAX@page@ury{\the\dimexpr\PAX@page@lly+\PAX@vury\relax}%
-}
-\makeatother
+\usepackage{newpax}
 
 \usepackage{csquotes}
 

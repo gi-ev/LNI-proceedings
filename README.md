@@ -135,18 +135,15 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
   On Linux you can run `add_tex_via_docx.sh`.
   Make sure you installed python-docx as described in system setup.
   The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
-1. Create pax information
-   * Linux: Execute `prepare-papers.sh`
-   * Windows: Execute `prepare-papers.bat`
 1. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
 1. Copy the author information from each `paper.tex` into `proceedings.tex`:
    * Open a [git bash](https://git-for-windows.github.io/)
    * cd into `papers`
-   * During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex`.
+   * During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template.tex ../proceedings.tex */paper.tex`.
      The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
    * To override the extraction of author and title for a specific paper, just put a the desired `\addpaper` statement into the `paper.tex` of that paper.
      Prefix it with `%` to ensure the normal latex run on that paper does not cause issues.
-   * For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex`.
+   * For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex`.
      This will create a `proceedings.tex` with the real workshop titles instead of build ids.
 1. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
@@ -167,9 +164,6 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Check proceedings and make necessary adaptions.
     During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings.
     Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
-1. Finalize pax information
-   * Linux: Execute `prepare-papers.sh`
-   * Windows: Execute `prepare-papers.bat`
 1. Compile the final proceedings
    * Linux: Execute `make-proceedings.sh` to execute all required steps
    * Windows: Execute `make-proceedings.bat` to execute all required steps

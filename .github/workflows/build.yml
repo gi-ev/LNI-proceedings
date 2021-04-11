@@ -12,13 +12,11 @@ jobs:
         uses: actions/checkout@v2
       - name: prepare papers
         run: |
-          # extract hyperlink information (pax)
-          ./prepare-papers.sh
           # generate paper.tex out of paper.docx
           cd papers && ./add_tex_via_docx.sh
           # generate final proceedings.tex based on the information of each paper.tex file
           cd papers
-          python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex
+          python ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex
       - name: make-proceedings.sh
         uses: dante-ev/latex-action@latest
         with:

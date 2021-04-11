@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated to [docker texlive image](https://github.com/dante-ev/docker-texlive) [v1.6.0](https://github.com/dante-ev/docker-texlive/blob/master/CHANGELOG.md#v160--2018-06-19).
+- Updated to [docker texlive image@latest](https://github.com/dante-ev/docker-texlive).
+- Switched from [pax](https://ctan.org/pkg/pax) to [newpax](https://ctan.org/pkg/newpax).
+
+### Removed
+
+- `prepare-papers.*`, because of the switch from pax to newpax.
 
 ## [2.4.0] - 2018-01-10
 
