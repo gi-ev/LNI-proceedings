@@ -20,7 +20,7 @@ jobs:
           # generate final proceedings.tex based on the information of each paper.tex file
           python3 ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex
       - name: latexmk proceedings
-        uses: dante-ev/latex-action@latest
+        uses: dante-ev/latex-action@edge
         with:
           root_file: proceedings.tex
       - name: fix .bib and .csv
