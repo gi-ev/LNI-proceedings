@@ -35,6 +35,10 @@ jobs:
           cd slicing && python slicing.py proceedings-shrunk.pdf proceedings.csv
       - name: Gather build artifacts
         run: mkdir build && mv slicing/parts/*.pdf build/ && mv proceedings-shrunk.pdf build/proceedings-final.pdf && mv proceedings.pdf build/proceedings-large.pdf && mv meta-extract/meta_extract.csv build/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build/
       - name: Deploy
         if: github.ref == 'refs/heads/main'
         uses: crazy-max/ghaction-github-pages@v2
