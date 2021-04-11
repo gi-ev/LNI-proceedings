@@ -50,7 +50,7 @@ docker run -v c:\git-repositories\LNI-proceedings:/var/texlive -it danteev/texli
 ##### Recommended setup of MiKTeX
 
 MiKTeX should be installed in a single-user setup to avoid troubles when updating packages.
-Furthermore, it should be installed at `C:\MiKTeX` to enable easy installation of the pax utility.
+Furthermore, it should be installed at `C:\MiKTeX` to have an easy path access.
 Otherwise, you have to follow the steps described at <http://tex.stackexchange.com/a/108490/9075> to keep your MiKTeX distribution updated.
 
 * Download the basic installer from <http://miktex.org/download>
@@ -68,31 +68,13 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   5. Execute `initexmf --update-fndb`
   6. Execute `initexmf --mklinks --force`
 
-##### pax
-
-[pax](http://ctan.org/pkg/pax) is a utility, which enables hyperlinks still working when combining PDFs using pdflatex.
-In the installation, we rely on [chocolatey](https://chocolatey.org/), because it eases installation much.
-
-* Installl java runtime environment using `choco install jre8`. [chocolatey page](https://chocolatey.org/packages/jre8).
-* Install unzip, wget, and curl using `choco install unzip wget curl`.
-* Install perl using `choco install strawberryperl`. [chocolatey page](https://chocolatey.org/packages/StrawberryPerl).
-* Install pax using the MiKTeX package manager
-* Execute `perl C:\MiKTeX\scripts\pax\pdfannotextractor.pl --install` to enable downloading of a pdfbox version fitting for pax.
-* Ignore the error regarding "MiKTeX Configuration Utility"
-* Start "MiKTeX Settings"
-* Click on "Refresh FNDB"
-* Click on "Update Formats"
-* Now, `pdfannotextractor.pl` is ready to go
-
-Source for installing pax: <http://tex.stackexchange.com/a/44104/9075>
-
 ##### Python 2.7
 
 This is required to automatically extract the authors and title from the papers source texs.
 
 1. Install Python 2.7: `choco install python2`
 2. Install pip
-   * wget https://bootstrap.pypa.io/get-pip.py
+   * `wget https://bootstrap.pypa.io/get-pip.py`
    * `c:\Python27\python get-pip.py`
 3. Install `pyparsing`
    * `c:\Python27\Scripts\pip install pyparsing`
@@ -147,26 +129,24 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
      This will create a `proceedings.tex` with the real workshop titles instead of build ids.
 1. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
-1. Execute `pdflatex -synctex=1 proceedings.tex` to see whether pdflatex gets through.
+1. Execute `lualatex -synctex=1 proceedings.tex` to see whether `lualatex` gets through.
 1. Check `proceedings.pdf` whether **all fonts are embedded**.
    In case some fonts are not embedded, follow folling steps:
     * go to the folder of the paper
     * locate the PDF containing the picture
     * embed the font using Acrobat Professional's preflight functionality
-    * Recompile the paper (`pdflatex paper`, ...)
-    * Recompile the proceedings (`pdflatex  -synctex=1 proceedings`)
-1. Do the usual pdflatex, biblatex, texindy runs.
-   pdflatex also generates `proceedings.bib` and thereby also generates the character sequence `\IeC` (see [Implementation documentation](#implementation-documentation)).
-   These characters have to be removed for the final biblatex run.
-   All these steps are automatically done by `make-proceedings`.
-    * Linux: Execute `make-proceeding.sh` to execute all required steps
-    * Windows: Execute `make-proceedings.bat` to execute all required steps
+    * Recompile the paper (`lualatex paper`, ...)
+    * Recompile the proceedings (`lualatex -synctex=1 proceedings`)
+1. Do the usual `lualatex`, `biblatex`, `texindy` runs.
+   All these steps are automatically done by `make-proceedings` or by `latexmk proceedings`.
+    * Linux: Execute `latexmk proceedings` (or `make-proceeding.sh`) to execute all required steps
+    * Windows: Execute `latexmk proceedings` (or `make-proceedings.bat`) to execute all required steps
 1. Check proceedings and make necessary adaptions.
-    During the fixup phase, you can run `pdflatex -synctex=1 proceedings` to quickly build the proceedings.
-    Nevertheless, run `make-proceedings.bat` every now and then to ensure a correctly generated index.
+    During the fixup phase, you can run `lualatex -synctex=1 proceedings` to quickly build the proceedings.
+    Nevertheless, run `latexmk proceedings` (or `make-proceedings.bat`) every now and then to ensure a correctly generated index.
 1. Compile the final proceedings
-   * Linux: Execute `make-proceedings.sh` to execute all required steps
-   * Windows: Execute `make-proceedings.bat` to execute all required steps
+    * Linux: Execute `latexmk proceedings` (or `make-proceeding.sh`) to execute all required steps
+    * Windows: Execute `latexmk proceedings` (or `make-proceedings.bat`) to execute all required steps
 1. Shrink the size of the final pdf:
    * Rename `proceedings.pdf` to `proceedings-large.pdf`
    * Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
@@ -174,7 +154,7 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.
 
-The automated steps of this workflow are stated at [.circlci/config.yml](https://github.com/gi-ev/LNI-proceedings/blob/master/.circleci/config.yml#L9).
+The automated steps of this workflow are stated at [.github/workflows/build.yml](https://github.com/gi-ev/LNI-proceedings/blob/main/.github/workflows/build.yml).
 
 #### Generated files
 
@@ -184,8 +164,8 @@ During the process, following files are generated:
   * It is not recommended to version this file during the process of proceedings generation, because it gets very large.
   * The page size of this file is already the final page size of both the printed and the electronic proceedings.
     Delivering this format is agreed with the publisher.
-* `proceedings.bib` - BibTeX bibliography of the proceedings.
-* `proceedings.csv` - CSV containing some information on the proceedings.
+* `proceedings.bib` - BibTeX bibliography of the proceedings. Ensure that you run `makeproceedings.sh` so that `\textunderscore ` is correctly replaced by `_`.
+* `proceedings.csv` - CSV containing some information on the proceedings. Ensure that you run `makeproceedings.sh` so that there is no space before each `;` anymore.
 * `papers.txt` - list of paper id and starting page.
 
 #### Directory scheme
@@ -245,19 +225,15 @@ A: Use the online service <https://regex101.com/>.
   Paste the `\author` content to "Test String" and expand "Substituation" at the bottom.
 
 Q: The number of pages changed. What should I do?  
-A: `pdflatex proceedings`, do it twice to be sure that the TOC is created correctly and that the TOC has more than one page.
+A: `lualatex proceedings`, do it twice to be sure that the TOC is created correctly and that the TOC has more than one page.
    Continue at "Update the page numbers" above
 
 Q: What can I do if the hyperlinks in the proceedings do not work?  
-A: Run `pdflatex proceedings` one more time, because pax needs one more run.
-
-Q: What can I do if the hyperlinks in the cropped proceedings do not work?  
-A: You hit an issue at pax with an interplay of `viewport` in includegraphics:
-   The offset resulting of the viewport is not treated by pax.
-   The link is in there. Just search a few lines below the link text.
+A: With `newpax` this should not be the case: The link information is extracted before included the PDF.
+Thus, `paper.newpax` is generated right before the information of `paper.newpax` is read.
 
 Q: What if a paper needs adjustments?  
-A : Sometimes, the GI required adjustments.
+A: Sometimes, the GI required adjustments.
 For instance, if an author did not use the LNI style for the bibliography.
 You can either ask the authors directly or do it for yourself.
 In case you decide to adjust the paper for yourself, replace `\editor{...}` and `\booktitle{...}` by `\input{../../config.tex}` to ensure that all papers have the same conference configuration.
