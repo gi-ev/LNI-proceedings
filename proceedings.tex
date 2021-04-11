@@ -285,18 +285,18 @@
     \write\pagesfile{#3 \thepage}
     \setcounter{startpage}{\value{page}}
 
-    \pdfximage{papers/#3/paper.pdf}
+    \directlua{newpax.writenewpax("papers/#3/paper")}
 
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
         %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-		%      paperheight=23.5cm,paperwidth=15.5cm,
-		%      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
+        %      paperheight=23.5cm,paperwidth=15.5cm,
+        %      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
         %      trim: 5cm is for cutting away the CC-license sign and the DOI number
         \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, trim=0 5cm 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
     }
     \outputlicenseanddoi
-	\phantomsection
+    \phantomsection
     \suppress\cite{#3}\endsuppress
     \addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
     \newpage
@@ -319,7 +319,7 @@
         \addtostream{proceedingsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J  doi = {\curdoi},^^J}^^J}
     }
 
-	{
+    {
         \renewcommand{\and}{;}
         \addtostream{proceedingscsv}{#4;#5;\thestartpage--\the\numexpr\value{page}-1\relax;#3}
     }
@@ -350,54 +350,55 @@
 \newcommandtwoopt{\addpaperWRONGLAYOUT}[5][DEF][DEF]{%
     \stepcounter{curpaper}
 
-	\fancypagestyle{lniotherpages}{%
-		\fancyhead{}
-		%title on the right
-		\fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
-		%authors on the left
-		\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
-		\fancyfoot{} % Löscht alle Fußzeileneinstellungen
-		\renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
-	}
-	%collect page number
-	\write\pagesfile{#3 \thepage}
-	%\StrExpand{#3}{\curtitle}
-	{
-		\renewcommand{\and}{ and }
-		\addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
-	}
+    \fancypagestyle{lniotherpages}{%
+        \fancyhead{}
+        %title on the right
+        \fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+        %authors on the left
+        \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+        \fancyfoot{} % Löscht alle Fußzeileneinstellungen
+        \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
+    }
+    %collect page number
+    \write\pagesfile{#3 \thepage}
+    %\StrExpand{#3}{\curtitle}
+    {
+        \renewcommand{\and}{ and }
+        \addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
+    }
 
-	%All PDFs:
-	%offset=-0.2cm +2.60cm (-5pt, 73pt)
-	\pdfximage{#3/paper.pdf}
+    %All PDFs:
+    %offset=-0.2cm +2.60cm (-5pt, 73pt)
 
-	\thispagestyle{lnifirstpage}
-	\AddToShipoutPictureBG*{\AtPageUpperLeft{%
-			%When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-			\put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, trim=0 0 21cm 23.628cm, clip]{#3/paper.pdf}}}
-	}
-	\outputlicenseanddoi
-	\phantomsection
-	\suppress\cite{#3}\endsuppress
-	\addsectiontocentry{}{\lnitoc{#4}{#5}}
-	\newpage
-	\pagestyle{lniotherpages}
+  \directlua{newpax.writenewpax("#3/paper")}
 
-	\ifthenelse{\the\pdflastximagepages>1}{
-		\setcounter{curpage}{1}
-		\whiledo{\value{curpage}<\the\pdflastximagepages}{
-			\stepcounter{curpage}
-			\AddToShipoutPictureBG*{\AtPageUpperLeft{%
-			        %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
-					%\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
-					\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 458752sp 21cm 44517417sp}, clip]{#3/paper.pdf}}}
-			}
-			\null
-			\newpage
-		}
-	}
+    \thispagestyle{lnifirstpage}
+    \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+            %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
+            \put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, trim=0 0 21cm 23.628cm, clip]{#3/paper.pdf}}}
+    }
+    \outputlicenseanddoi
+    \phantomsection
+    \suppress\cite{#3}\endsuppress
+    \addsectiontocentry{}{\lnitoc{#4}{#5}}
+    \newpage
+    \pagestyle{lniotherpages}
 
-	\cleardoublepage
+    \ifthenelse{\the\pdflastximagepages>1}{
+        \setcounter{curpage}{1}
+        \whiledo{\value{curpage}<\the\pdflastximagepages}{
+            \stepcounter{curpage}
+            \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+                    %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
+                    %\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
+                    \put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 458752sp 21cm 44517417sp}, clip]{#3/paper.pdf}}}
+            }
+            \null
+            \newpage
+        }
+    }
+
+    \cleardoublepage
 
 } %END of \newcommand{addpaper}
 
