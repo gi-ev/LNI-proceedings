@@ -11,13 +11,13 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: prepare papers
+        working-directory: ./papers
         run: |
-          # generate paper.tex out of paper.docx
-          cd papers && ./add_tex_via_docx.sh
-          # generate final proceedings.tex based on the information of each paper.tex file
-          cd papers
           sudo pip3 install pyparsing
           sudo pip3 install python-docx
+          # generate paper.tex out of paper.docx
+          ./add_tex_via_docx.sh
+          # generate final proceedings.tex based on the information of each paper.tex file
           python3 ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex
       - name: latexmk proceedings
         uses: dante-ev/latex-action@latest
@@ -37,9 +37,15 @@ jobs:
       - name: slice proceedings
         run: |
           cp proceedings-shrunk.pdf proceedings.csv slicing/
-          cd slicing && python3 slicing.py proceedings-shrunk.pdf proceedings.csv
+          cd slicing
+          python3 slicing.py proceedings-shrunk.pdf proceedings.csv
       - name: Gather build artifacts
-        run: mkdir build && mv slicing/parts/*.pdf build/ && mv proceedings-shrunk.pdf build/proceedings-final.pdf && mv proceedings.pdf build/proceedings-large.pdf && mv meta-extract/meta_extract.csv build/
+        run: |
+          mkdir build
+          mv slicing/parts/*.pdf build/
+          mv proceedings-shrunk.pdf build/proceedings-final.pdf
+          mv proceedings.pdf build/proceedings-large.pdf
+          mv meta-extract/meta_extract.csv build/
       - uses: actions/upload-artifact@v2
         with:
           name: build
