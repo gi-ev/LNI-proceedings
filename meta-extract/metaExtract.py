@@ -1,6 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
-# call like so:
+
+# call like this:
 # python metaExtract.py papers.csv ws.csv proceedings.csv
 
 # import textract
@@ -14,8 +15,8 @@ from collections import OrderedDict
 # sys.argv[3]: proceedings csv
 
 if len(sys.argv) < 4:
-    print "Please start the script as follows:"
-    print "python metaExtract.py <Paper Data csv> <Workshop Table csv> <proceedings csv>"
+    print("Please start the script as follows:")
+    print("python metaExtract.py <Paper Data csv> <Workshop Table csv> <proceedings csv>")
     sys.exit(-1)
 
 INPUT = sys.argv[1]
@@ -74,7 +75,7 @@ input_file = csv.DictReader(open(INPUT, "r"))
 build_ids = []
 for row in input_file:
     if row['Build ID'] in build_ids and row['Build ID'] != '':
-        print "Found double Build ID '" + row['Build ID'] + "'!"
+        print("Found double Build ID '" + row['Build ID'] + "'!")
     else:
         build_ids.append(row['Build ID'])
 

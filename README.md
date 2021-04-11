@@ -68,18 +68,15 @@ Otherwise, you have to follow the steps described at <http://tex.stackexchange.c
   5. Execute `initexmf --update-fndb`
   6. Execute `initexmf --mklinks --force`
 
-##### Python 2.7
+##### Python 3
 
 This is required to automatically extract the authors and title from the papers source texs.
 
-1. Install Python 2.7: `choco install python2`
-2. Install pip
-   * `wget https://bootstrap.pypa.io/get-pip.py`
-   * `c:\Python27\python get-pip.py`
-3. Install `pyparsing`
-   * `c:\Python27\Scripts\pip install pyparsing`
-4. Install `python-docx`
-   * `c:\Python27\Scripts\pip install python-docx`
+1. Install Python: `choco install python`
+1. Install `pyparsing`
+   * `pip install pyparsing` (or `pip3 install pyparsing`)
+1. Install `python-docx`
+   * `pip install python-docx` (or `pip3 install python-docx`)
 
 ##### Linux commands available at cmd.exe
 
@@ -121,8 +118,8 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Copy the author information from each `paper.tex` into `proceedings.tex`:
    * Open a [git bash](https://git-for-windows.github.io/)
    * cd into `papers`
-   * During fixup phase, run `/c/Python27/python ../addAuthTi.py ../proceedings.template.tex ../proceedings.tex */paper.tex`.
-     The proceedings.tex created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
+   * During fixup phase, run (on linux, because of expansion) `python ../addAuthTi.py ../proceedings.template.tex ../proceedings.tex */paper.tex`.
+     The `proceedings.tex` created by this script uses build ids as workshop titles which makes it easier to identify the specific papers causing issues.
    * To override the extraction of author and title for a specific paper, just put a the desired `\addpaper` statement into the `paper.tex` of that paper.
      Prefix it with `%` to ensure the normal latex run on that paper does not cause issues.
    * For final proceedings, fill the workshop table in `addAuthTiProduction.py` and run `python ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex`.
