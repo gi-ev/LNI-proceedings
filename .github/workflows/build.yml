@@ -16,6 +16,8 @@ jobs:
           cd papers && ./add_tex_via_docx.sh
           # generate final proceedings.tex based on the information of each paper.tex file
           cd papers
+          sudo pip3 install pyparsing
+          sudo pip3 install python-docx
           python ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex
       - name: latexmk proceedings
         uses: dante-ev/latex-action@latest
