@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
+### Fixed
+
+- DOI with underscores now correctly contained in `proceedings.bib`
+
 ### Changed
 
 - Updated to [docker texlive image@latest](https://github.com/dante-ev/docker-texlive).
