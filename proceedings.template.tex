@@ -286,6 +286,7 @@
     \setcounter{startpage}{\value{page}}
 
     \directlua{newpax.writenewpax("#3/paper")}
+    \saveimageresource{#3/paper.pdf}
 
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
@@ -302,9 +303,9 @@
     \newpage
     \pagestyle{lniotherpages}
 
-    \ifthenelse{\the\pdflastximagepages>1}{
+    \ifthenelse{\the\lastsavedimageresourcepages>1}{
         \setcounter{curpage}{1}
-        \whiledo{\value{curpage}<\the\pdflastximagepages}{
+        \whiledo{\value{curpage}<\the\lastsavedimageresourcepages}{
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
               \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, trim=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
@@ -369,7 +370,9 @@
 
     %All PDFs:
     %offset=-0.2cm +2.60cm (-5pt, 73pt)
+
     \directlua{newpax.writenewpax("#3/paper")}
+    \saveimageresource{papers/#3/paper.pdf}
 
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
@@ -383,9 +386,9 @@
     \newpage
     \pagestyle{lniotherpages}
 
-    \ifthenelse{\the\pdflastximagepages>1}{
+    \ifthenelse{\the\lastsavedimageresourcepages>1}{
         \setcounter{curpage}{1}
-        \whiledo{\value{curpage}<\the\pdflastximagepages}{
+        \whiledo{\value{curpage}<\the\lastsavedimageresourcepages}{
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
                     %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
