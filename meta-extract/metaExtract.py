@@ -1,5 +1,7 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
+# coding: utf-8
 
 # call like this:
 # python metaExtract.py papers.csv ws.csv proceedings.csv
