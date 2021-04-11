@@ -22,7 +22,7 @@ jobs:
       - name: latexmk proceedings
         uses: dante-ev/latex-action@latest
         with:
-          root_file: procedings.tex
+          root_file: proceedings.tex
       - name: fix .bib and .csv
         run: |
           # the last two steps of makeproceedings.sh
