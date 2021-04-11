@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Updated to [docker texlive image@latest](https://github.com/dante-ev/docker-texlive).
 - Switched from [pax](https://ctan.org/pkg/pax) to [newpax](https://ctan.org/pkg/newpax).
+- Switch to lualatex
+
+### Added
+
+- Add pacakge [selnolig](https://ctan.org/pkg/selnolig) to ensure correct ligatures.
 
 ### Removed
 
