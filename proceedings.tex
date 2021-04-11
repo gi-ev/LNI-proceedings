@@ -199,7 +199,7 @@
 
 \usepackage{hyphenat}
 
-\usepackage{hyperref}
+\usepackage[unicode=true]{hyperref}
 \hypersetup{%
    pdftitle = {},  %The title of the conference
    pdfauthor = {}, %Use format: Firstname Lastname, Firstname Lastname
@@ -292,15 +292,16 @@
 
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
-        %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-        %      paperheight=23.5cm,paperwidth=15.5cm,
-        %      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
-        %      trim: 5cm is for cutting away the CC-license sign and the DOI number
-        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, trim=0 5cm 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+        % When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times.
+        % paperheight=23.5cm,paperwidth=15.5cm,
+        %
+        % A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
+        % trim: 5cm is for cutting away the CC-license sign and the DOI number
+        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, trim=0 5cm 0 6.072cm, clip]{papers/#3/paper.pdf}}}
     }
     \outputlicenseanddoi
     \phantomsection
-    %\suppress\cite{#3}\endsuppress
+    \suppress\cite{#3}\endsuppress
     \addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
     \newpage
     \pagestyle{lniotherpages}
@@ -310,7 +311,7 @@
         \whiledo{\value{curpage}<\the\lastsavedimageresourcepages}{
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
-              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, trim=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, trim=0 0 0 6.072cm, clip]{papers/#3/paper.pdf}}}
             }
             \null
             \newpage
@@ -379,11 +380,11 @@
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
             %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-            \put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, trim=0 0 21cm 23.628cm, clip]{#3/paper.pdf}}}
+            \put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, trim=0 0 0 6.072cm, clip]{#3/paper.pdf}}}
     }
     \outputlicenseanddoi
     \phantomsection
-    %\suppress\cite{#3}\endsuppress
+    \suppress\cite{#3}\endsuppress
     \addsectiontocentry{}{\lnitoc{#4}{#5}}
     \newpage
     \pagestyle{lniotherpages}
@@ -394,8 +395,8 @@
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
                     %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
-                    %\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
-                    \put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 458752sp 21cm 44517417sp}, clip]{#3/paper.pdf}}}
+                    \put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
+                    %\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 458752sp 0 44517417sp}, clip]{#3/paper.pdf}}}
             }
             \null
             \newpage
