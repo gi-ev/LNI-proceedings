@@ -1,0 +1,45 @@
+name: Build with lualatex (and publish to gh-pages)
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '1 2 2,16 * *'
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: prepare papers
+        run: |
+          # extract hyperlink information (pax)
+          ./prepare-papers.sh
+          # generate paper.tex out of paper.docx
+          cd papers && ./add_tex_via_docx.sh
+          # generate final proceedings.tex based on the information of each paper.tex file
+         cd papers
+         python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex
+      - name: make-proceedings.sh
+        uses: dante-ev/latex-action@latest
+        with:
+          entrypoint: ./make-proceedings.sh
+      - name: extract meta data
+        run: |
+         cp proceedings.csv meta-extract/
+         cd meta-extract && python metaExtract.py papers.csv ws.csv proceedings.csv
+      - name: shrink proceedings.pdf into proceedings-shrunk.pdf
+        run: ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
+      - name: slice proceedings
+        run: |
+          cp proceedings-shrunk.pdf proceedings.csv slicing/
+          cd slicing && python slicing.py proceedings-shrunk.pdf proceedings.csv
+      - name: Gather build artifacts
+        run: mkdir build && mv slicing/parts/*.pdf build/ && mv proceedings-shrunk.pdf build/proceedings-final.pdf && mv proceedings.pdf build/proceedings-large.pdf && mv meta-extract/meta_extract.csv build/
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
