@@ -17,8 +17,8 @@ jobs:
           # generate paper.tex out of paper.docx
           cd papers && ./add_tex_via_docx.sh
           # generate final proceedings.tex based on the information of each paper.tex file
-         cd papers
-         python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex
+          cd papers
+          python ../addAuthTiProduction.py ../proceedings.template ../proceedings.tex */paper.tex
       - name: make-proceedings.sh
         uses: dante-ev/latex-action@latest
         with:
