@@ -17,10 +17,15 @@ jobs:
           # generate final proceedings.tex based on the information of each paper.tex file
           cd papers
           python ../addAuthTiProduction.py ../proceedings.template.tex ../proceedings.tex */paper.tex
-      - name: make-proceedings.sh
+      - name: latexmk proceedings
         uses: dante-ev/latex-action@latest
         with:
-          entrypoint: ./make-proceedings.sh
+          root_file: procedings.tex
+      - name: fix .bib and .csv
+        run: |
+          # the last two steps of makeproceedings.sh
+          sed -i "s/\\\\textunderscore /_/g" proceedings.bib
+          sed -i "s/ ;/;/g" proceedings.csv
       - name: extract meta data
         run: |
          cp proceedings.csv meta-extract/
