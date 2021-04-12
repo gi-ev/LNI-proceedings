@@ -91,7 +91,7 @@ input_file_filtered = filter(lambda x: x['Build ID']!='', input_file)
 input_file = csv.DictReader(open(INPUT, "r"))
 for row in input_file:
     if row not in input_file_filtered:
-        print "Row has no Build ID:" + row.__str__()
+        print("Row has no Build ID:" + row.__str__())
 
 workshopID = ""
 ws_row = None
@@ -140,7 +140,7 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
             if pages[0] == pages[1]:
                 temp_data['mci.refernce.pages'] = pages[0]
         else:
-            print "Build ID '"+ row['Build ID'] +"' has no reference to pages in the proceedings! Please check why!"
+            print("Build ID '"+ row['Build ID'] +"' has no reference to pages in the proceedings! Please check why!")
 
     # TODO richtige Filenames setzen
     temp_data['filename'] = row['Build ID'] + ".pdf"
@@ -148,15 +148,15 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
     title = " ".join(row['Titel'].splitlines())
     if ' – ' in title:
         if title.count(' – ') > 1 or ': ' in title:
-            print "Separation of title and subtitle at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Separation of title and subtitle at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         title_split = title.split(" – ")
         temp_data['dc.title'] = title_split[0]
         temp_data['dc.title.subtitle'] = " – ".join(title_split[1:])
     elif ': ' in title:
         if title.count(': ') > 1:
-            print "Separation of title and subtitle at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Separation of title and subtitle at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         title_split = title.split(": ")
         temp_data['dc.title'] = title_split[0]
         temp_data['dc.title.subtitle'] = ": ".join(title_split[1:])
@@ -170,8 +170,8 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
         author = author.strip().replace("\n", " ").replace("  ", " ")
         author_split = author.split(" ")
         if len(author_split) > 2:
-            print "Author reordering of '" + author + "' at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Author reordering of '" + author + "' at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         isLowerCase_index = len(author_split) - 1
         for i in range(len(author_split) - 2, -1, -1):
             if author_split[i][0].isupper():
