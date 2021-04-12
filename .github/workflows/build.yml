@@ -33,7 +33,10 @@ jobs:
          cp proceedings.csv meta-extract/
          cd meta-extract && python3 metaExtract.py papers.csv ws.csv proceedings.csv
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
-        run: ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
+        run: |
+          sudo apt-get udpate
+          sudo apt-get intall -gy ghostscript
+          ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
       - name: slice proceedings
         run: |
           cp proceedings-shrunk.pdf proceedings.csv slicing/
