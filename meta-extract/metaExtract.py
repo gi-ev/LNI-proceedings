@@ -96,7 +96,7 @@ for row in input_file:
 workshopID = ""
 ws_row = None
 doi_counter = 1
-for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Build ID'], reverse=False):
+for row in sorted(input_file_filtered, key=lambda x: x['Build ID']):
     row['Build ID'] = row['Build ID'].strip()
     temp_data = empty_OrderedDict()
     temp_data['dc.relation.ispartof'] = BAND_TITEL
