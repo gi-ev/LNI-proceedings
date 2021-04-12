@@ -84,7 +84,7 @@ for row in input_file:
 
 input_file = csv.DictReader(open(INPUT, "r"))
 ordered_fieldnames = empty_OrderedDict()
-output_file = csv.DictWriter(open(OUTPUT, "wb"), fieldnames=ordered_fieldnames)
+output_file = csv.DictWriter(open(OUTPUT, "w"), fieldnames=ordered_fieldnames)
 output_file.writeheader()
 
 input_file_filtered = filter(lambda x: x['Build ID']!='', input_file)
