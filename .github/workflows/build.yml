@@ -35,7 +35,7 @@ jobs:
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
         run: |
           sudo apt-get update
-          sudo apt-get intall -gy ghostscript
+          sudo apt-get intall -qy ghostscript
           ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
       - name: slice proceedings
         run: |
