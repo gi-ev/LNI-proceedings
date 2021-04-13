@@ -8,14 +8,15 @@ import sys
 import re
 import csv
 from collections import OrderedDict
+from functools import cmp_to_key
 
 # sys.argv[1]: GI Guidelines csv
 # sys.argv[2]: Workshop csv
 # sys.argv[3]: proceedings csv
 
 if len(sys.argv) < 4:
-    print "Please start the script as follows:"
-    print "python metaExtract.py <Paper Data csv> <Workshop Table csv> <proceedings csv>"
+    print("Please start the script as follows:")
+    print("python metaExtract.py <Paper Data csv> <Workshop Table csv> <proceedings csv>")
     sys.exit(-1)
 
 INPUT = sys.argv[1]
@@ -53,9 +54,9 @@ def getSpecificRow(input, key, value):
     return None
 
 
-def compPaperFolders(a,b):
-    match_a=re.match('([A-Z])(\d+)-(\d+)',a)
-    match_b=re.match('([A-Z])(\d+)-(\d+)',b)
+def compPaperFolders(a, b):
+    match_a=re.match('([A-Z])(\d+)-(\d+)',a['Build ID'])
+    match_b=re.match('([A-Z])(\d+)-(\d+)',b['Build ID'])
     part_a=match_a.group(1)
     part_b=match_b.group(1)
     workshop_a=int(match_a.group(2))
@@ -74,26 +75,26 @@ input_file = csv.DictReader(open(INPUT, "r"))
 build_ids = []
 for row in input_file:
     if row['Build ID'] in build_ids and row['Build ID'] != '':
-        print "Found double Build ID '" + row['Build ID'] + "'!"
+        print("Found double Build ID '" + row['Build ID'] + "'!")
     else:
         build_ids.append(row['Build ID'])
 
 
 input_file = csv.DictReader(open(INPUT, "r"))
 ordered_fieldnames = empty_OrderedDict()
-output_file = csv.DictWriter(open(OUTPUT, "wb"), fieldnames=ordered_fieldnames)
+output_file = csv.DictWriter(open(OUTPUT, "w"), fieldnames=ordered_fieldnames)
 output_file.writeheader()
 
-input_file_filtered = filter(lambda x: x['Build ID']!='', input_file)
+input_file_filtered = [x for x in input_file if x['Build ID']!='']
 input_file = csv.DictReader(open(INPUT, "r"))
 for row in input_file:
     if row not in input_file_filtered:
-        print "Row has no Build ID:" + row.__str__()
+        print("Row has no Build ID:" + row.__str__())
 
 workshopID = ""
 ws_row = None
 doi_counter = 1
-for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Build ID'], reverse=False):
+for row in sorted(input_file_filtered, key=cmp_to_key(compPaperFolders), reverse=False):
     row['Build ID'] = row['Build ID'].strip()
     temp_data = empty_OrderedDict()
     temp_data['dc.relation.ispartof'] = BAND_TITEL
@@ -137,7 +138,7 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
             if pages[0] == pages[1]:
                 temp_data['mci.refernce.pages'] = pages[0]
         else:
-            print "Build ID '"+ row['Build ID'] +"' has no reference to pages in the proceedings! Please check why!"
+            print("Build ID '"+ row['Build ID'] +"' has no reference to pages in the proceedings! Please check why!")
 
     # TODO richtige Filenames setzen
     temp_data['filename'] = row['Build ID'] + ".pdf"
@@ -145,15 +146,15 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
     title = " ".join(row['Titel'].splitlines())
     if ' – ' in title:
         if title.count(' – ') > 1 or ': ' in title:
-            print "Separation of title and subtitle at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Separation of title and subtitle at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         title_split = title.split(" – ")
         temp_data['dc.title'] = title_split[0]
         temp_data['dc.title.subtitle'] = " – ".join(title_split[1:])
     elif ': ' in title:
         if title.count(': ') > 1:
-            print "Separation of title and subtitle at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Separation of title and subtitle at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         title_split = title.split(": ")
         temp_data['dc.title'] = title_split[0]
         temp_data['dc.title.subtitle'] = ": ".join(title_split[1:])
@@ -167,8 +168,8 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
         author = author.strip().replace("\n", " ").replace("  ", " ")
         author_split = author.split(" ")
         if len(author_split) > 2:
-            print "Author reordering of '" + author + "' at Build ID '" + row[
-                'Build ID'] + "' is probably wrong. Please check if done right!"
+            print("Author reordering of '" + author + "' at Build ID '" + row[
+                'Build ID'] + "' is probably wrong. Please check if done right!")
         isLowerCase_index = len(author_split) - 1
         for i in range(len(author_split) - 2, -1, -1):
             if author_split[i][0].isupper():
@@ -184,37 +185,3 @@ for row in sorted(input_file_filtered, cmp=compPaperFolders, key=lambda x: x['Bu
     temp_data['dc.contributor.author'] = "; ".join(corrected_authors)
 
     output_file.writerow(temp_data)
-
-
-
-
-##
-# For Textract Abstract and Keywords from pdf. Not needed anymore due to information in main csv.
-##
-
-# text = textract.process("paper.pdf")
-# array = text.split("Abstract:")
-# array2 = array[1].split("Keywords:")
-# array3 = array2[1].splitlines()
-
-# abstract = array2[0].strip()
-# abstract = re.sub('\\r\\n\\r\\n', ' ', abstract)
-# abstract = re.sub('\\r\\n', ' ', abstract)
-
-
-# f = open("test.log", 'w')
-# f.write('"' + abstract + '"')
-
-# index = 0
-# for p in array3:
-#	if p[-1] == ",":
-#		index += 1
-#	else:
-#		break
-#
-# index2 = 0
-# result = ""
-# while index2 <= index:
-#	result += array3[index2] + " "
-#	index2 += 1
-# f.write(result.strip())
