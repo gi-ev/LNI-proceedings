@@ -103,7 +103,6 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Check that `LNI-Startseiten.docx` is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
 1. Adapt `LNI-Startseiten.docx` to your conference.
 1. Convert `LNI-Startseiten.docx` to `LNI-Startseiten.pdf` using Microsoft Word.
-1. Adapt `pages=x-y` (and possibly `\pdfbookmark`) at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-5]{LNI-Startseiten.pdf}` and subsequent `\includepdf` statements to match the page numbers of your foreword and sponsoring.
 1. Create all paper folders using a naming scheme:
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
    See also [Directory scheme](#directory-scheme).
@@ -127,6 +126,7 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Fix spaces before `\and` in `proceedings.tex`: Replace `SPACE\and` by `\and`, where `SPACE` denotes the [white space character](https://en.wikipedia.org/wiki/Whitespace_character).
    Reason: `\unskip` does nothing at `\texorpdfstring` in combination with hyperref
 1. Execute `lualatex -synctex=1 proceedings.tex` to see whether `lualatex` gets through.
+1. `proceedings.tex`: Adapt `pages=x-y` (and possibly `\pdfbookmark`) at `\includepdf[pagecommand={\thispagestyle{empty}},pages=5-5]{LNI-Startseiten.pdf}` and subsequent `\includepdf` statements to match the page numbers of your foreword and sponsoring.
 1. Check `proceedings.pdf` whether **all fonts are embedded**.
    In case some fonts are not embedded, follow folling steps:
     * go to the folder of the paper
