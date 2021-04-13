@@ -147,6 +147,8 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Shrink the size of the final pdf:
    * Rename `proceedings.pdf` to `proceedings-large.pdf`
    * Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
+   * When using git bash (and MiKTeX), modify `shrinkpdf.sh` to gall `mgs` instead of `gs`.
+   * In case you have trouble with rotating pages, try `//None` instead of `/None`.
 
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.

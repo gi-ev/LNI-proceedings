@@ -38,6 +38,7 @@ shrink ()
 	  -sDEVICE=pdfwrite			\
 	  -dCompatibilityLevel=1.4		\
 	  -dPDFSETTINGS=/printer		\
+	  -dPrinted=false			\
 	  -dEmbedAllFonts=true			\
 	  -dSubsetFonts=true			\
 	  -dCompressFonts=true			\
