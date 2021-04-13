@@ -42,7 +42,7 @@ For inspection, the docker image can be found at <https://hub.docker.com/r/dante
 Assuming, the proceedings reside in `c:\git-repositories\LNI-proceedings`, following command leads to a bash shell enabling running the required commands:
 
 ```terminal
-docker run -v c:\git-repositories\LNI-proceedings:/var/texlive -it danteev/texlive:v1.6.0 bash
+docker run -v c:\git-repositories\LNI-proceedings:/var/texlive -it danteev/texlive:edge bash
 ```
 
 #### Manual Setup on Windows
