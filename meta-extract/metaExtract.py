@@ -10,6 +10,7 @@ import itertools
 import sys
 import re
 import csv
+import argparse
 from collections import OrderedDict
 from functools import cmp_to_key
 
@@ -18,9 +19,7 @@ if len(sys.argv) < 4:
     print("python metaExtract.py <Paper Data csv> <Workshop Table csv> <proceedings csv>")
     sys.exit(-1)
 
-INPUT = sys.argv[1]
-INPUT_WS = sys.argv[2]
-INPUT_PROCEEDINGS = sys.argv[3]
+
 OUTPUT = "meta_extract.csv"
 
 BAND_TITEL = "INFORMATIK 2017"
@@ -33,7 +32,6 @@ PUBLISHER = "Gesellschaft für Informatik, Bonn"
 YEAR = "2017"  # TODO fix year
 DATE = "25.-29. September 2017"  # TODO fix date
 LOCATION = "Chemnitz"  # TODO fix location
-
 
 def empty_OrderedDict():
     return OrderedDict([('dc.contributor.author', None), ('dc.title', None), ('dc.title.subtitle', None),
@@ -220,6 +218,15 @@ def extract_metadata():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('papers', help='path to papers.csv')
+    parser.add_argument('workshops', help='path to ws.csv')
+    parser.add_argument('proceedings', help='path to proceedings.csv')
+    args = parser.parse_args()
+    INPUT = args.papers
+    INPUT_WS = args.workshops
+    INPUT_PROCEEDINGS = args.proceedings
+
     with open(OUTPUT, "w", newline='') as metadata_file:
         ordered_fieldnames = empty_OrderedDict()
         metadata = csv.DictWriter(metadata_file, fieldnames=ordered_fieldnames)
