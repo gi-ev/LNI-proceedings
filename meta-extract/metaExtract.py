@@ -36,6 +36,7 @@ LOCATION = "Chemnitz"  # TODO fix location
 
 
 class MetadataExtractor:
+    build_id = re.compile(r'([A-Z])(\d+)-(\d+)')
 
     def __init__(self, papers, workshops, proceedings):
         self.papers_csv_path = Path(papers)
@@ -62,8 +63,8 @@ class MetadataExtractor:
 
     @staticmethod
     def comp_paper_folders(a, b):
-        match_a = re.match('([A-Z])(\d+)-(\d+)', a['Build ID'])
-        match_b = re.match('([A-Z])(\d+)-(\d+)', b['Build ID'])
+        match_a = MetadataExtractor.build_id.match(a['Build ID'])
+        match_b = MetadataExtractor.build_id.match(b['Build ID'])
         part_a = match_a.group(1)
         part_b = match_b.group(1)
         workshop_a = int(match_a.group(2))
