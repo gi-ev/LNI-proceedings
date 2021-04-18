@@ -43,7 +43,7 @@ shrink ()
 	gs					\
 	  -q -dNOPAUSE -dBATCH -dSAFER		\
 	  -sDEVICE=pdfwrite			\
-	  -dCompatibilityLevel=1.9		\
+	  -dCompatibilityLevel=1.7		\
 	  -dPDFSETTINGS=/default		\
 	  -dPrinted=false			\
 	  -dFastWebView=true			\
@@ -54,7 +54,6 @@ shrink ()
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
-	  pdfmarks.txt \
 	  "$1"
 }
 
