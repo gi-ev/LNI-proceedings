@@ -41,6 +41,8 @@ shrink ()
 	  -q -dNOPAUSE -dBATCH -dSAFER		\
 	  -sDEVICE=pdfwrite			\
 	  -dCompatibilityLevel=1.9		\
+	  # try to keep bookmarks - see https://superuser.com/a/812739/138868
+	  -dPDFSETTINGS=/default      \
 	  -dPrinted=false			\
 	  -dFastWebView=true       \
 	  -dEmbedAllFonts=true			\
