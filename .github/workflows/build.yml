@@ -34,7 +34,7 @@ jobs:
           sed -i "s/ ;/;/g" proceedings.csv
       - name: extract meta data
         run: |
-          sudo apt-get update && apt-get install -y python2
+          sudo apt-get update && sudo apt-get install -y python2
           cp proceedings.csv meta-extract/
           cd meta-extract && python2 metaExtract.py papers.csv ws.csv proceedings.csv
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
