@@ -47,8 +47,6 @@ shrink ()
 	  -sDEVICE=pdfwrite			\
 	  -dCompatibilityLevel=1.7		\
 	  -dPDFSETTINGS=/default		\
-	  -dPrinted=false			\
-	  -dFastWebView=true			\
 	  -dEmbedAllFonts=true			\
 	  -dSubsetFonts=true			\
 	  -dCompressFonts=true			\
