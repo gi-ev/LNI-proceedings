@@ -35,20 +35,22 @@
 # * https://tex.stackexchange.com/q/456896/9075
 # * https://tex.stackexchange.com/q/245801/9075
 
+# try to keep bookmarks - see https://superuser.com/a/812739/138868:
+# -dPDFSETTINGS=/default
+
 shrink ()
 {
 	gs					\
 	  -q -dNOPAUSE -dBATCH -dSAFER		\
 	  -sDEVICE=pdfwrite			\
 	  -dCompatibilityLevel=1.9		\
-	  # try to keep bookmarks - see https://superuser.com/a/812739/138868
-	  -dPDFSETTINGS=/default      \
+	  -dPDFSETTINGS=/default		\
 	  -dPrinted=false			\
-	  -dFastWebView=true       \
+	  -dFastWebView=true			\
 	  -dEmbedAllFonts=true			\
 	  -dSubsetFonts=true			\
 	  -dCompressFonts=true			\
-	  -dNOPAUSE                \
+	  -dNOPAUSE				\
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
