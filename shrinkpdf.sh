@@ -54,6 +54,7 @@ shrink ()
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
+	  pdfmarks.txt \
 	  "$1"
 }
 
