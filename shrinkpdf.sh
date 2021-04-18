@@ -38,6 +38,8 @@
 # try to keep bookmarks - see https://superuser.com/a/812739/138868:
 # -dPDFSETTINGS=/default
 
+# -c hint is by https://stackoverflow.com/a/28194386/873282
+
 shrink ()
 {
 	gs					\
@@ -54,6 +56,7 @@ shrink ()
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
+	  -c "[ {Catalog} << /PageLayout /TwoPageRight /PUT pdfmark [ /PageMode /UseOutlines /Page 1 /View [/Fit] /DOCVIEW pdfmark" \
 	  "$1"
 }
 

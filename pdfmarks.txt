@@ -1,9 +1,0 @@
-[
-{Catalog} << /PageLayout /TwoPageRight
-/PUT pdfmark
-
-[
-/PageMode /UseOutlines
-/Page 1
-/View [/Fit]
-/DOCVIEW pdfmark
