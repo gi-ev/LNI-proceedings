@@ -56,7 +56,7 @@ shrink ()
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
-	  -c "[ {Catalog} << /PageLayout /TwoPageRight /PUT pdfmark [ /PageMode /UseOutlines /Page 1 /View [/Fit] /DOCVIEW pdfmark" \
+	  -c "[ /PageMode /UseOutlines /Page 1 /View [/Fit] /DOCVIEW pdfmark" \
 	  "$1"
 }
 
