@@ -56,7 +56,6 @@ shrink ()
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
-	  -c "[ /PageMode /UseOutlines /Page 1 /View [/Fit] /DOCVIEW pdfmark" \
 	  "$1"
 }
 
