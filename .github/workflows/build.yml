@@ -42,7 +42,7 @@ jobs:
           sudo apt-get install -qy ghostscript pdftk
           ./shrinkpdf.sh proceedings.pdf proceedings-shrunk-with-shrinkpdf.pdf
       - name: shrink proceedings.pdf into proceedings-shrunk-with-cpdfsqueeze.pdf
-        uses: koppor/cpdfsqueeze-action@dev
+        uses: koppor/cpdfsqueeze-action@v1
         with:
           input_file: 'proceedings.pdf'
           output_file: 'proceedings-shrunk-with-cpdfsqueeze.pdf'
