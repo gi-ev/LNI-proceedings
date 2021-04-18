@@ -199,7 +199,11 @@
 
 \usepackage{hyphenat}
 
-\usepackage[unicode=true]{hyperref}
+\usepackage[
+  unicode=true,
+  % hint for pdfa from https://tex.stackexchange.com/a/458631/9075
+  pdfa]
+  {hyperref}
 \hypersetup{%
    pdftitle = {},  %The title of the conference
    pdfauthor = {}, %Use format: Firstname Lastname, Firstname Lastname

@@ -30,18 +30,23 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# See following links on more comments on ghostscript compression
+#
+# * https://tex.stackexchange.com/q/456896/9075
+# * https://tex.stackexchange.com/q/245801/9075
 
 shrink ()
 {
 	gs					\
 	  -q -dNOPAUSE -dBATCH -dSAFER		\
 	  -sDEVICE=pdfwrite			\
-	  -dCompatibilityLevel=1.4		\
-	  -dPDFSETTINGS=/printer		\
+	  -dCompatibilityLevel=1.9		\
 	  -dPrinted=false			\
+	  -dFastWebView=true       \
 	  -dEmbedAllFonts=true			\
 	  -dSubsetFonts=true			\
 	  -dCompressFonts=true			\
+	  -dNOPAUSE                \
 	  -dAutoRotatePages=/None		\
 	  -dDetectDuplicateImages=true		\
 	  -sOutputFile="$2"			\
