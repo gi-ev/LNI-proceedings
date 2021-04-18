@@ -40,19 +40,25 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -qy ghostscript pdftk
-          ./shrinkpdf.sh proceedings.pdf proceedings-shrunk.pdf
+          ./shrinkpdf.sh proceedings.pdf proceedings-shrunk-with-shrinkpdf.pdf
+      - name: shrink proceedings.pdf into proceedings-shrunk-with-cpdfsqueeze.pdf
+        uses: koppor/cpdfsqueeze-action@dev
+        with:
+          input_file: 'proceedings.pdf'
+          output_file: 'proceedings-shrunk-with-cpdfsqueeze.pdf'
       - name: slice proceedings
         run: |
-          cp proceedings-shrunk.pdf proceedings.csv slicing/
+          cp proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv slicing/
           cd slicing
-          python3 slicing.py proceedings-shrunk.pdf proceedings.csv
+          python3 slicing.py proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv
       - name: Gather build artifacts
         run: |
           mkdir build
-          mv slicing/parts/*.pdf build/
-          mv proceedings-shrunk.pdf build/proceedings-final.pdf
-          mv proceedings.pdf build/proceedings-large.pdf
           mv meta-extract/meta_extract.csv build/
+          mv proceedings.pdf build/proceedings-large.pdf
+          mv proceedings-shrunk-with-cpdfsqueeze.pdf build/proceedings-final.pdf
+          mv proceedings-shrunk-with-shrinkpdf.pdf build/
+          mv slicing/parts/*.pdf build/
       - uses: actions/upload-artifact@v2
         with:
           name: build
