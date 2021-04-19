@@ -146,9 +146,13 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
     * Windows: Execute `latexmk proceedings` (or `make-proceedings.bat`) to execute all required steps
 1. Shrink the size of the final pdf:
    * Rename `proceedings.pdf` to `proceedings-large.pdf`
-   * Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
-   * When using git bash (and MiKTeX), modify `shrinkpdf.sh` to gall `mgs` instead of `gs`.
-   * In case you have trouble with rotating pages, try `//None` instead of `/None`.
+   * Execute `cpdfsqueeze` for a lossless pdf compression:
+     * `docker run -it --rm -v c:\git-repositories\LNI-proceedings:/workdir koppor/cpdfsqueeze cpdfsqueeze proceedings-large.pdf proceedings.pdf`
+   * Alternative: Lossy compression using ghostscript (based on Alfred Klomp's [shrink.sh](http://www.alfredklomp.com/programming/shrinkpdf/))
+     * The current drawback is that the PDF bookmarks are not shown and the initial view is not the page view, but fit page width.
+     * Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
+     * When using git bash (and MiKTeX), modify `shrinkpdf.sh` to gall `mgs` instead of `gs`.
+     * In case you have trouble with rotating pages, try `//None` instead of `/None`.
 
 `proceedings.pdf` is now ready to be sent to the printing service.
 See below.
