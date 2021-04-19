@@ -1,4 +1,15 @@
+% Required for newpax
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+
 \documentclass[parskip=full-]{scrbook}
+
+\directlua{
+  require("newpax")
+  pdf.setcompresslevel(9)
+  % According to https://de.wikipedia.org/wiki/Portable_Document_Format#Versionen_von_PDF, this is from 2008
+  pdf.setminorversion(9)
+}
 
 %Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
 %So, do not enable these commands
@@ -65,10 +76,6 @@
 \newcommand\pagenumberingnoreset[1]{\gdef\thepage{\csname @#1\endcsname\c@page}}
 \makeatother
 
-\usepackage{cmap}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-
 \usepackage{ulem}
 
 \usepackage[english,ngerman]{babel}
@@ -134,32 +141,34 @@
 %% END: Configuration for LNI-like TOC
 
 % LNIs font configuration
-\usepackage{newtxtext}
-\usepackage{newtxmath}
-\usepackage[zerostyle=b,straightquotes]{newtxtt}
+
+\usepackage[no-math]{fontspec}
+\usepackage{unicode-math}
+
+% See https://tug.org/FontCatalogue/texgyretermes/ for more information
+\setmainfont{texgyretermes}[
+  Extension = .otf,
+  UprightFont = *-regular,
+  BoldFont = *-bold,
+  ItalicFont = *-italic,
+  BoldItalicFont = *-bolditalic,
+  Ligatures=TeX
+]
+% See https://tug.org/FontCatalogue/texgyreheros/ for more information
+\setsansfont[Scale=.9]{TeX Gyre Heros Regular}
+
 \usepackage[%
    final,%
    tracking=smallcaps,%
    expansion=alltext,%
    protrusion=alltext-nott]{microtype}%
 
+\usepackage{selnolig}
+
 \usepackage{graphicx}
 \usepackage{eso-pic}
 
-\usepackage{pax}
-%Fix by Heiko Oberdiek - 2017-02-02
-\makeatletter
-\def\PAX@viewport#1 #2 #3 #4\\{%
-  \PAX@defaultbp\PAX@vllx{#1}%
-  \PAX@defaultbp\PAX@vlly{#2}%
-  \PAX@defaultbp\PAX@vurx{#3}%
-  \PAX@defaultbp\PAX@vury{#4}%
-  \edef\PAX@page@llx{\the\dimexpr\PAX@page@llx+\PAX@vllx\relax}%
-  \edef\PAX@page@lly{\the\dimexpr\PAX@page@lly+\PAX@vlly\relax}%
-  \edef\PAX@page@urx{\the\dimexpr\PAX@page@llx+\PAX@vurx\relax}% FIXED
-  \edef\PAX@page@ury{\the\dimexpr\PAX@page@lly+\PAX@vury\relax}%
-}
-\makeatother
+\usepackage{newpax}
 
 \usepackage{csquotes}
 
@@ -190,7 +199,7 @@
 
 \usepackage{hyphenat}
 
-\usepackage{hyperref}
+\usepackage[unicode=true]{hyperref}
 \hypersetup{%
    pdftitle = {},  %The title of the conference
    pdfauthor = {}, %Use format: Firstname Lastname, Firstname Lastname
@@ -278,29 +287,31 @@
     \write\pagesfile{#3 \thepage}
     \setcounter{startpage}{\value{page}}
 
-    \pdfximage{papers/#3/paper.pdf}
+    \directlua{newpax.writenewpax("papers/#3/paper")}
+    \saveimageresource{papers/#3/paper.pdf}
 
     \thispagestyle{lnifirstpage}
     \AddToShipoutPictureBG*{\AtPageUpperLeft{%
-        %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-		%      paperheight=23.5cm,paperwidth=15.5cm,
-		%      A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
-        %      viewport: 5cm is for cutting away the CC-license sign and the DOI number
-        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, viewport=0 5cm 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+        % When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times.
+        % paperheight=23.5cm,paperwidth=15.5cm,
+        %
+        % A4: 29,7cm x 21,0cm -> delta: 6,2cm x 5,5cm -> half: 3,1 cm x 2,75 cm --> set above in \paperhoffset and \papervoffset
+        % trim: 5cm is for cutting away the CC-license sign and the DOI number
+        \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffsetFirstPage}){\includegraphics[page=1, trim=0 5cm 0 6.072cm, clip]{papers/#3/paper.pdf}}}
     }
     \outputlicenseanddoi
-	\phantomsection
+    \phantomsection
     \suppress\cite{#3}\endsuppress
     \addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
     \newpage
     \pagestyle{lniotherpages}
 
-    \ifthenelse{\the\pdflastximagepages>1}{
+    \ifthenelse{\the\lastsavedimageresourcepages>1}{
         \setcounter{curpage}{1}
-        \whiledo{\value{curpage}<\the\pdflastximagepages}{
+        \whiledo{\value{curpage}<\the\lastsavedimageresourcepages}{
             \stepcounter{curpage}
             \AddToShipoutPictureBG*{\AtPageUpperLeft{%
-              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, viewport=0 0 21cm 23.628cm, clip]{papers/#3/paper.pdf}}}
+              \put(\LenToUnit{\the\paperhoffset},\LenToUnit{\the\papervoffset}){\includegraphics[page=\the\value{curpage}, trim=0 0 0 6.072cm, clip]{papers/#3/paper.pdf}}}
             }
             \null
             \newpage
@@ -312,7 +323,7 @@
         \addtostream{proceedingsbib}{@inproceedings{#3,^^J  author = {#4},^^J  title = {#5},^^J  booktitle = {\bibbooktitle},^^J  pages = {\thestartpage--\the\numexpr\value{page}-1\relax},^^J  eventdate = {\eventdate},^^J  publisher = {Gesellschaft f\"{u}r Informatik e.V.},^^J  year = {\proceedingsyear},^^J  doi = {\curdoi},^^J}^^J}
     }
 
-	{
+    {
         \renewcommand{\and}{;}
         \addtostream{proceedingscsv}{#4;#5;\thestartpage--\the\numexpr\value{page}-1\relax;#3}
     }
@@ -343,54 +354,56 @@
 \newcommandtwoopt{\addpaperWRONGLAYOUT}[5][DEF][DEF]{%
     \stepcounter{curpaper}
 
-	\fancypagestyle{lniotherpages}{%
-		\fancyhead{}
-		%title on the right
-		\fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
-		%authors on the left
-		\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
-		\fancyfoot{} % Löscht alle Fußzeileneinstellungen
-		\renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
-	}
-	%collect page number
-	\write\pagesfile{#3 \thepage}
-	%\StrExpand{#3}{\curtitle}
-	{
-		\renewcommand{\and}{ and }
-		\addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
-	}
+    \fancypagestyle{lniotherpages}{%
+        \fancyhead{}
+        %title on the right
+        \fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+        %authors on the left
+        \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+        \fancyfoot{} % Löscht alle Fußzeileneinstellungen
+        \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
+    }
+    %collect page number
+    \write\pagesfile{#3 \thepage}
+    %\StrExpand{#3}{\curtitle}
+    {
+        \renewcommand{\and}{ and }
+        \addtostream{proceedingsbib}{@inproceedings{#3,author={#4},title={#5},booktitle={\bibbooktitle},eventdate={\eventdate},year={\proceedingsyear},publisher={Gesellschaft f\"{u}r Informatik e.V.}}}
+    }
 
-	%All PDFs:
-	%offset=-0.2cm +2.60cm (-5pt, 73pt)
-	\pdfximage{#3/paper.pdf}
+    %All PDFs:
+    %offset=-0.2cm +2.60cm (-5pt, 73pt)
 
-	\thispagestyle{lnifirstpage}
-	\AddToShipoutPictureBG*{\AtPageUpperLeft{%
-			%When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
-			\put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, viewport=0 0 21cm 23.628cm, clip]{#3/paper.pdf}}}
-	}
-	\outputlicenseanddoi
-	\phantomsection
-	\suppress\cite{#3}\endsuppress
-	\addsectiontocentry{}{\lnitoc{#4}{#5}}
-	\newpage
-	\pagestyle{lniotherpages}
+    \directlua{newpax.writenewpax("#3/paper")}
+    \saveimageresource{#3/paper.pdf}
 
-	\ifthenelse{\the\pdflastximagepages>1}{
-		\setcounter{curpage}{1}
-		\whiledo{\value{curpage}<\the\pdflastximagepages}{
-			\stepcounter{curpage}
-			\AddToShipoutPictureBG*{\AtPageUpperLeft{%
-			        %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
-					%\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, viewport={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
-					\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, viewport={0 458752sp 21cm 44517417sp}, clip]{#3/paper.pdf}}}
-			}
-			\null
-			\newpage
-		}
-	}
+    \thispagestyle{lnifirstpage}
+    \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+            %When using 23.649cm, there might be the toprule shown - try different zoom levels and Acrobat. With SumatraPDF, the issue is not visible all times
+            \put(\LenToUnit{5pt},\LenToUnit{-779pt}){\includegraphics[page=1, trim=0 0 0 6.072cm, clip]{#3/paper.pdf}}}
+    }
+    \outputlicenseanddoi
+    \phantomsection
+    \suppress\cite{#3}\endsuppress
+    \addsectiontocentry{}{\lnitoc{#4}{#5}}
+    \newpage
+    \pagestyle{lniotherpages}
 
-	\cleardoublepage
+    \ifthenelse{\the\lastsavedimageresourcepages>1}{
+        \setcounter{curpage}{1}
+        \whiledo{\value{curpage}<\the\lastsavedimageresourcepages}{
+            \stepcounter{curpage}
+            \AddToShipoutPictureBG*{\AtPageUpperLeft{%
+                    %HERE THE ONLY DIFFERENCE TO addpaper - 23.628
+                    \put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 1\newbottom 21cm 1\newtop}, clip]{#3/paper.pdf}}}
+                    %\put(\LenToUnit{5pt},\LenToUnit{-772pt}){\includegraphics[page=\the\value{curpage}, trim={0 458752sp 0 44517417sp}, clip]{#3/paper.pdf}}}
+            }
+            \null
+            \newpage
+        }
+    }
+
+    \cleardoublepage
 
 } %END of \newcommand{addpaper}
 

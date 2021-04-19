@@ -7,9 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
+### Fixed
+
+- DOI with underscores now correctly contained in `proceedings.bib`
+
 ### Changed
 
-- Updated to [docker texlive image](https://github.com/dante-ev/docker-texlive) [v1.6.0](https://github.com/dante-ev/docker-texlive/blob/master/CHANGELOG.md#v160--2018-06-19).
+- Updated to [docker texlive image@latest](https://github.com/dante-ev/docker-texlive).
+- Switched from [pax](https://ctan.org/pkg/pax) to [newpax](https://ctan.org/pkg/newpax).
+- Switch to lualatex.
+- Switch from `viewport` to `trim` (which works better with newpax and probably pax, too).
+
+### Added
+
+- Add pacakge [selnolig](https://ctan.org/pkg/selnolig) to ensure correct ligatures.
+
+### Removed
+
+- `prepare-papers.*`, because of the switch from pax to newpax.
 
 ## [2.4.0] - 2018-01-10
 

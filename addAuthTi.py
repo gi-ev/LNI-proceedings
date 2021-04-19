@@ -1,8 +1,9 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# coding: utf-8
 
-# call from within papers folder like so:
-# python ../addAuthTi.py ../proceedings.template ../proceedings.tex */paper.tex
+# call from within papers folder like this:
+# python ../addAuthTi.py ../proceedings.template.tex ../proceedings.tex */paper.tex
 
 import os
 import re
@@ -56,8 +57,8 @@ def extractAuthTitle(paperFileName):
                 title = title.replace("%", "")
                 title = title.replace(r"\\", "")
                 title = title.replace("\n", "")
-                title = title.replace(r"\break", "")
-                title = title.replace(r"\centering", "")
+                title = title.replace("\break", "")
+                title = title.replace("\centering", "")
                 title = re.sub(r"\s+", " ", title)
                 title = re.sub(r"\[.*?\] *", "", title)
                 title = re.sub(r"\\(textnormal|vspace|small|large){.*?}", "", title)
@@ -83,20 +84,20 @@ def force_utf8(text):
     char_replacement_map = {"0x96": "-", "0xe9": "é", "0xa2": "ó", "0xc4": "Ä", "0xd6": "Ö", "0xdc": "Ü",
                             "0xdf": "ß", "0xe4": "ä", "0xf6": "ö", "0xfc": "ü", "0xf1": "ñ"}
     try:
-        text.decode('utf-8')
+        text.decode(encoding = 'utf-8')
     except UnicodeError:
         converted_text = ""
         for char in text:
             try:
-                char.decode('utf-8')
+                char.decode(encoding = 'utf-8')
                 converted_text += char
             except UnicodeError:
                 hex_char = hex(ord(char))
-                print "Invalid char: " + hex_char
+                print("Invalid char: " + hex_char)
                 if hex_char in char_replacement_map:
                     replacement = char_replacement_map[hex_char]
                 else:
-                    replacement = raw_input("Provide a replacement for this character:")
+                    replacement = "Provide a replacement for this character:"
                     char_replacement_map[hex_char] = replacement
                 converted_text += replacement
         text = converted_text.decode('utf-8')
@@ -111,51 +112,24 @@ def texify(text):
         text = text.replace(char, tex_replacement_map[char])
     return text
 
-# comparer function for correct ordering of build-ids
-def compare_build_ids(a, b):
-    match_a = re.match('([A-Z])(\d+)-(\d+)', a)
-    match_b = re.match('([A-Z])(\d+)-(\d+)', b)
-    part_a = match_a.group(1)
-    part_b = match_b.group(1)
-    workshop_a = int(match_a.group(2))
-    paper_a = int(match_a.group(3))
-    paper_b = int(match_b.group(3))
-    workshop_b = int(match_b.group(2))
-    if part_a != part_b:
-        return ord(part_a) - ord(part_b)
-    if workshop_a != workshop_b:
-        return workshop_a - workshop_b
-    else:
-        return paper_a - paper_b
-
-
 overviewPaper = open(sys.argv[1]).read()
-reload(sys)
-sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
-sys.setdefaultencoding('utf-8')
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w')
 old_workshopId = ""
 paperFolders = sys.argv[3:]
-paperFolders.sort(compare_build_ids)
+print(paperFolders)
+paperFolders.sort()
 for curFileName in paperFolders:
-    print "Processing " + curFileName
+    print("Processing " + curFileName)
     paperId = curFileName.split("/")[0]
     fixedAddPaper = check_for_fixed_adaptions(curFileName)
     if fixedAddPaper == '':
         (paperAuthor, paperTitle) = extractAuthTitle(curFileName)
-        paperId = force_utf8(paperId)
-        paperId = texify(paperId)
-        paperAuthor = force_utf8(paperAuthor)
-        paperAuthor = texify(paperAuthor)
-        paperTitle = force_utf8(paperTitle)
-        paperTitle = texify(paperTitle)
     else:
-        print "Found fixed addPaper statement"
+        print("Found fixed addPaper statement")
     temp = u""
     workshopId = ""
     addpaper_line = False
     for curLine in overviewPaper.split("\n"):
-        if isinstance(curLine, str):
-            curLine = unicode(curLine, 'utf-8')
         m = re.match(".*\\\\addpaper{%s}.*" % paperId, curLine)
         m_not_added = re.match(".*%add_paper_lines_here.*", curLine)
         if m:

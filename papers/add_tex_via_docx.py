@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# coding: utf-8
+
 import sys
 import re
 import docx
@@ -38,12 +41,10 @@ def forceUTF8(input):
 
 charReplacementMap = {"0x96": "-", "0xe9": "é", "0xc4": "Ä", "0xd6": "Ö", "0xdc": "Ü", "0xdf": "ß", "0xe4": "ä", "0xf6": "ö", "0xfc": "ü", "0xf1": "ñ"}
 temp_tex = open("paper.tex.template").read()
-reload(sys)
-sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
-sys.setdefaultencoding('utf-8')
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w')
 tex = u""
 docPath = os.path.join(sys.argv[1], sys.argv[2])
-print docPath
+print(docPath)
 doc = docx.Document(docPath)
 old_style = doc.paragraphs[0].style.name
 style_index = 0
@@ -61,12 +62,10 @@ for p in doc.paragraphs:
 	else:
 		break
 author = author.strip()
-author = forceUTF8(author)
 title = title.strip()
 title = title.replace('\r', '')
 title = title.replace('\n', ' ')
 title = re.sub('\s\s+', ' ', title)
-title = forceUTF8(title)
 
 author = re.sub(r"\s\s+", " ", author)
 author = re.sub(r"\s?[,;]\s?", ", ", author)
@@ -77,9 +76,8 @@ for currLine in temp_tex.split("\n"):
 	if m_title:
 		tex += "\\title{" + title + "}\n"
 	elif m_author:
-		tex += "\\author[" +  author + "]\n"
+		tex += "\\author{" +  author + "}\n"
 	else:
 		tex += currLine + "\n"
 
 open(sys.argv[1] + "/paper.tex",'w').write(tex)
-

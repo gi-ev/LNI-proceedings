@@ -1,6 +1,8 @@
-#! /usr/bin/python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# call like so:
+# coding: utf-8
+
+# call like this:
 # python metaExtract.py papers.csv ws.csv proceedings.csv
 
 # import textract

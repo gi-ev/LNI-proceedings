@@ -1,5 +1,6 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# coding: utf-8
 
 import os
 import sys
@@ -11,8 +12,8 @@ from sys import platform
 # sys.argv[2]: proceedings csv
 
 if len(sys.argv) < 3:
-    print "Please start the script as follows:"
-    print "python slicing.py <proceedings pdf> <proceedings csv>"
+    print("Please start the script as follows:")
+    print("python slicing.py <proceedings pdf> <proceedings csv>")
     sys.exit(-1)
 
 INPUT = sys.argv[1]
@@ -26,7 +27,7 @@ for row in csv_reader:
 
     filename = os.path.join("parts", buildID + ".pdf")
 
-    print "slicing PDF at page " + page_start + " until " + page_end + " and save it in '" + filename + "'"
+    print("slicing PDF at page " + page_start + " until " + page_end + " and save it in '" + filename + "'")
 
     # "pdftk " + INPUT + " cat " + page_start + "-" + page_end + " output parts\\" + buildID + ".pdf"
     # "pdftk " + PATH + "\\" + INPUT + " cat " + page_start + "-" + page_end + " output " + PATH + "\\parts\\" + buildID + ".pdf"
