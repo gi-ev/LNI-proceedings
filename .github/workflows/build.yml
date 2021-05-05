@@ -19,6 +19,7 @@ jobs:
         run: |
           sudo pip3 install pyparsing
           sudo pip3 install python-docx
+          sudo pip3 install pathlib
           # generate paper.tex out of paper.docx
           ./add_tex_via_docx.sh
           # generate final proceedings.tex based on the information of each paper.tex file
