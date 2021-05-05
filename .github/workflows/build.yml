@@ -35,7 +35,7 @@ jobs:
       - name: extract meta data
         run: |
           cp proceedings.csv meta-extract/
-          cd meta-extract && python2 metaExtract.py papers.csv ws.csv proceedings.csv
+          cd meta-extract && python3 metaExtract.py papers.csv ws.csv proceedings.csv
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
         run: |
           sudo apt-get update
