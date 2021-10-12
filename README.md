@@ -15,7 +15,7 @@ Following proceedings were typeset using this template:
 
 ## Aims of this work
 
-* Generate proceedings conforming with GI's requirements stated at the "[Herausgeberrichtlinien](https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html)".
+* Generate proceedings conforming with GI's requirements stated at the "[Herausgeberrichtlinien](https://gi.de/service/publikationen/lni#panel-70454)".
 * Automatic generation of
   * running heads (including page numbers, authors, title of the paper)
   * table of contents
@@ -95,12 +95,12 @@ This is required for to cut the proceedings.pdf into separate PDF files, one per
 1. Download [main.zip](https://github.com/gi-ev/LNI-proceedings/archive/main.zip) from the [LNI-proceedings repository](https://github.com/gi-ev/LNI-proceedings).
 1. Extract `main.zip` into the directory you are going to work on the proceedings.
 1. Get the cover page ready.
-   The template is available at <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Cover-Vorlage.ppt>.
+   The template is available at <https://gi.de/fileadmin/GI/Hauptseite/Service/Publikationen/LNI/LNI-Cover-Vorlage.ppt>.
    This preparation provides you the necessary information for the next step.
    You also need to submit the cover to the GI and to the printing service.
 1. Adapt `config.tex` to your conference.
    Here, you also set the DOI prefix used for generating a unique DOI for each paper.
-1. Check that `LNI-Startseiten.docx` is the latest version retrieved from <https://www.gi.de/fileadmin/redaktion/Autorenrichtlinien/LNI-Startseiten.docx>.
+1. Check that `LNI-Startseiten.docx` is the latest version retrieved from <https://gi.de/fileadmin/GI/Hauptseite/Service/Publikationen/LNI/LNI-Startseiten.docx>.
 1. Adapt `LNI-Startseiten.docx` to your conference.
 1. Convert `LNI-Startseiten.docx` to `LNI-Startseiten.pdf` using Microsoft Word.
 1. Create all paper folders using a naming scheme:
