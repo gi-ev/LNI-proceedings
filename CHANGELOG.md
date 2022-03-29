@@ -2,8 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/).
+This project follows [Calendar Versioning](https://calver.org/).
+Befor, this project adhered to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
@@ -17,6 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Switched from [pax](https://ctan.org/pkg/pax) to [newpax](https://ctan.org/pkg/newpax).
 - Switch to lualatex.
 - Switch from `viewport` to `trim` (which works better with newpax and probably pax, too).
+- Restructured documentation.
+- Update to Python3
 
 ### Added
 
