@@ -17,13 +17,17 @@ nav_order: 5
 1. Create all paper folders using a naming scheme:
    `[Category][NumberOfSubcategory]-[NumberWithinSession]`.
    See also [Directory scheme](#directory-scheme).
-1. Collect all papers. Place the source and the pdf within each paper's folder.
+1. Collect all papers.
+   Place the source and the pdf within each paper's folder.
    For instance, the first paper goes into `papers/A1-1/`.
-1. Rename all papers to paper.pdf etc. To do this, open a CMD, `cd papers` and run `papers_rename.cmd`. This should rename all .tex .pdf and .docx files to paper.tex, paper.pdf and paper.docx respectively. These directories should only contain one file of this file extension.
+1. Rename all papers to `paper.{pdf,tex,docx}`.
+   To do this, open a CMD, `cd papers` and run `papers_rename.cmd`.
+   This should rename all `.tex`, `.pdf`, and `.docx` files to `paper.tex`, `paper.pdf`, and `paper.docx` respectively.
+   The paper directories should only contain one file of this file extension.
 1. To extract author and title information from Microsoft Word docx files, run `add_tex_via_docx.cmd` in the `papers` directory.
-  On Linux you can run `add_tex_via_docx.sh`.
-  Make sure you installed python-docx as described in system setup.
-  The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
+   On Linux, you can run `add_tex_via_docx.sh`.
+   Make sure you installed python-docx as described in system setup.
+   The `add_tex_via_docx.cmd` script will create minimal paper.tex files (title and author only) for each paper.docx, which can be processed by the following scripts.
 1. Check for all `paper.tex` that all authors are the format `\author[Firstname Lastname \and ...]{...}`
 1. Copy the author information from each `paper.tex` into `proceedings.tex`:
    * Open a [git bash](https://git-for-windows.github.io/)
@@ -62,7 +66,7 @@ nav_order: 5
    * Alternative: Lossy compression using ghostscript (based on Alfred Klomp's [shrink.sh](http://www.alfredklomp.com/programming/shrinkpdf/))
      * The current drawback is that the PDF bookmarks are not shown and the initial view is not the page view, but fit page width.
      * Execute `./shrinkpdf.sh proceedings-large.pdf proceedings.pdf`
-     * When using git bash (and MiKTeX), modify `shrinkpdf.sh` to gall `mgs` instead of `gs`.
+     * When using git bash (and MiKTeX), modify `shrinkpdf.sh` to call `mgs` instead of `gs`.
      * In case you have trouble with rotating pages, try `//None` instead of `/None`.
 
 `proceedings.pdf` is now ready to be sent to the printing service.
@@ -78,7 +82,7 @@ During the process, following files are generated:
   * It is not recommended to version this file during the process of proceedings generation, because it gets very large.
   * The page size of this file is already the final page size of both the printed and the electronic proceedings.
     Delivering this format is agreed with the publisher.
-* `proceedings.bib` - BibTeX bibliography of the proceedings. Ensure that you run `makeproceedings.sh` so that `\textunderscore ` is correctly replaced by `_`.
+* `proceedings.bib` - BibTeX bibliography of the proceedings. Ensure that you run `makeproceedings.sh` so that `\textunderscore` is correctly replaced by `_`.
 * `proceedings.csv` - CSV containing some information on the proceedings. Ensure that you run `makeproceedings.sh` so that there is no space before each `;` anymore.
 * `papers.txt` - list of paper id and starting page.
 
