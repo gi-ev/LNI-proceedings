@@ -4,8 +4,7 @@ nav_order: 5
 # Generating the proceedings
 
 1. Request [DOI](https://en.wikipedia.org/wiki/Digital_object_identifier) prefix from GI
-1. Download [main.zip](https://github.com/gi-ev/LNI-proceedings/archive/main.zip) from the [LNI-proceedings repository](https://github.com/gi-ev/LNI-proceedings).
-1. Extract `main.zip` into the directory you are going to work on the proceedings.
+1. Setup a new git repository based on the LNI-proceedings repoository by following <https://github.com/gi-ev/LNI-proceedings/generate>.
 1. Get the cover page ready.
    The template is available at <https://gi.de/fileadmin/GI/Hauptseite/Service/Publikationen/LNI/LNI-Cover-Vorlage.ppt>.
    This preparation provides you the necessary information for the next step.
