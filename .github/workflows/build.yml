@@ -1,9 +1,12 @@
 name: Build with lualatex
 on:
   push:
+    branches:
+      - main
   pull_request:
   schedule:
-    - cron: '1 2 2,16 * *'
+    - cron: '1 2 5 * *'
+  workflow_dispatch:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -63,3 +66,11 @@ jobs:
         with:
           name: build
           path: build/
+  keepalive:
+    name: Keepalive
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v2
