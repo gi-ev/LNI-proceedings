@@ -62,7 +62,7 @@ jobs:
           mv proceedings-shrunk-with-cpdfsqueeze.pdf build/proceedings-final.pdf
           mv proceedings-shrunk-with-shrinkpdf.pdf build/
           mv slicing/parts/*.pdf build/
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build
           path: build/
