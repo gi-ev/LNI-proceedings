@@ -30,6 +30,7 @@ Following proceedings were typeset using this template:
 * [SKILL 2018](https://dl.gi.de/handle/20.500.12116/28971/browse)
 * [SKILL 2019](https://dl.gi.de/handle/20.500.12116/28988/browse)
 * [Software Engineering and Software Management 2019](https://dx.doi.org/10.18420/se2019-58)
+* [Workshops der Informatik 2021](https://informatik2021.gi.de/informatik2021/workshops)
 
 ## License
 
