@@ -10,6 +10,6 @@ last_edit_timestamp: false # show or hide edit time - page must have `last_modif
 last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub."
-gh_edit_repository: "https://github.com/macros4outlook/quotefixmacro"
+gh_edit_repository: "https://github.com/gi-ev/LNI-proceedings/"
 gh_edit_branch: "gh-pages"
 gh_edit_view_mode: "tree"
