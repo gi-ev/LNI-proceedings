@@ -41,10 +41,12 @@ jobs:
         run: |
           cp proceedings.csv meta-extract/
           cd meta-extract && python3 metaExtract.py papers.csv ws.csv proceedings.csv
+      - uses: awalsh128/cache-apt-pkgs-action@master
+        with:
+          packages: ghostscript pdftk
+          version: 1.0
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
         run: |
-          sudo apt-get update
-          sudo apt-get install -qy ghostscript pdftk
           ./shrinkpdf.sh proceedings.pdf proceedings-shrunk-with-shrinkpdf.pdf
       - name: shrink proceedings.pdf into proceedings-shrunk-with-cpdfsqueeze.pdf
         uses: koppor/cpdfsqueeze-action@v1
