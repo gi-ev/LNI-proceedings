@@ -1,14 +1,13 @@
+\DocumentMetadata {pdfversion=2.0}
+
 % Required for newpax
 \RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
 
 \documentclass[parskip=full-]{scrbook}
 
 \directlua{
   require("newpax")
   pdf.setcompresslevel(9)
-  % According to https://de.wikipedia.org/wiki/Portable_Document_Format#Versionen_von_PDF, this is from 2008
-  pdf.setminorversion(9)
 }
 
 %Although the publisher states requirements on the PDF level, this was NOT required in 2017 any more.
