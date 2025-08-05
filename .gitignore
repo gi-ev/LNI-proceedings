@@ -1,4 +1,4 @@
-proceedings.pdf
+proceedings*.pdf
 proceedings.bib
 proceedings.csv
 pages.txt
@@ -6,6 +6,10 @@ updatepages.sh
 
 LNI-Herausgeberrichtlinien.pdf
 node_modules/
+
+cpdfsqueeze
+
+~$*
 
 *.newpax
 
