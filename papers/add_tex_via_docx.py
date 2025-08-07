@@ -65,7 +65,7 @@ author = author.strip()
 title = title.strip()
 title = title.replace('\r', '')
 title = title.replace('\n', ' ')
-title = re.sub('\s\s+', ' ', title)
+title = re.sub(r'\s\s+', ' ', title)
 
 author = re.sub(r"\s\s+", " ", author)
 author = re.sub(r"\s?[,;]\s?", ", ", author)
