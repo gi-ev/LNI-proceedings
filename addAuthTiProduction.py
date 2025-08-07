@@ -38,7 +38,9 @@ def extractAuthTitle(paperFileName):
     authors = "AUTHOR"
     data = open(paperFileName).read()
     pos = data.find("\\author")
-    if pos > -1:
+    if data.find("\\affil[") > -1: # new LNI template command to define authors
+        authors = " \\and ".join(re.findall(r'\\author\[[^\]]+\]\{(.*?)\}', data, re.DOTALL))
+    elif pos > -1:
         data = data[pos + len("\\author"):]
         if data.startswith("["):
             authorsList = nestedExpr("[", "]").parseString(data).asList()[0]
