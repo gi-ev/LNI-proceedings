@@ -53,10 +53,12 @@ author = ""
 for p in doc.paragraphs:
 	if style_index < 2:
 		if p.style.name != old_style:
-			style_index += 1
 			old_style = p.style.name
+			if p.style.name != "Untertitel 1": # works with German and English template
+				style_index += 1
 		if style_index == 0:
-			title += " " + p.text
+			if p.style.name != "Untertitel 1":
+				title += " " + p.text
 		elif style_index == 1:
 			author += " " + p.text
 	else:
