@@ -78,7 +78,7 @@ for currLine in temp_tex.split("\n"):
 	if m_title:
 		tex += "\\title{" + title + "}\n"
 	elif m_author:
-		tex += "\\author{" +  author + "}\n"
+		tex += "\\author[" +  author + "]\n"
 	else:
 		tex += currLine + "\n"
 
