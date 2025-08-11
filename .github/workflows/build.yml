@@ -44,6 +44,7 @@ jobs:
       - uses: awalsh128/cache-apt-pkgs-action@master
         with:
           packages: ghostscript pdftk
+          execute_install_scripts: true
           version: 1.0
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
         run: |
