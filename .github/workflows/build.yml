@@ -41,11 +41,9 @@ jobs:
         run: |
           cp proceedings.csv meta-extract/
           cd meta-extract && python3 metaExtract.py papers.csv ws.csv proceedings.csv
-      - uses: awalsh128/cache-apt-pkgs-action@master
+      - uses: Eeems-Org/apt-cache-action@v1
         with:
           packages: ghostscript pdftk
-          execute_install_scripts: true
-          version: 1.0
       - name: shrink proceedings.pdf into proceedings-shrunk.pdf
         run: |
           ./shrinkpdf.sh proceedings.pdf proceedings-shrunk-with-shrinkpdf.pdf
