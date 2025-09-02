@@ -18,13 +18,14 @@ else
     echo "no shrinkpdf.sh script found. just splitting"
 fi
 
+offset=$(($(cat offset.txt) - 1))
 
 while read -r line
 do
 
     l=$line
     # read page no from pages.txt and add 1 (offset because of title page)
-    pages1=$(($(echo $line | cut -d " " -f 2)+1))
+    pages1=$(($(echo $line | cut -d " " -f 2)+$offset))
     # read id from pages.txt
     id=$(echo "$l" | cut -d " " -f 1)
     # read page size of original paper using id (this is needed because simply cutting

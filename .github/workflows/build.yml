@@ -55,9 +55,9 @@ jobs:
           output_file: 'proceedings-shrunk-with-cpdfsqueeze.pdf'
       - name: slice proceedings
         run: |
-          cp proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv slicing/
+          cp proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv offset.txt slicing/
           cd slicing
-          python3 slicing.py proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv
+          python3 slicing.py $(cat offset.txt) proceedings-shrunk-with-shrinkpdf.pdf proceedings.csv
       - name: Gather build artifacts
         run: |
           mkdir build
