@@ -217,6 +217,8 @@
 
 \usepackage{ifthen}
 
+\usepackage{xstring}
+
 \renewcommand{\addchap}[1]{\part*{\LARGE{\nohyphens{#1}}}\addchaptertocentry{}{#1}}
 
 %This enables copy&paste of the optional argument for \author in the papers to the first argument of \addpaper
@@ -302,7 +304,12 @@
     \outputlicenseanddoi
     \phantomsection
     \suppress\cite{#3}\endsuppress
-    \addcontentsline{toc}{section}{\lnitoc{#4}{#5}}
+    \def\correctedauthors{#4}
+    \StrSubstitute{\correctedauthors}{  }{ }[\correctedauthors]
+    \StrSubstitute{\correctedauthors}{ ,}{,}[\correctedauthors]
+    \StrSubstitute{\correctedauthors}{ \and }{, }[\correctedauthors]
+    \StrSubstitute{\correctedauthors}{  }{ }[\correctedauthors]
+    \addcontentsline{toc}{section}{\lnitoc{\correctedauthors}{#5}}
     \newpage
     \pagestyle{lniotherpages}
 
