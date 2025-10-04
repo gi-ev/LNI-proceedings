@@ -478,6 +478,14 @@
 %% now all papers %%
 \pagenumberingnoreset{arabic}
 
+%% content should start on page 1
+\newcounter{firstcontentpage}
+\setcounter{firstcontentpage}{\value{page}} % store current page number
+\newwrite\offsetfile
+\openout\offsetfile=offset.txt
+\write\offsetfile{\arabic{firstcontentpage}}
+\setcounter{page}{1}
+
 \newwrite\pagesfile
 \openout\pagesfile=pages.txt
 
