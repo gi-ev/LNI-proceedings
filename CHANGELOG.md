@@ -11,6 +11,8 @@ Befor, this project adhered to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - DOI with underscores now correctly contained in `proceedings.bib`
+- Fixed spaces in bookmarks. [#47](https://github.com/gi-ev/LNI-proceedings/pull/47)
+- Content starts on page one. [#48](https://github.com/gi-ev/LNI-proceedings/pull/48)
 
 ### Changed
 
