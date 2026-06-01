@@ -1,7 +1,15 @@
 ---
 nav_order: 4
 ---
-# System setup
+# How to Use the System
+
+There are two different ways on how to use this software:
+
+1) (Recommended) Commit all changes to the Git repository and push changes to Github to use GitHub actions. Then all activities are executed automagically and the generated files are then available as artifacts for download. Note, however, GitHub rate limits may apply.
+   The automated workflow is defined at [.github/workflows/build.yml](https://github.com/gi-ev/LNI-proceedings/blob/main/.github/workflows/build.yml).
+1) Set up the software locally as described in the following.
+
+# Local System setup
 
 This section describes the setup of software required.
 This howto is based on a Windows environment.
