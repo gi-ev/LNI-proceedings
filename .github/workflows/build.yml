@@ -68,7 +68,7 @@ jobs:
           mkdir build/debug
           cp proceedings.tex proceedings.bib proceedings.log offset.txt pages.txt proceedings.csv build/debug
           cp -r meta-extract build/debug
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: build
           path: build/
