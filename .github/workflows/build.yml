@@ -65,6 +65,9 @@ jobs:
           mv proceedings-shrunk-with-cpdfsqueeze.pdf build/proceedings-final.pdf
           mv proceedings-shrunk-with-shrinkpdf.pdf build/
           mv slicing/parts/*.pdf build/
+          mkdir build/debug
+          cp proceedings.tex proceedings.bib proceedings.log offset.txt pages.txt proceedings.csv build/debug
+          cp -r meta-extract build/debug
       - uses: actions/upload-artifact@v4
         with:
           name: build
