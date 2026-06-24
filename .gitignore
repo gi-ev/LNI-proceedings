@@ -13,6 +13,10 @@ cpdfsqueeze
 
 *.newpax
 
+# draw.io
+*.bkp
+*.dtmp
+
 # Created by https://www.toptal.com/developers/gitignore/api/latex,macos,linux,windows,microsoftoffice
 # Edit at https://www.toptal.com/developers/gitignore?templates=latex,macos,linux,windows,microsoftoffice
 
