@@ -102,6 +102,18 @@
 %Solution by https://tex.stackexchange.com/a/365267/9075
 \newcommand{\tocformatchapter}[1]{\rightskip 0pt\chapterfontsize{\nohyphens{#1}}}
 
+%By default show no page numbers for parts in TOC, but for the author index
+\newif\iftocpartshowpage
+\tocpartshowpagefalse % default: suppress page number
+\newcommand*{\maybePrintPartPageNumber}[1]{%
+  \iftocpartshowpage
+    \global\tocpartshowpagefalse
+    #1%
+  \else
+    % print nothing
+  \fi
+}
+
 %No ident of the second line of the TOC
 %Source: https://tex.stackexchange.com/a/314015/9075
 \RedeclareSectionCommand[tocnumwidth=0em]{chapter}
@@ -109,7 +121,7 @@
 \DeclareTOCStyleEntry[%
   beforeskip=22pt,
   entryformat={\tocformatpart},
-  pagenumberformat={\suppresstext}
+  pagenumberformat={\maybePrintPartPageNumber}
 ]{part}{part}
 
 \DeclareTOCStyleEntry[%
@@ -279,9 +291,9 @@
     \fancypagestyle{lniotherpages}{%
         \fancyhead{}
         %title on the right
-        \fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+        \fancyhead[RO]{\fontsize{9pt}{9pt}\selectfont \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
         %authors on the left
-        \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+        \fancyhead[LE]{\hspace{0.05cm}\fontsize{9pt}{9pt}\selectfont\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
         \fancyfoot{} % Löscht alle Fußzeileneinstellungen
         \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
     }
@@ -360,9 +372,9 @@
     \fancypagestyle{lniotherpages}{%
         \fancyhead{}
         %title on the right
-        \fancyhead[RO]{\small \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
+        \fancyhead[RO]{\fontsize{9pt}{9pt}\selectfont \ifthenelse{\equal{#2}{DEF}}{#5}{#2}\hspace{5pt}\thepage\hspace{0.05cm}}
         %authors on the left
-        \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
+        \fancyhead[LE]{\hspace{0.05cm}\fontsize{9pt}{9pt}\selectfont\thepage\hspace{5pt}\ifthenelse{\equal{#1}{DEF}}{#4}{#1}}
         \fancyfoot{} % Löscht alle Fußzeileneinstellungen
         \renewcommand{\headrulewidth}{0.4pt} %Linie unter Kopfzeile
     }
@@ -515,6 +527,7 @@
 
 \renewcommand{\indexname}{Autorenverzeichnis}
 \phantomsection
+\addtocontents{toc}{\protect\global\protect\tocpartshowpagetrue}
 \addcontentsline{toc}{part}{\indexname}
 \printindex
 

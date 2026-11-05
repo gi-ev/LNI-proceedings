@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: prepare papers
         working-directory: ./papers
         run: |
@@ -67,7 +67,10 @@ jobs:
           mv proceedings-shrunk-with-cpdfsqueeze.pdf build/proceedings-final.pdf
           mv proceedings-shrunk-with-shrinkpdf.pdf build/
           mv slicing/parts/*.pdf build/
-      - uses: actions/upload-artifact@v4
+          mkdir build/debug
+          cp proceedings.tex proceedings.bib proceedings.log offset.txt pages.txt proceedings.csv build/debug
+          cp -r meta-extract build/debug
+      - uses: actions/upload-artifact@v7
         with:
           name: build
           path: build/
