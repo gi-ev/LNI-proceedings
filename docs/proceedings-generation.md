@@ -103,3 +103,7 @@ B = Scientific Program (nach Themen gegliedert, Kapitel)
 B1 = Topic 1
 B1-1 = Talk 1
 ```
+
+## Visualized process
+
+![process](generation-process.drawio.png)
